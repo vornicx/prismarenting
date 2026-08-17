@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <main className="home-focus">
       <section className="home-hero">
-        <Header theme="dark" />
+        <Header theme="dark" variant="home" />
         <div className="shell home-hero-shell">
           <HeroVehicleStage vehicles={vehicles} />
         </div>
@@ -82,6 +82,7 @@ export default function Home() {
             <article className={`home-offer-card ${index === 0 ? "home-offer-card-featured" : ""}`} key={vehicle.slug}>
               <Link href={`/ofertas/${vehicle.slug}`} className="home-offer-visual" aria-label={`Ver ${vehicle.name}`}>
                 <div className="home-offer-index">0{index + 1}</div>
+                <div className="home-offer-availability"><span aria-hidden="true" />{vehicle.availabilityNote || "Consulta disponibilidad"}</div>
                 <Image src={vehicle.image} alt={vehicle.name} fill sizes={index === 0 ? "(max-width: 900px) 100vw, 58vw" : "(max-width: 900px) 100vw, 30vw"} />
                 <div className="home-offer-badge">{vehicle.badge || vehicle.body}</div>
               </Link>
