@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     ],
   },
   outputFileTracingIncludes: {
-    "/*": ["./migration-output/**/*", "./migration-products/**/*", "./migration-content/**/*", "./migration-report/**/*"],
+    "/*": ["./migration-crawl-full/**/*", "./migration-products/**/*", "./migration-content/**/*", "./migration-report/**/*"],
   },
 };
 
