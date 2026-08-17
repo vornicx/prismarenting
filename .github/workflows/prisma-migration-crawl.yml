@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/crawl_prisma.py"
       - "scripts/crawl_prisma_fast.py"
+      - "scripts/crawl_prisma_full.py"
       - ".github/workflows/prisma-migration-crawl.yml"
   workflow_dispatch:
 
@@ -16,7 +17,7 @@ permissions:
 jobs:
   crawl:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
         run: pip install requests beautifulsoup4 lxml
 
       - name: Crawl original PRISMA site
-        run: python scripts/crawl_prisma_fast.py
+        run: python scripts/crawl_prisma_full.py
 
       - name: Show migration summary
         run: cat migration-output/summary.json
