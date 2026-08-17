@@ -5,6 +5,8 @@ type SearchParams = Promise<{
   body?: string | string[];
   budget?: string | string[];
   brand?: string | string[];
+  transmission?: string | string[];
+  cliente?: string | string[];
 }>;
 
 const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
@@ -17,6 +19,8 @@ export default async function OffersPage({ searchParams }: { searchParams: Searc
       initialBody={first(params.body) || "Todos"}
       initialBudget={first(params.budget) || "Todos"}
       initialBrand={first(params.brand) || "Todas"}
+      initialTransmission={first(params.transmission) || "Todas"}
+      initialProfile={first(params.cliente) || "Todos"}
     />
   );
 }
