@@ -16,10 +16,10 @@ def load(path, default):
 
 
 def normalize(value):
-    path = urlparse(value).path if value and "://" in value else (value or "/")
-    if not path.startswith("/"):
-        path = "/" + path
-    return path if path.endswith("/") else path + "/"
+    route = urlparse(value).path if value and "://" in value else (value or "/")
+    if not route.startswith("/"):
+        route = "/" + route
+    return route if route.endswith("/") else route + "/"
 
 
 def scan(kind, item):
@@ -27,12 +27,15 @@ def scan(kind, item):
     route = normalize(item.get("path") or item.get("url") or "")
     lower = source.lower()
     forms = re.findall(r"<form\b[\s\S]*?</form>", source, re.I)
+    classes = sorted(set(re.findall(r"<form\b[^>]*class=[\"']([^\"']+)", source, re.I)))
     return {
         "kind": kind,
         "path": route,
         "title": item.get("title") or "",
         "forms": len(forms),
-        "form_classes": sorted(set(re.findall(r"<form\b[^>]*class=[\"']([^\"']+)", source, re.I))),
+        "form_classes": classes,
+        "elementor_forms": sum(1 for form in forms if "elementor-form" in form.lower()),
+        "woocommerce_forms": sum(1 for form in forms if "woocommerce" in form.lower()),
         "inputs": len(re.findall(r"<(?:input|select|textarea)\b", source, re.I)),
         "iframes": len(re.findall(r"<iframe\b", source, re.I)),
         "videos": len(re.findall(r"<(?:video|source)\b", source, re.I)),
@@ -60,23 +63,33 @@ def main():
     records += [scan("crawl-runtime", item) for item in runtime if item.get("content_html")]
 
     interactive = [r for r in records if any(r[key] for key in ("forms", "iframes", "videos", "tables", "details", "maps", "youtube", "vimeo"))]
-    form_pages = [r for r in records if r["forms"] or r["inputs"]]
+    true_forms = [r for r in records if r["forms"] > 0]
+    elementor_forms = [r for r in records if r["elementor_forms"] > 0]
+    woo_forms = [r for r in records if r["woocommerce_forms"] > 0]
+    input_only = [r for r in records if r["forms"] == 0 and r["inputs"] > 0]
     embed_pages = [r for r in records if r["iframes"] or r["youtube"] or r["vimeo"] or r["maps"]]
     report = {
         "records_scanned": len(records),
         "interactive_records": len(interactive),
-        "form_records": len(form_pages),
+        "form_records": len(true_forms),
+        "elementor_form_records": len(elementor_forms),
+        "woocommerce_form_records": len(woo_forms),
+        "input_only_records": len(input_only),
         "embed_records": len(embed_pages),
         "contact_form_7_records": sum(1 for r in records if r["contact_form_7"]),
         "elementor_records": sum(1 for r in records if r["elementor"]),
         "woocommerce_markup_records": sum(1 for r in records if r["woocommerce"]),
-        "forms": form_pages,
+        "forms": true_forms,
+        "elementor_forms": elementor_forms,
+        "woocommerce_forms": woo_forms,
+        "input_only": input_only,
         "embeds": embed_pages,
         "interactive": interactive,
     }
     OUT.mkdir(exist_ok=True)
     (OUT / "feature-audit.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(json.dumps({k: report[k] for k in ("records_scanned", "interactive_records", "form_records", "embed_records", "contact_form_7_records", "elementor_records", "woocommerce_markup_records")}, ensure_ascii=False, indent=2))
+    keys = ("records_scanned", "interactive_records", "form_records", "elementor_form_records", "woocommerce_form_records", "input_only_records", "embed_records", "contact_form_7_records", "elementor_records", "woocommerce_markup_records")
+    print(json.dumps({key: report[key] for key in keys}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
