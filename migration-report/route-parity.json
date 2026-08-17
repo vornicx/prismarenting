@@ -1,0 +1,29 @@
+{
+  "source": {
+    "pages": 296,
+    "posts": 73,
+    "products": 125,
+    "records": 494,
+    "unique_routes": 494
+  },
+  "coverage": {
+    "covered_records": 494,
+    "uncovered_records": 0,
+    "uncovered": [],
+    "duplicate_paths_across_source_types": []
+  },
+  "products": {
+    "unique_paths": 125,
+    "missing_price": [],
+    "missing_images": []
+  },
+  "content": {
+    "without_rendered_html": [
+      {
+        "kind": "page",
+        "path": "/blog/",
+        "title": "BLOG"
+      }
+    ]
+  }
+}
