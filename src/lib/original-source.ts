@@ -80,7 +80,7 @@ let productCache: OriginalProduct[] | null = null;
 
 function readJson<T>(relativePath: string, fallback: T): T {
   try {
-    const fullPath = path.join(process.cwd(), relativePath);
+    const fullPath = path.join(/* turbopackIgnore: true */ process.cwd(), relativePath);
     if (!fs.existsSync(fullPath)) return fallback;
     return JSON.parse(fs.readFileSync(fullPath, "utf8")) as T;
   } catch {
@@ -120,9 +120,10 @@ function cleanHtml(value?: string): string {
 
 function extractInternalLinks(html: string): string[] {
   const links = new Set<string>();
+  const ignoredPrefixes = ["#", "mailto:", "tel:", "javascript:"];
   for (const match of html.matchAll(/href=["']([^"']+)["']/gi)) {
     const raw = match[1];
-    if (!raw || raw.startsWith(("#", "mailto:", "tel:", "javascript:"))) continue;
+    if (!raw || ignoredPrefixes.some((prefix) => raw.startsWith(prefix))) continue;
     try {
       const url = new URL(raw, "https://prismarenting.com");
       if (["prismarenting.com", "www.prismarenting.com"].includes(url.hostname)) links.add(`https://prismarenting.com${normalizePath(url.pathname)}`);
