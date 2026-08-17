@@ -20,11 +20,19 @@ export default function HeroVehicleStage({ vehicles }: { vehicles: Vehicle[] }) 
         <span className="hero-kicker">{vehicle.badge || "Oferta PRISMA"}</span>
         <p className="hero-brand">{vehicle.brand}</p>
         <h1>{vehicle.name.replace(`${vehicle.brand} `, "") || vehicle.name}</h1>
+
+        <div className="hero-availability">
+          <span className="hero-availability-dot" aria-hidden="true" />
+          <strong>{vehicle.availabilityNote || "Consulta disponibilidad con PRISMA"}</strong>
+        </div>
+
         <div className="hero-price">
           <span>Desde</span>
           <strong>{vehicle.price.toLocaleString("es-ES")} €</strong>
           <small>/mes + IVA</small>
         </div>
+        <div className="hero-price-context">Referencia: {vehicle.term} meses · {vehicle.km.toLocaleString("es-ES")} km/año · condiciones finales a confirmar.</div>
+
         <div className="hero-vehicle-cta">
           <Link href={`/ofertas/${vehicle.slug}`} className="button button-light">
             Ver oferta <ArrowUpRight />
@@ -45,10 +53,10 @@ export default function HeroVehicleStage({ vehicles }: { vehicles: Vehicle[] }) 
       </div>
 
       <div className="hero-specs">
-        <div><span>Uso</span><strong>{vehicle.body}</strong></div>
+        <div><span>Tipo</span><strong>{vehicle.body}</strong></div>
         <div><span>Motor</span><strong>{vehicle.fuel}</strong></div>
         <div><span>Cambio</span><strong>{vehicle.transmission}</strong></div>
-        <div><span>Referencia</span><strong>{vehicle.term} meses · {vehicle.km.toLocaleString("es-ES")} km/año</strong></div>
+        <div><span>Para</span><strong>{vehicle.audiences.join(" · ")}</strong></div>
       </div>
 
       <div className="hero-model-selector" role="tablist" aria-label="Ofertas destacadas">
