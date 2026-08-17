@@ -49,7 +49,7 @@ const process = [
   ["05", "Entrega", "Coordinamos la entrega para que empieces a disfrutarlo."],
 ] as const;
 
-const featuredOffers = [vehicles[1], vehicles[0], vehicles[2]].filter(Boolean);
+const featuredOffers = vehicles.slice(0, 3);
 
 export default function Home() {
   return (
