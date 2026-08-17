@@ -1,0 +1,42 @@
+name: PRISMA Route Parity
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - "migration-products/**"
+      - "migration-content/**"
+      - "scripts/check_route_parity.py"
+      - ".github/workflows/prisma-route-parity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check original route parity
+        run: python scripts/check_route_parity.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prisma-route-parity
+          path: migration-report/route-parity.*
+          retention-days: 3
+      - name: Persist parity report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-report/route-parity.*
+          git diff --cached --quiet || git commit -m "data: verify PRISMA route parity"
+          git pull --rebase origin archic-prisma-full-migration
+          git push origin HEAD:archic-prisma-full-migration
