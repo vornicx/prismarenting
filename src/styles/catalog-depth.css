@@ -1,0 +1,21 @@
+/* Catalogue depth: preserve PRISMA filter dimensions without recreating the old sidebar */
+.catalog-filter-row-full{grid-template-columns:repeat(6,1fr)}
+.catalog-context-bar{margin-top:18px;display:grid;grid-template-columns:.65fr .65fr 1.3fr auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line);align-items:stretch}
+.catalog-context-bar>div{padding:14px 18px;border-right:1px solid var(--line)}
+.catalog-context-bar>div:first-child{padding-left:0}
+.catalog-context-bar span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.13em;color:#8b8e87;margin-bottom:5px}
+.catalog-context-bar strong{font-size:9px;line-height:1.4}
+.catalog-context-bar>a{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-left:24px;font-size:9px;font-weight:750;white-space:nowrap}
+.catalog-context-bar svg{width:14px}
+.catalog-empty-actions{display:flex;gap:8px;flex-wrap:wrap}
+.catalog-empty-actions svg{width:14px}
+
+@media(max-width:1100px){
+  .catalog-filter-row-full{grid-template-columns:repeat(3,1fr)}
+  .catalog-context-bar{grid-template-columns:1fr 1fr}.catalog-context-bar>a{justify-content:flex-start;padding:14px 0;grid-column:1/-1;border-top:1px solid var(--line)}
+}
+@media(max-width:700px){
+  .catalog-filter-row-full{grid-template-columns:1fr 1fr}
+  .catalog-context-bar{grid-template-columns:1fr}.catalog-context-bar>div{padding:12px 0;border-right:0;border-bottom:1px solid var(--line)}
+}
+@media(max-width:480px){.catalog-filter-row-full{grid-template-columns:1fr}}
