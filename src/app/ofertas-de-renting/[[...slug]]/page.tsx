@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import OriginalCatalogTemplate from "@/components/original/OriginalCatalogTemplate";
 import OriginalPageTemplate from "@/components/original/OriginalPageTemplate";
 import OriginalVehicleTemplate from "@/components/original/OriginalVehicleTemplate";
 import { getOriginalPage, getOriginalProduct } from "@/lib/original-source";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const page = getOriginalPage(source);
   const product = getOriginalProduct(source);
   return {
-    title: page?.title || product?.name,
+    title: page?.title || product?.name || (source === "/ofertas-de-renting/" ? "Ofertas de renting | PRISMA Renting" : undefined),
     description: page?.meta_description || product?.shortDescription,
     alternates: { canonical: source },
     openGraph: {
@@ -30,6 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
 export default async function OriginalCatalogRoute({ params }: { params: Promise<{ slug?: string[] }> }) {
   const { slug } = await params;
   const source = toPath(slug);
+  if (source === "/ofertas-de-renting/") return <OriginalCatalogTemplate />;
   const product = getOriginalProduct(source);
   const page = getOriginalPage(source);
   if (product) return <OriginalVehicleTemplate product={product} page={page} />;
