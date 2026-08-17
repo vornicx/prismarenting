@@ -30,3 +30,4 @@ jobs:
           name: prisma-product-export
           path: migration-products/
           retention-days: 3
+# source inventory trigger
