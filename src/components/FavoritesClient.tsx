@@ -14,7 +14,7 @@ export default function FavoritesClient() {
       <section className="favorites-empty shell">
         <span>Favoritos</span>
         <h1>Guarda coches.<br/>Vuelve cuando quieras.</h1>
-        <p>Marca cualquier oferta con el corazón y aparecerá aquí. No necesitas crear una cuenta para este prototipo.</p>
+        <p>Marca cualquier oferta con el corazón y aparecerá aquí. Tu selección se guarda en este dispositivo sin necesidad de crear una cuenta.</p>
         <Link href="/ofertas" className="button button-dark">Explorar ofertas</Link>
       </section>
     );
