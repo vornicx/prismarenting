@@ -1,0 +1,143 @@
+/* Landing focus — PRISMA first, product first */
+.home-focus{overflow:hidden}
+
+/* Hero: business context without stealing focus from the vehicle */
+.hero-business-line{position:absolute;z-index:6;left:0;right:0;top:111px;display:flex;align-items:center;justify-content:space-between;gap:30px;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.58)}
+.hero-business-line span{font-size:8px;text-transform:uppercase;letter-spacing:.2em;font-weight:800;color:rgba(255,255,255,.72)}
+.hero-business-line strong{font-size:9px;font-weight:550;letter-spacing:.01em}
+.hero-advisor-note{max-width:390px;margin:17px 0 0;font-size:8px;line-height:1.55;color:rgba(255,255,255,.42)}
+.hero-vehicle-cta .button{white-space:nowrap}
+.site-nav-phone{border:1px solid rgba(255,255,255,.2);padding:10px 13px;opacity:1!important}
+.site-header-dark .site-nav-phone{border-color:var(--line)}
+
+/* Proof directly after search */
+.home-trust{padding:48px 0 82px;border-top:0}
+.home-trust .trust-major strong{font-size:68px}
+.home-trust .trust-cell strong{max-width:185px}
+.home-trust .trust-cell:last-child strong{font-size:15px;letter-spacing:-.02em}
+
+/* Offers breathe as the main commercial surface */
+.home-offers{padding-top:78px;padding-bottom:96px}
+.home-offers .offer-deck-topline div strong{font-size:clamp(38px,4vw,58px);line-height:.95}
+.home-offers .vehicle-visual{height:360px}
+
+/* SEO/product taxonomy without a generic 12-card grid */
+.vehicle-taxonomy{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#f0efea}
+.vehicle-taxonomy-inner{display:grid;grid-template-columns:170px 1fr;gap:35px;align-items:center;min-height:108px}
+.vehicle-taxonomy-inner>span{font-size:8px;text-transform:uppercase;letter-spacing:.17em;color:#777d74;font-weight:800}
+.vehicle-taxonomy-inner>div{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none}
+.vehicle-taxonomy-inner>div::-webkit-scrollbar{display:none}
+.vehicle-taxonomy a{display:flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid #d2d2cb;background:#f7f6f2;padding:13px 14px;font-size:9px;font-weight:720;transition:background .2s,color .2s,border-color .2s}
+.vehicle-taxonomy a:hover{background:#172019;color:#fff;border-color:#172019}
+.vehicle-taxonomy svg{width:13px}
+
+/* Secondary modalities are an index, not another content wall */
+.secondary-routes{background:#f4f3ef;padding:108px 0 120px}
+.secondary-routes-shell{display:grid;grid-template-columns:.64fr 1.36fr;gap:95px;align-items:start}
+.secondary-routes-intro{position:sticky;top:36px}
+.secondary-routes-intro>span{font-size:8px;text-transform:uppercase;letter-spacing:.18em;color:#7f857d;font-weight:800}
+.secondary-routes-intro h2{font-size:clamp(46px,5vw,74px);line-height:.91;letter-spacing:-.06em;font-weight:620;margin:18px 0 0;max-width:580px}
+.secondary-routes-list{border-top:1px solid var(--line)}
+.secondary-routes-list a{display:grid;grid-template-columns:42px 1fr 1fr 18px;gap:18px;align-items:center;min-height:96px;border-bottom:1px solid var(--line);transition:padding .22s ease,background .22s ease}
+.secondary-routes-list a:hover{padding-left:12px;background:#ebeae5}
+.secondary-routes-list a>span{font-size:8px;color:#979a93}
+.secondary-routes-list strong{font-size:23px;letter-spacing:-.035em;font-weight:630}
+.secondary-routes-list small{font-size:9px;color:#777c74}
+.secondary-routes-list svg{width:15px}
+
+/* Group authority: the business behind the inventory */
+.prisma-authority{background:#17231c;color:#fff;padding:118px 0 0}
+.prisma-authority-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:86px;align-items:stretch}
+.authority-visual{position:relative;min-height:640px;background:#dce1da;overflow:hidden;color:#17231c}
+.authority-visual img{object-fit:contain;padding:90px 30px 40px;filter:drop-shadow(0 34px 32px rgba(0,0,0,.2));z-index:2}
+.authority-years{position:absolute;z-index:3;left:32px;top:28px;display:flex;align-items:flex-end;gap:16px}
+.authority-years strong{font-size:clamp(92px,10vw,155px);line-height:.72;letter-spacing:-.09em;font-weight:670}
+.authority-years span{max-width:120px;font-size:8px;line-height:1.4;text-transform:uppercase;letter-spacing:.14em;color:#617064}
+.authority-copy{display:flex;flex-direction:column;justify-content:center;padding:40px 0 70px}
+.authority-copy>span{font-size:8px;text-transform:uppercase;letter-spacing:.18em;color:#89a08d;font-weight:800}
+.authority-copy h2{font-size:clamp(48px,5vw,76px);line-height:.92;letter-spacing:-.062em;font-weight:610;margin:20px 0 28px;max-width:720px}
+.authority-copy>p{max-width:650px;font-size:12px;line-height:1.78;color:#a8b4aa;margin:0}
+.authority-facts{margin-top:38px;border-top:1px solid rgba(255,255,255,.16)}
+.authority-facts>div{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:center;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:10px;color:#d2d8d2}
+.authority-facts svg{width:15px}
+.authority-action{display:flex;align-items:center;gap:9px;margin-top:34px;font-size:10px;font-weight:780;width:max-content;border-bottom:1px solid rgba(255,255,255,.34);padding-bottom:7px}
+.authority-action svg{width:14px}
+.authority-brand-line{margin-top:74px;border-top:1px solid rgba(255,255,255,.13);padding:28px 0 62px}
+.authority-brand-line>span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.17em;color:#708278;margin-bottom:26px}
+.authority-brand-line>div{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid rgba(255,255,255,.1);border-left:1px solid rgba(255,255,255,.1)}
+.authority-brand-line strong{min-height:72px;display:flex;align-items:center;padding:15px;border-right:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);font-size:14px;letter-spacing:-.025em;font-weight:590;color:#dce2dc}
+
+/* Keep the profile system important but not louder than the brand proof */
+.home-focus .profile-switch{padding:112px 0 126px}
+.home-focus .profile-question h2{max-width:850px}
+.home-inclusions{padding:92px 0 98px}
+.home-process{padding:104px 0 112px}
+
+/* Strong final conversion, based on PRISMA's real a-medida proposition */
+.home-closing{background:#dce2d9;color:#152019;padding:0}
+.home-closing-grid{display:grid;grid-template-columns:.86fr 1.14fr;min-height:610px;align-items:stretch}
+.home-closing-copy{padding:98px 70px 94px 0;display:flex;flex-direction:column;justify-content:center}
+.home-closing-copy>span{font-size:8px;text-transform:uppercase;letter-spacing:.18em;color:#667669;font-weight:800}
+.home-closing-copy h2{font-size:clamp(52px,5.7vw,82px);line-height:.9;letter-spacing:-.066em;font-weight:620;margin:18px 0 28px}
+.home-closing-copy p{max-width:600px;font-size:12px;line-height:1.8;color:#5e6b61;margin:0 0 36px}
+.home-closing-copy>div{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.home-closing-phone{font-size:11px;font-weight:780;border-bottom:1px solid #809084;padding-bottom:5px}
+.home-closing-car{position:relative;min-height:610px;overflow:hidden;background:linear-gradient(135deg,#cfd7ce,#edf0eb)}
+.home-closing-car:before{content:"PRISMA";position:absolute;z-index:1;right:-.04em;bottom:-.08em;font-size:clamp(95px,12vw,190px);font-weight:800;letter-spacing:-.08em;color:rgba(22,32,25,.05)}
+.home-closing-car img{object-fit:contain;padding:50px;filter:drop-shadow(0 35px 30px rgba(0,0,0,.18));z-index:2}
+
+.home-focus .footer-bottom>div{display:flex;gap:18px;flex-wrap:wrap}
+
+@media(max-width:1100px){
+  .hero-business-line strong{max-width:430px;text-align:right}
+  .secondary-routes-shell,.prisma-authority-grid{grid-template-columns:1fr;gap:54px}
+  .secondary-routes-intro{position:static}
+  .authority-visual{min-height:560px}
+  .authority-copy{padding-top:0}
+  .authority-brand-line>div{grid-template-columns:repeat(4,1fr)}
+  .home-closing-grid{grid-template-columns:1fr 1fr}
+  .home-closing-copy{padding-right:45px}
+}
+
+@media(max-width:900px){
+  .hero-business-line{top:105px}
+  .hero-business-line strong{display:none}
+  .hero-advisor-note{display:none}
+  .home-trust{padding-bottom:64px}
+  .vehicle-taxonomy-inner{grid-template-columns:1fr;gap:14px;padding:22px 0}
+  .secondary-routes{padding:84px 0 92px}
+  .authority-brand-line>div{grid-template-columns:repeat(3,1fr)}
+  .home-closing-grid{grid-template-columns:1fr}
+  .home-closing-copy{padding:80px 0 62px}
+  .home-closing-car{min-height:430px}
+}
+
+@media(max-width:720px){
+  .home-offers{padding-top:58px;padding-bottom:70px}
+  .home-offers .vehicle-visual{height:300px}
+  .secondary-routes-intro h2{font-size:45px}
+  .secondary-routes-list a{grid-template-columns:32px 1fr 18px;min-height:82px}
+  .secondary-routes-list small{display:none}
+  .authority-visual{min-height:430px}
+  .authority-visual img{padding:86px 16px 20px}
+  .authority-years{left:20px;top:22px}
+  .authority-years strong{font-size:82px}
+  .authority-copy h2{font-size:47px}
+  .authority-brand-line{margin-top:48px}
+  .authority-brand-line>div{grid-template-columns:repeat(2,1fr)}
+  .authority-brand-line strong{min-height:58px;font-size:12px}
+  .home-closing-copy h2{font-size:50px}
+}
+
+@media(max-width:560px){
+  .hero-business-line{top:101px;padding-bottom:9px}
+  .hero-business-line span{font-size:7px}
+  .hero-vehicle-cta .button{font-size:10px;padding-inline:14px}
+  .vehicle-taxonomy a{padding:11px 12px}
+  .home-trust .trust-major strong{font-size:60px}
+  .secondary-routes{padding-top:74px}
+  .authority-visual{min-height:390px}
+  .authority-years span{display:none}
+  .home-closing-car{min-height:340px}
+  .home-closing-car img{padding:30px 10px}
+}
