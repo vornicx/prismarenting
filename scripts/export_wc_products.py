@@ -1,16 +1,25 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
+
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 ROOT = "https://prismarenting.com"
 OUT = Path("migration-products")
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ArchicMigrationBot/1.2; +https://archic.es)"}
+PER_PAGE = 20
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ArchicMigrationBot/1.3; +https://archic.es)"}
+
+session = requests.Session()
+session.headers.update(HEADERS)
+session.mount("https://", HTTPAdapter(max_retries=Retry(total=4, connect=4, read=4, backoff_factor=1.2, status_forcelist=(429, 500, 502, 503, 504), allowed_methods=frozenset(["GET"]))))
 
 
 def get_json(path: str, params=None):
-    r = requests.get(ROOT + path, params=params, headers=HEADERS, timeout=30)
+    r = session.get(ROOT + path, params=params, timeout=(10, 55))
     r.raise_for_status()
     return r.json(), r.headers
 
@@ -19,16 +28,16 @@ def main():
     OUT.mkdir(exist_ok=True)
     products = []
     page = 1
-    while True:
-        data, headers = get_json("/wp-json/wc/store/v1/products", {"per_page": 100, "page": page})
+    total_pages = None
+    while total_pages is None or page <= total_pages:
+        data, headers = get_json("/wp-json/wc/store/v1/products", {"per_page": PER_PAGE, "page": page})
         if not isinstance(data, list) or not data:
             break
         products.extend(data)
-        print(f"products page={page} total={len(products)}", flush=True)
         total_pages = int(headers.get("X-WP-TotalPages", page))
-        if page >= total_pages:
-            break
+        print(f"products page={page}/{total_pages} total={len(products)}", flush=True)
         page += 1
+        time.sleep(0.15)
 
     extras = {}
     for name, path in {
