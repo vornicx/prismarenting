@@ -1,0 +1,19 @@
+/* Editorial authority: current PRISMA content without generic blog cards */
+.prisma-journal{background:#ecebe6;padding:115px 0}
+.prisma-journal-head{display:grid;grid-template-columns:170px 1fr auto;gap:45px;align-items:end;margin-bottom:52px}
+.prisma-journal-head>span{font-size:8px;text-transform:uppercase;letter-spacing:.16em;color:#858981}
+.prisma-journal-head h2{font-size:clamp(48px,5.5vw,82px);line-height:.9;letter-spacing:-.064em;font-weight:620;margin:0;max-width:940px}
+.prisma-journal-head>a{display:flex;gap:8px;align-items:center;font-size:9px;font-weight:750;border-bottom:1px solid rgba(16,17,15,.25);padding-bottom:6px}
+.prisma-journal-head svg{width:14px}
+.prisma-journal-layout{display:grid;grid-template-columns:1.3fr .7fr;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.journal-feature{min-height:500px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:28px;position:relative;display:grid;grid-template-columns:130px 1fr;gap:40px;overflow:hidden;background:#dfe4dc;transition:background .25s}
+.journal-feature:hover{background:#d5ddd2}
+.journal-feature-date strong{display:block;font-size:56px;line-height:.8;letter-spacing:-.06em;font-weight:650}.journal-feature-date span{display:block;font-size:8px;margin-top:12px;color:#788076}
+.journal-feature-copy{align-self:end;position:relative;z-index:2}.journal-feature-copy>span{font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:#707b6e}.journal-feature-copy h3{font-size:clamp(48px,5vw,74px);line-height:.9;letter-spacing:-.06em;font-weight:620;margin:18px 0 28px;max-width:720px}.journal-feature-copy>div{display:flex;align-items:center;gap:8px;font-size:9px;font-weight:750}.journal-feature-copy svg{width:14px}
+.journal-roadline{position:absolute;left:-3%;right:-3%;top:47%;transform:rotate(-6deg);border-top:1px solid rgba(16,17,15,.12);border-bottom:1px solid rgba(16,17,15,.12);padding:9px 0;white-space:nowrap;color:rgba(16,17,15,.15);font-size:8px;letter-spacing:.35em;text-align:center}
+.journal-index{display:flex;flex-direction:column}
+.journal-index-row{min-height:190px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px;display:grid;grid-template-columns:30px 1fr 18px;gap:18px;align-items:center;transition:background .2s}
+.journal-index-row:hover{background:#f4f3ef}.journal-index-row>span{font-size:8px;color:#969992}.journal-index-row small{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#858981;margin-bottom:9px}.journal-index-row strong{font-size:22px;line-height:1.08;letter-spacing:-.035em;font-weight:620}.journal-index-row svg{width:15px}
+.journal-all{margin-top:auto;min-height:120px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px;display:flex;align-items:flex-end;justify-content:space-between;font-size:10px;font-weight:750}.journal-all svg{width:15px}
+@media(max-width:950px){.prisma-journal-head{grid-template-columns:1fr;gap:25px}.prisma-journal-head>a{justify-self:start}.prisma-journal-layout{grid-template-columns:1fr}.journal-feature{min-height:440px}.journal-index-row{min-height:145px}}
+@media(max-width:600px){.prisma-journal{padding:80px 0}.prisma-journal-head h2{font-size:48px}.journal-feature{min-height:420px;grid-template-columns:1fr;padding:20px}.journal-feature-date strong{font-size:42px}.journal-feature-copy h3{font-size:43px}.journal-index-row strong{font-size:18px}}
