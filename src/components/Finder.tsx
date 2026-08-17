@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Finder() {
   const [type, setType] = useState("Particular");
@@ -20,20 +21,37 @@ export default function Finder() {
 
   return (
     <div className="finder">
-      <div className="finder-topline">
-        <span>Encuentra tu renting</span>
-        <span className="finder-helper">Sin entrada · cuota fija · asesoramiento personal</span>
+      <div className="finder-command">
+        <span>PRISMA Finder</span>
+        <strong>Filtra lo suficiente para empezar.</strong>
       </div>
+
       <div className="finder-tabs" role="tablist" aria-label="Tipo de cliente">
         {["Particular", "Autónomo", "Empresa"].map((item) => (
-          <button key={item} className={type === item ? "active" : ""} onClick={() => setType(item)}>{item}</button>
+          <button type="button" key={item} className={type === item ? "active" : ""} onClick={() => setType(item)} role="tab" aria-selected={type === item}>{item}</button>
         ))}
       </div>
+
       <div className="finder-form">
-        <label className="field"><span>Qué buscas</span><select value={body} onChange={(event) => setBody(event.target.value)}><option>Todos</option><option>SUV</option><option>Urbano</option><option>Furgoneta</option></select></label>
-        <label className="field"><span>Cuota mensual</span><select value={budget} onChange={(event) => setBudget(event.target.value)}><option value="Todos">Cualquier presupuesto</option><option value="350">Hasta 350 €</option><option value="500">350–500 €</option><option value="501">Más de 500 €</option></select></label>
-        <label className="field"><span>Combustible</span><select value={fuel} onChange={(event) => setFuel(event.target.value)}><option>Todos</option><option>Gasolina</option><option>Híbrido</option><option>Diésel</option></select></label>
-        <button className="finder-submit" onClick={submit}>Ver coches</button>
+        <label className="field">
+          <span>Formato</span>
+          <select value={body} onChange={(event) => setBody(event.target.value)}>
+            <option>Todos</option><option>SUV</option><option>Urbano</option>
+          </select>
+        </label>
+        <label className="field">
+          <span>Cuota</span>
+          <select value={budget} onChange={(event) => setBudget(event.target.value)}>
+            <option value="Todos">Cualquiera</option><option value="300">Hasta 300 €</option><option value="450">300–450 €</option><option value="451">Más de 450 €</option>
+          </select>
+        </label>
+        <label className="field">
+          <span>Motor</span>
+          <select value={fuel} onChange={(event) => setFuel(event.target.value)}>
+            <option>Todos</option><option>Gasolina</option><option>Híbrido</option>
+          </select>
+        </label>
+        <button type="button" className="finder-submit" onClick={submit}>Mostrar coches</button>
       </div>
     </div>
   );
