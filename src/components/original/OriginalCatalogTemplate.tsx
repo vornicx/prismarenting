@@ -1,23 +1,41 @@
 import OriginalCatalogClient from "@/components/original/OriginalCatalogClient";
+import OriginalVehicleCard from "@/components/original/OriginalVehicleCard";
 import { OriginalFooter, OriginalHeader } from "@/components/original/OriginalChrome";
-import { getCurrentProducts, getOriginalPage } from "@/lib/original-source";
+import { getCurrentProducts } from "@/lib/original-source";
 
-export default function OriginalCatalogTemplate() {
+export default function OriginalCatalogTemplate({ initialQuery = "", initialMax = "all" }: { initialQuery?: string; initialMax?: string }) {
   const products = getCurrentProducts();
-  const page = getOriginalPage("/ofertas-de-renting/");
+  const sorted = [...products].sort((a, b) => (a.price ?? Number.POSITIVE_INFINITY) - (b.price ?? Number.POSITIVE_INFINITY));
+  const spotlight = sorted.slice(0, 3);
 
   return (
-    <main className="source-page source-catalog-page">
+    <main className="prisma-page prisma-catalog-page">
       <OriginalHeader />
-      <section className="source-page-hero source-catalog-hero">
-        <div className="source-shell source-page-hero-grid">
-          <div><span className="source-eyebrow">Catálogo actual de PRISMA</span><h1>{page?.h1?.[0] || "Ofertas de renting"}</h1></div>
-          <div className="source-page-intro"><p>{page?.meta_description || "Consulta el catálogo actual de vehículos de PRISMA Renting y filtra las ofertas por las características importadas de la web original."}</p><a href="tel:+34699242581">¿No encuentras tu coche? Habla con PRISMA</a></div>
+
+      <section className="prisma-catalog-hero">
+        <div className="prisma-shell prisma-catalog-hero-grid">
+          <div>
+            <span className="prisma-kicker">Catálogo actual · {products.length} ofertas activas</span>
+            <h1>Compara primero. Pregunta después.</h1>
+          </div>
+          <div>
+            <p>Vehículos, cuotas y características del catálogo actual de PRISMA. Filtra por lo que importa y entra en cada ficha con el contexto necesario para decidir.</p>
+            <a href="tel:+34699242581">¿No encuentras tu coche? 699 24 25 81 ↗</a>
+          </div>
         </div>
       </section>
-      <section className="source-shell source-full-catalog">
-        <OriginalCatalogClient products={products} />
+
+      {spotlight.length > 0 && (
+        <section className="prisma-shell prisma-catalog-spotlight">
+          <div className="prisma-catalog-spotlight-head"><span>Cuotas de entrada</span><p>Tres de las ofertas más económicas del catálogo actual.</p></div>
+          <div className="prisma-catalog-spotlight-grid">{spotlight.map((product) => <OriginalVehicleCard product={product} variant="compact" key={product.path} />)}</div>
+        </section>
+      )}
+
+      <section className="prisma-shell prisma-full-catalog">
+        <OriginalCatalogClient products={products} initialQuery={initialQuery} initialMax={initialMax} />
       </section>
+
       <OriginalFooter />
     </main>
   );
