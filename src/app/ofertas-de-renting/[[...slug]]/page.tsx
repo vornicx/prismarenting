@@ -9,6 +9,10 @@ function toPath(parts?: string[]) {
   return parts?.length ? `/ofertas-de-renting/${parts.join("/")}/` : "/ofertas-de-renting/";
 }
 
+function param(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] || "" : value || "";
+}
+
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug?: string[] }> }): Promise<Metadata> {
@@ -28,10 +32,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   };
 }
 
-export default async function OriginalCatalogRoute({ params }: { params: Promise<{ slug?: string[] }> }) {
+export default async function OriginalCatalogRoute({ params, searchParams }: { params: Promise<{ slug?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { slug } = await params;
   const source = toPath(slug);
-  if (source === "/ofertas-de-renting/") return <OriginalCatalogTemplate />;
+  if (source === "/ofertas-de-renting/") {
+    const query = await searchParams;
+    return <OriginalCatalogTemplate initialQuery={param(query.q)} initialMax={param(query.max) || "all"} />;
+  }
   const product = getOriginalProduct(source);
   const page = getOriginalPage(source);
   if (product) return <OriginalVehicleTemplate product={product} page={page} />;
