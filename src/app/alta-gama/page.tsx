@@ -10,7 +10,7 @@ const premiumOffers = [
 const brands = ["Aston Martin", "Audi", "Bentley", "BMW", "Ferrari", "Lamborghini", "Land Rover", "Lexus", "Maserati", "Mercedes-Benz", "Porsche", "Rolls-Royce"];
 
 export default function AltaGamaPage() {
-  const whatsapp = `https://wa.me/34699242581?text=${encodeURIComponent("Hola, estoy viendo el concepto de Alta Gama. Busco una propuesta de renting premium y me gustaría que me asesoraseis de forma personalizada.")}`;
+  const whatsapp = `https://wa.me/34699242581?text=${encodeURIComponent("Hola, estoy viendo la selección de Alta Gama de PRISMA. Busco una propuesta de renting premium y me gustaría recibir asesoramiento personalizado.")}`;
 
   return (
     <main className="ag-page">
@@ -33,7 +33,7 @@ export default function AltaGamaPage() {
           <span>Renting de alta gama · Grupo PRISMA</span>
           <h1>El coche que<br /><em>sí querías.</em></h1>
           <div className="ag-hero-footer">
-            <p>Una experiencia de marca separada para operaciones premium, conectada al mismo sistema comercial y backoffice de PRISMA.</p>
+            <p>Renting premium con asesoramiento personalizado, acceso a distintas marcas y búsqueda a medida según modelo, configuración y disponibilidad.</p>
             <a href="#seleccion">Ver selección <ArrowUpRight /></a>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default function AltaGamaPage() {
 
       <section className="ag-offers" id="seleccion">
         <div className="ag-shell">
-          <div className="ag-section-index">01 / Selección actual</div>
+          <div className="ag-section-index">01 / Selección de referencia</div>
           {premiumOffers.map((offer, index) => (
             <article className="ag-offer-row" key={`${offer.brand}-${offer.model}`}>
               <span>{String(index + 1).padStart(2, "0")}</span>
