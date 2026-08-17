@@ -34,7 +34,7 @@ const profiles = {
   empresas: {
     eyebrow: "Renting para empresas",
     title: "De una unidad a una necesidad de flota.",
-    summary: "La oportunidad real es centralizar vehículos, solicitudes, operadores y seguimiento comercial, no obligar a cada necesidad de empresa a empezar desde cero.",
+    summary: "Centraliza vehículos, solicitudes, operadores y seguimiento comercial con un único equipo, desde una necesidad concreta hasta una flota con distintos perfiles de uso.",
     benefits: ["Una o varias unidades", "Comparación multioperador", "Interlocución comercial centralizada", "Operación adaptada a uso y calendario"],
     slugs: ["bmw-x5", "nissan-juke", "hyundai-i20"],
     faq: [
@@ -81,7 +81,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="shell intent-vehicles profile-offers">
-        <div className="intent-section-line"><span>Empieza por vehículos reales</span><small>Selección del catálogo cargado en el concepto. PRISMA confirma propuesta, disponibilidad y condiciones.</small></div>
+        <div className="intent-section-line"><span>Empieza por vehículos reales</span><small>Selección orientativa para este perfil. PRISMA confirma disponibilidad y condiciones de cada operación.</small></div>
         <div className="catalog-grid">{related.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} />)}</div>
       </section>
 
@@ -107,7 +107,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="intent-contact profile-contact">
-        <div className="shell intent-contact-grid"><div><span>Asesoramiento PRISMA</span><h2>La web prepara la conversación. El asesor confirma la operación.</h2></div><div><p>El objetivo no es empujar un formulario genérico, sino llegar al equipo de PRISMA con modelo, uso, presupuesto, kilometraje y calendario suficientemente claros.</p><Link href="/#encuentra" className="button button-light">Preparar mi búsqueda <ArrowUpRight /></Link></div></div>
+        <div className="shell intent-contact-grid"><div><span>Asesoramiento PRISMA</span><h2>Llega al asesor con la operación bien definida.</h2></div><div><p>Indica modelo o tipo de vehículo, uso, presupuesto, kilometraje y calendario. PRISMA contrasta alternativas y confirma las condiciones de la operación.</p><Link href="/#encuentra" className="button button-light">Preparar mi búsqueda <ArrowUpRight /></Link></div></div>
       </section>
     </main>
   );

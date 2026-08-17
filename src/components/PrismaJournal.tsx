@@ -31,8 +31,8 @@ export default function PrismaJournal() {
     <section className="prisma-journal" aria-labelledby="journal-title">
       <div className="shell prisma-journal-head">
         <span>Conoce las últimas novedades</span>
-        <h2 id="journal-title">PRISMA también construye criterio alrededor del coche.</h2>
-        <a href="https://prismarenting.com/blog/" target="_blank" rel="noreferrer">Abrir blog actual <ArrowUpRight /></a>
+        <h2 id="journal-title">Guías, rutas y actualidad para elegir y disfrutar mejor el coche.</h2>
+        <a href="https://prismarenting.com/blog/" target="_blank" rel="noreferrer">Ver todas las novedades <ArrowUpRight /></a>
       </div>
 
       <div className="shell prisma-journal-layout">
@@ -50,7 +50,7 @@ export default function PrismaJournal() {
               <ArrowUpRight />
             </a>
           ))}
-          <a href="https://prismarenting.com/blog/" target="_blank" rel="noreferrer" className="journal-all">Archivo completo <ArrowUpRight /></a>
+          <a href="https://prismarenting.com/blog/" target="_blank" rel="noreferrer" className="journal-all">Ver archivo completo <ArrowUpRight /></a>
         </div>
       </div>
     </section>

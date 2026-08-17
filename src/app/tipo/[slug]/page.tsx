@@ -41,11 +41,11 @@ export default async function VehicleTypePage({ params }: { params: Promise<{ sl
 
       {matches.length > 0 ? (
         <section className="shell intent-vehicles">
-          <div className="intent-section-line"><span>Coincidencias del concepto</span><small>Filtrado sobre los vehículos cargados en esta demostración.</small></div>
+          <div className="intent-section-line"><span>Vehículos disponibles en esta categoría</span><small>Selección actual; disponibilidad y condiciones sujetas a confirmación por PRISMA.</small></div>
           <div className="catalog-grid">{matches.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} />)}</div>
         </section>
       ) : (
-        <section className="shell type-empty-state"><strong>El catálogo real de PRISMA cubre esta categoría.</strong><p>En el concepto no vamos a inventar vehículos para llenar una cuadrícula. La implementación final se alimentaría del CMS o feed real y mantendría esta ruta para producto, navegación y SEO.</p><Link href="/ofertas">Ver vehículos cargados <ArrowUpRight /></Link></section>
+        <section className="shell type-empty-state"><strong>PRISMA trabaja esta categoría bajo consulta.</strong><p>La disponibilidad cambia según marca, operador y momento. Indica qué vehículo necesitas y el equipo buscará alternativas reales para tu operación.</p><div><Link href="/modalidades/a-medida">Solicitar búsqueda a medida <ArrowUpRight /></Link><Link href="/ofertas">Ver ofertas disponibles <ArrowUpRight /></Link></div></section>
       )}
     </main>
   );

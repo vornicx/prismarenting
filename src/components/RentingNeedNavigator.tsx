@@ -11,7 +11,7 @@ const needs = [
     label: "Lo necesito ya",
     title: "Entrega inmediata",
     metric: "Stock sujeto a disponibilidad",
-    copy: "Cuando el plazo manda, lo primero es ver unidades que pueden moverse rápido, no leer una explicación sobre renting.",
+    copy: "Si necesitas coche pronto, empieza por las unidades con disponibilidad prioritaria y confirma con PRISMA el plazo real de entrega.",
     href: "/modalidades/entrega-inmediata",
     image: "https://prismarenting.com/wp-content/uploads/2022/02/renting-hyundai-i20.webp",
     vehicle: "HYUNDAI i20",
@@ -22,7 +22,7 @@ const needs = [
     label: "Quiero algo especial",
     title: "Alta gama",
     metric: "Selección premium",
-    copy: "Una experiencia separada para coches de altas prestaciones y lujo, con el producto por delante de la explicación.",
+    copy: "Accede a una selección premium con asesoramiento específico para marcas, configuraciones y operaciones de alta gama.",
     href: "/alta-gama",
     image: "https://prismarenting.com/wp-content/uploads/2021/11/renting-bmw-x5-1.webp",
     vehicle: "BMW X5",
@@ -33,7 +33,7 @@ const needs = [
     label: "No quiero permanencia larga",
     title: "Renting flexible",
     metric: "Uso por meses",
-    copy: "Para necesidades temporales, cambios de proyecto o movilidad inmediata: primero disponibilidad, después condiciones.",
+    copy: "Para necesidades temporales o cambiantes, consulta soluciones por meses y confirma disponibilidad, duración y condiciones.",
     href: "/modalidades/flexible",
     image: "https://prismarenting.com/wp-content/uploads/2021/09/renting-fiat-500-sport-1-1.webp",
     vehicle: "FIAT 500",
@@ -50,7 +50,7 @@ export default function RentingNeedNavigator() {
       <div className="shell need-navigator-shell">
         <div className="need-index">
           <span className="need-index-label">¿Qué necesitas ahora?</span>
-          <h2 id="need-title">Tres accesos que PRISMA ya considera prioritarios.</h2>
+          <h2 id="need-title">Empieza por lo que más condiciona tu decisión.</h2>
           <div className="need-tabs" role="tablist" aria-label="Necesidad de renting">
             {needs.map((item, index) => (
               <button

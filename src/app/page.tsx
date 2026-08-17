@@ -46,7 +46,7 @@ export default function Home() {
 
       <section className="offer-deck shell" aria-labelledby="featured-offers-title">
         <div className="offer-deck-topline">
-          <div><span>Ofertas de renting destacadas</span><strong id="featured-offers-title">Primero, coches.</strong></div>
+          <div><span>Ofertas de renting destacadas</span><strong id="featured-offers-title">Empieza por el coche.</strong></div>
           <Link href="/ofertas">Ver todas las ofertas <ArrowUpRight /></Link>
         </div>
         <div className="offer-rail">{vehicles.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} mode="rail" />)}</div>
@@ -57,8 +57,8 @@ export default function Home() {
       <section className="modality-board shell" aria-labelledby="modalities-title">
         <div className="modality-board-intro">
           <span>Elige la modalidad</span>
-          <h2 id="modalities-title">No todo el renting resuelve el mismo problema.</h2>
-          <p>PRISMA ya separa estas formas de contratación. Aquí las convertimos en accesos claros para que el usuario se reconozca antes de pedir ayuda.</p>
+          <h2 id="modalities-title">No todo el renting resuelve la misma necesidad.</h2>
+          <p>Compara la modalidad según cuánto tiempo necesitas el vehículo, el tipo de uso y el nivel de flexibilidad que buscas.</p>
         </div>
         <div className="modality-lines">
           {modalities.map(([name, meta, href], index) => (
@@ -86,7 +86,7 @@ export default function Home() {
 
       <section className="renting-console">
         <div className="shell renting-console-grid">
-          <div className="renting-console-title"><span>Servicios habituales en la cuota</span><h2>El coste del coche deja de estar repartido en sorpresas.</h2></div>
+          <div className="renting-console-title"><span>Servicios habituales en la cuota</span><h2>Una cuota para tener más control sobre el coste del coche.</h2></div>
           <div className="renting-inclusions">
             <div><Check /><span>Seguro</span><strong>Incluido*</strong></div>
             <div><Check /><span>Mantenimiento</span><strong>Incluido*</strong></div>
@@ -102,8 +102,8 @@ export default function Home() {
         <div className="prisma-proof-number"><strong>25+</strong><span>años en automoción</span></div>
         <div className="prisma-proof-copy">
           <span>Grupo PRISMA</span>
-          <h2 id="proof-title">La plataforma tiene que transmitir el tamaño de la experiencia que ya existe detrás.</h2>
-          <p>PRISMA Renting forma parte de Grupo PRISMA y trabaja desde una posición multioperador. El valor no es solo listar coches: es comparar alternativas, asesorar y acompañar la contratación.</p>
+          <h2 id="proof-title">Experiencia en automoción para comparar mejor tu renting.</h2>
+          <p>PRISMA Renting forma parte de Grupo PRISMA y trabaja con distintos operadores. El equipo compara alternativas, asesora sobre la operación y acompaña el proceso hasta la entrega.</p>
           <div className="prisma-proof-facts"><span>Multioperador</span><span>Particulares</span><span>Autónomos</span><span>Empresas</span><span>Asesor personal</span></div>
         </div>
       </section>
@@ -111,7 +111,7 @@ export default function Home() {
       <PrismaJournal />
 
       <section className="renting-process" aria-labelledby="process-title">
-        <div className="shell renting-process-head"><span>Contratación</span><h2 id="process-title">Cinco pasos. Siempre visibles.</h2><a href="tel:+34699242581">Hablar con un asesor <ArrowUpRight /></a></div>
+        <div className="shell renting-process-head"><span>Contratación</span><h2 id="process-title">De elegir el coche a recibir las llaves.</h2><a href="tel:+34699242581">Hablar con un asesor <ArrowUpRight /></a></div>
         <div className="shell renting-process-track">
           {process.map(([number, title, copy]) => <div className="renting-process-step" key={number}><span>{number}</span><strong>{title}</strong><p>{copy}</p></div>)}
         </div>

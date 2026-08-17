@@ -40,7 +40,7 @@ export function AutonomoOperatingDesk() {
         <div className="autonomo-desk-heading">
           <span>Autónomos</span>
           <h2 id="autonomo-desk-title">El coche es parte de la actividad.</h2>
-          <p>Por eso esta página no se limita a cambiar un titular: separa modalidad, uso, documentación y estudio de la operación.</p>
+          <p>Elige modalidad y vehículo teniendo en cuenta el uso profesional, los kilómetros previstos, la documentación y el estudio de la operación.</p>
         </div>
 
         <div className="autonomo-mode-table">
@@ -66,7 +66,7 @@ export function EmpresaFleetDesk() {
     <section className="empresa-fleet-desk" aria-labelledby="empresa-desk-title">
       <div className="shell empresa-fleet-head">
         <span>Movilidad de empresa</span>
-        <h2 id="empresa-desk-title">Una unidad y una flota no deberían entrar por el mismo formulario.</h2>
+        <h2 id="empresa-desk-title">De una unidad a una flota, la operación cambia.</h2>
       </div>
 
       <div className="shell empresa-fleet-grid">
@@ -77,7 +77,7 @@ export function EmpresaFleetDesk() {
         </div>
 
         <div className="empresa-control-brief">
-          <span>Brief que sí sirve al comercial</span>
+          <span>Datos para preparar la propuesta</span>
           <div><Check /><strong>Número de vehículos</strong></div>
           <div><Check /><strong>Uso y perfiles de conductor</strong></div>
           <div><Check /><strong>Kilometraje y duración esperada</strong></div>
