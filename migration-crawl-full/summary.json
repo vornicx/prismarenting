@@ -1,0 +1,16 @@
+{
+  "root": "https://prismarenting.com/",
+  "pages": 744,
+  "vehicles": 278,
+  "editorial_pages": 466,
+  "failures": 9,
+  "sitemap_urls": 704,
+  "types": {
+    "seo-landing": 283,
+    "corporate": 6,
+    "blog-index": 1,
+    "catalog": 173,
+    "vehicle": 278,
+    "profile": 3
+  }
+}
