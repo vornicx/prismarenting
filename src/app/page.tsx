@@ -1,224 +1,367 @@
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Finder from "@/components/Finder";
-import HeroVehicleStage from "@/components/HeroVehicleStage";
-import ProfileRentingSwitch from "@/components/ProfileRentingSwitch";
-import { ArrowUpRight, Check } from "@/components/Icons";
+import { ArrowUpRight } from "@/components/Icons";
 import { vehicles } from "@/data/vehicles";
 
-const paths = [
+const heroOffer = {
+  brand: "SEAT",
+  name: "Ibiza",
+  price: 219,
+  image: "https://prismarenting.com/wp-content/uploads/2022/04/renting-seat-ibiza-gasolina.webp",
+  facts: ["Manual", "Gasolina", "Urbano", "95 CV"],
+};
+
+const routes = [
   {
-    eyebrow: "Necesito coche pronto",
+    number: "01",
+    eyebrow: "Cuando el tiempo manda",
     title: "Entrega inmediata",
-    copy: "Empieza por las unidades con disponibilidad prioritaria y confirma con PRISMA el plazo real de entrega.",
+    copy: "Empieza por vehículos con disponibilidad prioritaria y confirma con PRISMA el plazo real de entrega.",
     href: "/modalidades/entrega-inmediata",
-    image: "https://prismarenting.com/wp-content/uploads/2022/02/renting-hyundai-i20.webp",
   },
   {
-    eyebrow: "Necesito flexibilidad",
+    number: "02",
+    eyebrow: "Cuando no quieres atarte",
     title: "Renting flexible",
-    copy: "Soluciones por meses para necesidades temporales o cambiantes, con condiciones y disponibilidad a confirmar.",
+    copy: "Soluciones para necesidades temporales o cambiantes, con duración y condiciones a confirmar en cada operación.",
     href: "/modalidades/flexible",
-    image: "https://prismarenting.com/wp-content/uploads/2021/09/renting-fiat-500-sport-1-1.webp",
   },
   {
-    eyebrow: "Busco algo especial",
+    number: "03",
+    eyebrow: "Cuando buscas otra categoría",
     title: "Alta Gama",
-    copy: "Marcas, configuraciones y operaciones premium con un tratamiento más personal y una búsqueda específica.",
+    copy: "Una búsqueda específica para marcas, configuraciones y operaciones premium con asesoramiento personal.",
     href: "/alta-gama",
-    image: "https://prismarenting.com/wp-content/uploads/2021/11/renting-bmw-x5-1.webp",
+  },
+  {
+    number: "04",
+    eyebrow: "Cuando ya sabes qué quieres",
+    title: "A medida",
+    copy: "Modelo, color, equipamiento, kilometraje y uso: PRISMA contrasta alternativas para preparar una propuesta.",
+    href: "/modalidades/a-medida",
   },
 ] as const;
 
-const brands = ["Audi", "BMW", "Mercedes-Benz", "Porsche", "Toyota", "Peugeot", "Hyundai", "Nissan", "Kia", "Volkswagen", "Lexus", "Land Rover"] as const;
-
-const services = [
-  ["Seguro", "Incluido según oferta"],
-  ["Mantenimiento", "Incluido según oferta"],
-  ["Impuestos e ITV", "Gestionados dentro de la operación"],
-  ["Asistencia", "Según condiciones del operador"],
-  ["Entrada", "Depende de la oferta final"],
+const profiles = [
+  {
+    number: "01",
+    title: "Particulares",
+    copy: "Una cuota clara, un coche que encaje con tu día a día y un asesor que te ayude a comparar la operación.",
+    href: "/perfil/particulares",
+  },
+  {
+    number: "02",
+    title: "Autónomos",
+    copy: "Movilidad adaptada al uso profesional, kilometraje y documentación necesaria para estudiar la operación.",
+    href: "/perfil/autonomos",
+  },
+  {
+    number: "03",
+    title: "Empresas",
+    copy: "Desde una unidad hasta necesidades de flota, con un interlocutor que centraliza alternativas y seguimiento.",
+    href: "/perfil/empresas",
+  },
 ] as const;
 
-const process = [
-  ["01", "Elige", "Cuéntanos qué coche, uso y presupuesto tienes en mente."],
-  ["02", "Comparamos", "PRISMA contrasta alternativas, operador y disponibilidad."],
-  ["03", "Estudio", "Se prepara la documentación necesaria para la operación."],
-  ["04", "Firma", "Con la operación aprobada, se formaliza el contrato."],
-  ["05", "Entrega", "Coordinamos la entrega para que empieces a disfrutarlo."],
+const included = [
+  ["Seguro", "Según oferta"],
+  ["Mantenimiento", "Según oferta"],
+  ["Impuestos e ITV", "Gestionados"],
+  ["Asistencia", "Según operador"],
+  ["Neumáticos", "Según condiciones"],
 ] as const;
-
-const featuredOffers = vehicles.slice(0, 3);
 
 export default function Home() {
+  const leadVehicle = vehicles.find((vehicle) => vehicle.slug === "hyundai-i20") ?? vehicles[0];
+  const supportingVehicles = vehicles.filter((vehicle) => vehicle.slug !== leadVehicle.slug).slice(0, 4);
+
   return (
-    <main className="home-focus">
-      <section className="home-hero">
-        <Header theme="dark" variant="home" />
-        <div className="shell home-hero-shell">
-          <HeroVehicleStage vehicles={vehicles} />
-        </div>
-      </section>
-
-      <section className="shell home-search" aria-label="Buscar ofertas de renting">
-        <Finder />
-      </section>
-
-      <section className="home-offer-showcase" aria-labelledby="home-offers-title">
-        <div className="shell home-section-head home-section-head-wide">
-          <div>
-            <span>Ofertas de renting</span>
-            <h2 id="home-offers-title">Empieza por un coche que ya puedes valorar.</h2>
-          </div>
-          <div className="home-section-sidecopy">
-            <p>Cuota, kilometraje y plazo visibles desde el principio. PRISMA confirma después disponibilidad, operador y condiciones finales.</p>
-            <Link href="/ofertas">Ver catálogo completo <ArrowUpRight /></Link>
-          </div>
-        </div>
-
-        <div className="shell home-offer-grid">
-          {featuredOffers.map((vehicle, index) => (
-            <article className={`home-offer-card ${index === 0 ? "home-offer-card-featured" : ""}`} key={vehicle.slug}>
-              <Link href={`/ofertas/${vehicle.slug}`} className="home-offer-visual" aria-label={`Ver ${vehicle.name}`}>
-                <div className="home-offer-index">0{index + 1}</div>
-                <div className="home-offer-availability"><span aria-hidden="true" />{vehicle.availabilityNote || "Consulta disponibilidad"}</div>
-                <Image src={vehicle.image} alt={vehicle.name} fill sizes={index === 0 ? "(max-width: 900px) 100vw, 58vw" : "(max-width: 900px) 100vw, 30vw"} />
-                <div className="home-offer-badge">{vehicle.badge || vehicle.body}</div>
-              </Link>
-              <div className="home-offer-meta">
-                <div>
-                  <span>{vehicle.brand}</span>
-                  <h3>{vehicle.name}</h3>
-                  <p>{vehicle.highlight || `${vehicle.body} · ${vehicle.fuel}`}</p>
-                </div>
-                <div className="home-offer-price">
-                  <span>Desde</span>
-                  <strong>{vehicle.price.toLocaleString("es-ES")} €</strong>
-                  <small>/mes + IVA</small>
-                </div>
-              </div>
-              <div className="home-offer-conditions">
-                <span>{vehicle.term} meses</span>
-                <span>{vehicle.km.toLocaleString("es-ES")} km/año</span>
-                <span>{vehicle.transmission}</span>
-                <Link href={`/ofertas/${vehicle.slug}`}>Ver oferta <ArrowUpRight /></Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="home-paths" aria-labelledby="home-paths-title">
-        <div className="shell home-section-head home-paths-head">
-          <div>
-            <span>Una necesidad, una ruta</span>
-            <h2 id="home-paths-title">El renting cambia según lo que necesitas ahora.</h2>
-          </div>
-        </div>
-        <div className="shell home-path-grid">
-          {paths.map((path, index) => (
-            <Link href={path.href} className="home-path-card" key={path.title}>
-              <div className="home-path-number">0{index + 1}</div>
-              <div className="home-path-copy">
-                <span>{path.eyebrow}</span>
-                <h3>{path.title}</h3>
-                <p>{path.copy}</p>
-                <strong>Explorar <ArrowUpRight /></strong>
-              </div>
-              <div className="home-path-car">
-                <Image src={path.image} alt="" fill sizes="(max-width: 900px) 100vw, 31vw" />
-              </div>
+    <main className="pr-home">
+      <section className="pr-home-hero">
+        <header className="pr-home-header">
+          <div className="pr-home-shell pr-home-nav">
+            <Link href="/" className="pr-home-logo" aria-label="PRISMA Renting">
+              <span aria-hidden="true" />
             </Link>
-          ))}
+
+            <nav className="pr-home-desktop-nav" aria-label="Navegación principal">
+              <Link href="/ofertas">Ofertas</Link>
+              <Link href="/perfil/particulares">Particulares</Link>
+              <Link href="/perfil/autonomos">Autónomos</Link>
+              <Link href="/perfil/empresas">Empresas</Link>
+              <Link href="/alta-gama">Alta Gama</Link>
+            </nav>
+
+            <a className="pr-home-advisor" href="tel:+34699242581">
+              <span>Asesor PRISMA</span>
+              <strong>699 24 25 81</strong>
+            </a>
+
+            <details className="pr-home-mobile-nav">
+              <summary aria-label="Abrir navegación">Menú</summary>
+              <div>
+                <Link href="/ofertas">Ofertas</Link>
+                <Link href="/perfil/particulares">Particulares</Link>
+                <Link href="/perfil/autonomos">Autónomos</Link>
+                <Link href="/perfil/empresas">Empresas</Link>
+                <Link href="/modalidades/entrega-inmediata">Entrega inmediata</Link>
+                <Link href="/modalidades/flexible">Flexible</Link>
+                <Link href="/alta-gama">Alta Gama</Link>
+                <a href="tel:+34699242581">699 24 25 81</a>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <div className="pr-home-shell pr-home-hero-grid">
+          <div className="pr-home-hero-copy">
+            <div className="pr-home-kicker">
+              <span>Renting multioperador</span>
+              <i />
+              <span>Madrid · España</span>
+            </div>
+            <h1>
+              Elige coche.
+              <span>PRISMA compara la operación.</span>
+            </h1>
+            <p>
+              Ofertas de distintas compañías de renting para particulares, autónomos y empresas, con asesoramiento personal antes de formalizar la operación.
+            </p>
+            <div className="pr-home-hero-actions">
+              <Link href="/ofertas" className="pr-home-button pr-home-button-dark">Ver ofertas <ArrowUpRight /></Link>
+              <a href="tel:+34699242581" className="pr-home-text-link">Hablar con un asesor <ArrowUpRight /></a>
+            </div>
+            <div className="pr-home-hero-proof" aria-label="Datos de PRISMA Renting">
+              <div><strong>25+</strong><span>años en automoción</span></div>
+              <div><strong>Multioperador</strong><span>alternativas entre compañías</span></div>
+              <div><strong>3 perfiles</strong><span>particulares · autónomos · empresas</span></div>
+            </div>
+          </div>
+
+          <div className="pr-home-hero-product">
+            <div className="pr-home-hero-product-top">
+              <span>Oferta destacada</span>
+              <strong>Unidades limitadas · consulta disponibilidad</strong>
+            </div>
+            <div className="pr-home-hero-watermark" aria-hidden="true">IBIZA</div>
+            <div className="pr-home-hero-car">
+              <Image src={heroOffer.image} alt="SEAT Ibiza de renting en PRISMA" fill priority sizes="(max-width: 900px) 100vw, 54vw" />
+            </div>
+            <div className="pr-home-hero-product-bottom">
+              <div>
+                <span>{heroOffer.brand}</span>
+                <h2>{heroOffer.name}</h2>
+              </div>
+              <div className="pr-home-hero-price">
+                <span>Desde</span>
+                <strong>{heroOffer.price} €</strong>
+                <small>/mes + IVA</small>
+              </div>
+              <div className="pr-home-hero-facts">
+                {heroOffer.facts.map((fact) => <span key={fact}>{fact}</span>)}
+              </div>
+              <Link href="/ofertas" className="pr-home-product-link">Explorar catálogo <ArrowUpRight /></Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="pr-home-shell pr-home-search-wrap">
+          <form className="pr-home-search" action="/ofertas" method="get">
+            <div className="pr-home-search-title">
+              <span>Encuentra tu punto de partida</span>
+              <strong>Filtra. PRISMA contrasta después la operación.</strong>
+            </div>
+            <label>
+              <span>Perfil</span>
+              <select name="cliente" defaultValue="Particular">
+                <option>Particular</option>
+                <option>Autónomo</option>
+                <option>Empresa</option>
+              </select>
+            </label>
+            <label>
+              <span>Tipo</span>
+              <select name="body" defaultValue="Todos">
+                <option>Todos</option>
+                <option>Urbano</option>
+                <option>SUV</option>
+              </select>
+            </label>
+            <label>
+              <span>Cuota</span>
+              <select name="budget" defaultValue="Todos">
+                <option value="Todos">Cualquiera</option>
+                <option value="300">Hasta 300 €</option>
+                <option value="450">300–450 €</option>
+                <option value="451">Más de 450 €</option>
+              </select>
+            </label>
+            <label>
+              <span>Combustible</span>
+              <select name="fuel" defaultValue="Todos">
+                <option>Todos</option>
+                <option>Gasolina</option>
+                <option>Híbrido</option>
+              </select>
+            </label>
+            <button type="submit">Ver coches <ArrowUpRight /></button>
+          </form>
         </div>
       </section>
 
-      <section className="home-authority" aria-labelledby="authority-title">
-        <div className="shell home-authority-grid">
-          <div className="home-authority-statement">
+      <section className="pr-home-offers" aria-labelledby="pr-home-offers-title">
+        <div className="pr-home-shell">
+          <div className="pr-home-section-heading">
+            <span>Ofertas de renting</span>
+            <h2 id="pr-home-offers-title">Menos escaparate. Más información para decidir.</h2>
+            <p>Precio, formato y disponibilidad visibles antes de entrar en la ficha. Las condiciones finales se confirman con PRISMA.</p>
+          </div>
+
+          <article className="pr-home-lead-offer">
+            <div className="pr-home-lead-visual">
+              <span className="pr-home-offer-number">01</span>
+              <div aria-hidden="true" className="pr-home-offer-ghost">i20</div>
+              <Image src={leadVehicle.image} alt={leadVehicle.name} fill sizes="(max-width: 900px) 100vw, 60vw" />
+            </div>
+            <div className="pr-home-lead-copy">
+              <div>
+                <span>{leadVehicle.brand} · {leadVehicle.body}</span>
+                <h3>{leadVehicle.name}</h3>
+                <p>{leadVehicle.highlight}</p>
+              </div>
+              <div className="pr-home-lead-price">
+                <span>Desde</span>
+                <strong>{leadVehicle.price.toLocaleString("es-ES")} €</strong>
+                <small>/mes + IVA</small>
+              </div>
+              <div className="pr-home-lead-facts">
+                <span>{leadVehicle.fuel}</span>
+                <span>{leadVehicle.transmission}</span>
+                <span>{leadVehicle.term} meses</span>
+                <span>{leadVehicle.km.toLocaleString("es-ES")} km/año</span>
+              </div>
+              <div className="pr-home-lead-status"><i />{leadVehicle.availabilityNote}</div>
+              <Link href={`/ofertas/${leadVehicle.slug}`} className="pr-home-button pr-home-button-dark">Ver oferta <ArrowUpRight /></Link>
+            </div>
+          </article>
+
+          <div className="pr-home-offer-list">
+            {supportingVehicles.map((vehicle, index) => (
+              <Link href={`/ofertas/${vehicle.slug}`} className="pr-home-offer-row" key={vehicle.slug}>
+                <span className="pr-home-offer-row-number">0{index + 2}</span>
+                <div className="pr-home-offer-row-car">
+                  <Image src={vehicle.image} alt="" fill sizes="150px" />
+                </div>
+                <div className="pr-home-offer-row-name">
+                  <small>{vehicle.brand}</small>
+                  <strong>{vehicle.name}</strong>
+                </div>
+                <div className="pr-home-offer-row-meta"><span>{vehicle.body}</span><span>{vehicle.fuel}</span><span>{vehicle.transmission}</span></div>
+                <div className="pr-home-offer-row-price"><small>Desde</small><strong>{vehicle.price.toLocaleString("es-ES")} €</strong><span>/mes + IVA</span></div>
+                <ArrowUpRight />
+              </Link>
+            ))}
+          </div>
+
+          <div className="pr-home-offers-end"><Link href="/ofertas">Abrir todas las ofertas <ArrowUpRight /></Link></div>
+        </div>
+      </section>
+
+      <section className="pr-home-authority" aria-labelledby="pr-home-authority-title">
+        <div className="pr-home-shell pr-home-authority-grid">
+          <div className="pr-home-authority-number"><strong>25+</strong><span>años en automoción</span></div>
+          <div className="pr-home-authority-copy">
             <span>Grupo PRISMA · Especialistas en automoción</span>
-            <h2 id="authority-title"><strong>25+</strong> años entendiendo coches, personas y operaciones.</h2>
-          </div>
-          <div className="home-authority-copy">
-            <p>PRISMA Renting trabaja para particulares, autónomos y empresas y compara alternativas entre distintos operadores. El objetivo no es enseñarte más coches: es ayudarte a llegar a una operación que tenga sentido para tu uso.</p>
-            <div className="home-authority-facts">
-              <div><Check /><span>Comparación multioperador</span></div>
-              <div><Check /><span>Asesoramiento personal</span></div>
-              <div><Check /><span>Tradicional, flexible, ECO, alta gama y a medida</span></div>
+            <h2 id="pr-home-authority-title">La ventaja no es tener más coches. Es saber comparar mejor.</h2>
+            <p>PRISMA Renting unifica ofertas de distintas compañías y acompaña al cliente para encontrar una operación adecuada a sus necesidades, gustos y uso del vehículo.</p>
+            <div className="pr-home-authority-lines">
+              <div><span>01</span><strong>Multioperador</strong><small>Alternativas entre compañías de renting.</small></div>
+              <div><span>02</span><strong>Asesor personal</strong><small>Una persona acompaña la operación.</small></div>
+              <div><span>03</span><strong>A medida</strong><small>Si no está en catálogo, se puede solicitar otra propuesta.</small></div>
             </div>
-            <a href="tel:+34699242581" className="home-authority-call">Hablar con un asesor · 699 24 25 81 <ArrowUpRight /></a>
           </div>
-        </div>
-        <div className="shell home-brand-universe">
-          <span>Marcas que forman parte del universo de búsqueda de PRISMA</span>
-          <div>{brands.map((brand) => <strong key={brand}>{brand}</strong>)}</div>
         </div>
       </section>
 
-      <ProfileRentingSwitch />
-
-      <section className="home-services" aria-labelledby="home-services-title">
-        <div className="shell home-services-head">
-          <span>Qué suele formar parte de la cuota</span>
-          <h2 id="home-services-title">El coche es la parte visible. La operación es todo lo demás.</h2>
-        </div>
-        <div className="shell home-services-grid">
-          {services.map(([label, value], index) => (
-            <div key={label}>
-              <span>0{index + 1}</span>
-              <strong>{label}</strong>
-              <p>{value}</p>
-            </div>
-          ))}
-        </div>
-        <div className="shell home-services-note">Servicios y condiciones sujetos a la oferta y operador finalmente confirmados por PRISMA.</div>
-      </section>
-
-      <section className="home-process" aria-labelledby="home-process-title">
-        <div className="shell home-section-head home-process-head">
-          <div>
-            <span>Cómo se contrata</span>
-            <h2 id="home-process-title">Del primer filtro a las llaves, sin perder el contexto.</h2>
+      <section className="pr-home-routes" aria-labelledby="pr-home-routes-title">
+        <div className="pr-home-shell">
+          <div className="pr-home-section-heading pr-home-section-heading-compact">
+            <span>Modalidades</span>
+            <h2 id="pr-home-routes-title">Empieza por la necesidad, no por una etiqueta.</h2>
+          </div>
+          <div className="pr-home-route-list">
+            {routes.map((route) => (
+              <Link href={route.href} key={route.number} className="pr-home-route-row">
+                <span>{route.number}</span>
+                <div><small>{route.eyebrow}</small><strong>{route.title}</strong></div>
+                <p>{route.copy}</p>
+                <ArrowUpRight />
+              </Link>
+            ))}
           </div>
         </div>
-        <div className="shell home-process-grid">
-          {process.map(([number, title, copy]) => (
-            <div className="home-process-step" key={number}>
-              <span>{number}</span>
-              <strong>{title}</strong>
-              <p>{copy}</p>
-            </div>
-          ))}
+      </section>
+
+      <section className="pr-home-profiles" aria-labelledby="pr-home-profiles-title">
+        <div className="pr-home-shell">
+          <div className="pr-home-section-heading pr-home-section-heading-compact">
+            <span>Para quién</span>
+            <h2 id="pr-home-profiles-title">El mismo coche no significa la misma operación.</h2>
+          </div>
+          <div className="pr-home-profile-list">
+            {profiles.map((profile) => (
+              <Link href={profile.href} className="pr-home-profile-row" key={profile.number}>
+                <span>{profile.number}</span>
+                <strong>{profile.title}</strong>
+                <p>{profile.copy}</p>
+                <div>Ver solución <ArrowUpRight /></div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="home-closing" aria-labelledby="home-closing-title">
-        <div className="shell home-closing-inner">
-          <div className="home-closing-copy">
+      <section className="pr-home-included" aria-labelledby="pr-home-included-title">
+        <div className="pr-home-shell">
+          <div className="pr-home-included-head">
+            <span>La cuota</span>
+            <h2 id="pr-home-included-title">El coche es una parte. Los servicios completan la operación.</h2>
+          </div>
+          <div className="pr-home-included-grid">
+            {included.map(([label, value], index) => (
+              <div key={label}><span>0{index + 1}</span><strong>{label}</strong><small>{value}</small></div>
+            ))}
+          </div>
+          <p className="pr-home-disclaimer">Servicios concretos sujetos al operador y a la oferta final confirmada por PRISMA.</p>
+        </div>
+      </section>
+
+      <section className="pr-home-closing">
+        <div className="pr-home-shell pr-home-closing-grid">
+          <div className="pr-home-closing-copy">
             <span>Renting a medida</span>
-            <h2 id="home-closing-title">Dinos el coche. Nosotros buscamos la operación.</h2>
-            <p>Modelo, uso, presupuesto, kilometraje y plazo. Con eso PRISMA puede contrastar alternativas y ayudarte a encontrar una propuesta que encaje.</p>
+            <h2>Dinos el coche. PRISMA busca la operación.</h2>
+            <p>Si el modelo, color o equipamiento que quieres no aparece en catálogo, puedes solicitar una propuesta personalizada.</p>
             <div>
-              <Link href="/modalidades/a-medida" className="button button-light">Preparar solicitud <ArrowUpRight /></Link>
+              <Link href="/modalidades/a-medida" className="pr-home-button pr-home-button-light">Preparar solicitud <ArrowUpRight /></Link>
               <a href="tel:+34699242581">699 24 25 81</a>
             </div>
           </div>
-          <div className="home-closing-visual" aria-hidden="true">
-            <div className="home-closing-word">PRISMA</div>
-            <Image src="https://prismarenting.com/wp-content/uploads/2021/11/renting-bmw-x5-1.webp" alt="" fill sizes="(max-width: 900px) 100vw, 48vw" />
+          <div className="pr-home-closing-car" aria-hidden="true">
+            <span>PRISMA</span>
+            <Image src="https://prismarenting.com/wp-content/uploads/2021/11/renting-bmw-x5-1.webp" alt="" fill sizes="(max-width: 900px) 100vw, 50vw" />
           </div>
         </div>
       </section>
 
-      <footer className="footer home-footer">
-        <div className="shell footer-top">
-          <div className="footer-logo" aria-label="PRISMA Renting" />
-          <div><span>Perfiles</span><p><Link href="/perfil/particulares">Particulares</Link><br /><Link href="/perfil/autonomos">Autónomos</Link><br /><Link href="/perfil/empresas">Empresas</Link></p></div>
-          <div><span>Modalidades</span><p><Link href="/modalidades/entrega-inmediata">Entrega inmediata</Link><br /><Link href="/modalidades/flexible">Flexible</Link><br /><Link href="/alta-gama">Alta Gama</Link></p></div>
-          <div><span>Contacto</span><p><a href="tel:+34699242581">699 24 25 81</a><br /><a href="mailto:hola@prismarenting.com">hola@prismarenting.com</a><br />Paseo Imperial 8, 1A · Madrid</p></div>
+      <footer className="pr-home-footer">
+        <div className="pr-home-shell pr-home-footer-grid">
+          <div className="pr-home-footer-brand"><span className="pr-home-footer-logo" aria-label="PRISMA Renting" /><p>Grupo PRISMA · Especialistas en automoción.</p></div>
+          <div><span>Renting</span><Link href="/ofertas">Ofertas</Link><Link href="/modalidades/entrega-inmediata">Entrega inmediata</Link><Link href="/modalidades/flexible">Flexible</Link><Link href="/alta-gama">Alta Gama</Link></div>
+          <div><span>Perfiles</span><Link href="/perfil/particulares">Particulares</Link><Link href="/perfil/autonomos">Autónomos</Link><Link href="/perfil/empresas">Empresas</Link></div>
+          <div><span>Contacto</span><a href="tel:+34699242581">699 24 25 81</a><a href="mailto:hola@prismarenting.com">hola@prismarenting.com</a><p>Paseo Imperial 8, 1A · Madrid</p></div>
         </div>
-        <div className="shell footer-bottom"><span>© 2026 Grupo PRISMA, Especialistas en Automoción, S.L.</span><div><Link href="/ofertas">Ofertas</Link><Link href="/favoritos">Favoritos</Link><Link href="/comparar">Comparar</Link><a href="https://prismarenting.com/blog/" target="_blank" rel="noreferrer">Blog</a></div></div>
+        <div className="pr-home-shell pr-home-footer-bottom"><span>© 2026 Grupo PRISMA, Especialistas en Automoción, S.L.</span><div><a href="https://prismarenting.com/politica-de-privacidad/">Privacidad</a><a href="https://prismarenting.com/aviso-legal/">Aviso legal</a><a href="https://prismarenting.com/politica-de-cookies/">Cookies</a></div></div>
       </footer>
     </main>
   );
