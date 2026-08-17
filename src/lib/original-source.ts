@@ -38,6 +38,7 @@ export type OriginalProduct = {
   tags: string[];
   attributes: Array<{ name: string; terms: string[] }>;
   source: "woocommerce" | "crawl";
+  active: boolean;
 };
 
 type WooProduct = {
@@ -76,7 +77,8 @@ type WordPressItem = {
 };
 
 let pageCache: OriginalPage[] | null = null;
-let productCache: OriginalProduct[] | null = null;
+let currentProductCache: OriginalProduct[] | null = null;
+let allProductCache: OriginalProduct[] | null = null;
 
 function readJson<T>(relativePath: string, fallback: T): T {
   try {
@@ -197,6 +199,7 @@ function wooToProduct(product: WooProduct): OriginalProduct | null {
     tags: names(product.tags),
     attributes: normalizeAttributes(product.attributes),
     source: "woocommerce",
+    active: true,
   };
 }
 
@@ -204,6 +207,7 @@ function crawlToProduct(page: OriginalPage): OriginalProduct | null {
   if (!page.vehicle?.name) return null;
   const pagePath = normalizePath(page.path || page.canonical || page.url);
   const slug = pagePath.split("/").filter(Boolean).at(-1) || page.vehicle.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const sourceImages = (page.images ?? []).filter((image) => image.src && !/logo|icon|cropped/i.test(`${image.src} ${image.alt || ""}`));
   return {
     id: `crawl:${pagePath}`,
     name: page.vehicle.name,
@@ -213,39 +217,55 @@ function crawlToProduct(page: OriginalPage): OriginalProduct | null {
     price: typeof page.vehicle.price === "number" ? page.vehicle.price : null,
     description: page.body_text || "",
     shortDescription: page.meta_description || "",
-    images: (page.images ?? []).filter((image) => image.src),
-    categories: [],
+    images: sourceImages,
+    categories: page.vehicle.brand_slug ? [page.vehicle.brand_slug] : [],
     tags: [],
     attributes: (page.vehicle.attributes ?? []).map((row) => ({ name: row[0] || "Característica", terms: row.slice(1).filter(Boolean) })),
     source: "crawl",
+    active: false,
   };
+}
+
+function normalizeCrawlPage(page: OriginalPage): OriginalPage {
+  const sourcePath = normalizePath(page.path || page.canonical || page.url);
+  return { ...page, path: sourcePath };
 }
 
 export function getOriginalPages(): OriginalPage[] {
   if (pageCache) return pageCache;
+  const fullCrawl = readJson<OriginalPage[]>("migration-crawl-full/inventory.json", []).map(normalizeCrawlPage);
   const wpPages = readJson<WordPressItem[]>("migration-content/pages.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
   const wpPosts = readJson<WordPressItem[]>("migration-content/posts.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
-  const crawlPages = readJson<OriginalPage[]>("migration-output/pages.json", []);
-  const crawlVehicles = readJson<OriginalPage[]>("migration-output/vehicles.json", []);
   const byPath = new Map<string, OriginalPage>();
-  for (const page of [...crawlPages, ...crawlVehicles]) {
-    const sourcePath = normalizePath(page.path || page.canonical || page.url);
-    byPath.set(sourcePath, { ...page, path: sourcePath });
-  }
+
+  // Full crawl establishes complete route coverage, including taxonomy/archive and legacy vehicle URLs.
+  for (const page of fullCrawl) byPath.set(page.path, page);
+  // WordPress REST is cleaner for published editorial content and wins on overlapping paths.
   for (const page of [...wpPages, ...wpPosts]) byPath.set(page.path, page);
+
   pageCache = [...byPath.values()];
   return pageCache;
 }
 
+export function getCurrentProducts(): OriginalProduct[] {
+  if (currentProductCache) return currentProductCache;
+  currentProductCache = readJson<WooProduct[]>("migration-products/products.json", []).map(wooToProduct).filter((item): item is OriginalProduct => Boolean(item));
+  return currentProductCache;
+}
+
 export function getOriginalProducts(): OriginalProduct[] {
-  if (productCache) return productCache;
-  const woo = readJson<WooProduct[]>("migration-products/products.json", []).map(wooToProduct).filter((item): item is OriginalProduct => Boolean(item));
-  const crawl = getOriginalPages().filter((page) => page.type === "vehicle").map(crawlToProduct).filter((item): item is OriginalProduct => Boolean(item));
+  if (allProductCache) return allProductCache;
+  const crawl = readJson<OriginalPage[]>("migration-crawl-full/vehicles.json", []).map(normalizeCrawlPage).map(crawlToProduct).filter((item): item is OriginalProduct => Boolean(item));
+  const current = getCurrentProducts();
   const byPath = new Map<string, OriginalProduct>();
+
+  // Crawl-only products remain addressable for SEO/history, but are not considered active offers.
   for (const product of crawl) byPath.set(product.path, product);
-  for (const product of woo) byPath.set(product.path, product);
-  productCache = [...byPath.values()];
-  return productCache;
+  // Structured Woo data wins whenever the product is still active/current.
+  for (const product of current) byPath.set(product.path, product);
+
+  allProductCache = [...byPath.values()];
+  return allProductCache;
 }
 
 export function getOriginalPage(sourcePath: string): OriginalPage | undefined {
@@ -258,18 +278,19 @@ export function getOriginalProduct(sourcePath: string): OriginalProduct | undefi
   return getOriginalProducts().find((product) => product.path === wanted);
 }
 
-export function getProductsLinkedFromPage(sourcePath: string): OriginalProduct[] {
+export function getProductsLinkedFromPage(sourcePath: string, options: { currentOnly?: boolean } = {}): OriginalProduct[] {
   const page = getOriginalPage(sourcePath);
   if (!page?.internal_links?.length) return [];
   const linkedPaths = new Set(page.internal_links.map(normalizePath));
-  return getOriginalProducts().filter((product) => linkedPaths.has(product.path));
+  const pool = options.currentOnly ? getCurrentProducts() : getOriginalProducts();
+  return pool.filter((product) => linkedPaths.has(product.path));
 }
 
 export function getProductsForProfile(profile: "particulares" | "autonomos" | "empresas"): OriginalProduct[] {
   const originalPath = profile === "particulares" ? "/renting-coches-particulares/" : profile === "autonomos" ? "/renting-coches-autonomos/" : "/renting-coches-empresas/";
-  const linked = getProductsLinkedFromPage(originalPath);
+  const linked = getProductsLinkedFromPage(originalPath, { currentOnly: true });
   const needles = profile === "particulares" ? ["particular", "particulares"] : profile === "autonomos" ? ["autonomo", "autónomo", "autonomos", "autónomos"] : ["empresa", "empresas"];
-  const taxonomic = getOriginalProducts().filter((product) => {
+  const taxonomic = getCurrentProducts().filter((product) => {
     const haystack = [...product.categories, ...product.tags, ...product.attributes.flatMap((attribute) => [attribute.name, ...attribute.terms])].join(" ").toLowerCase();
     return needles.some((needle) => haystack.includes(needle));
   });
@@ -285,10 +306,13 @@ export function getOriginalPaths(): string[] {
 
 export function originalDataSummary() {
   const pages = getOriginalPages();
-  const products = getOriginalProducts();
+  const allProducts = getOriginalProducts();
+  const currentProducts = getCurrentProducts();
   return {
     pages: pages.length,
-    products: products.length,
+    currentProducts: currentProducts.length,
+    allVehicleRoutes: allProducts.length,
+    legacyVehicleRoutes: allProducts.filter((product) => !product.active).length,
     profileProducts: {
       particulares: getProductsForProfile("particulares").length,
       autonomos: getProductsForProfile("autonomos").length,
