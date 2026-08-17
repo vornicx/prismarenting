@@ -1,0 +1,117 @@
+/* Vehicle detail: follow PRISMA product depth, elevated as an automotive product experience */
+.detail-depth-page{background:#f4f3ef}
+.detail-product-stage{background:#e9eae6;padding:84px 0 0;position:relative}
+.detail-breadcrumb{height:72px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(16,17,15,.13);font-size:8px;color:#858a81}
+.detail-breadcrumb strong{color:#2c302a;font-weight:700}
+.detail-product-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(330px,.65fr);gap:0;min-height:700px;border-left:1px solid rgba(16,17,15,.12);border-right:1px solid rgba(16,17,15,.12)}
+.detail-gallery-column{min-width:0;border-right:1px solid rgba(16,17,15,.12);display:grid;grid-template-rows:1fr auto}
+.vehicle-gallery{min-width:0}
+.vehicle-gallery-main{height:580px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 54%,rgba(255,255,255,.65),rgba(255,255,255,0) 48%)}
+.vehicle-gallery-main:after{content:"";position:absolute;left:8%;right:8%;bottom:11%;height:1px;background:rgba(16,17,15,.08)}
+.vehicle-gallery-main-image{object-fit:contain;padding:56px 58px 40px;filter:drop-shadow(0 40px 30px rgba(0,0,0,.16));z-index:2}
+.vehicle-gallery-counter{position:absolute;z-index:4;top:22px;left:24px;display:flex;gap:6px;font-size:8px;letter-spacing:.12em;color:#737871}
+.vehicle-gallery-counter span:nth-child(2){opacity:.35}
+.vehicle-gallery-thumbs{display:grid;grid-template-columns:repeat(4,minmax(95px,1fr));border-top:1px solid rgba(16,17,15,.12);overflow-x:auto}
+.vehicle-gallery-thumbs button{height:112px;min-width:105px;position:relative;border:0;border-right:1px solid rgba(16,17,15,.12);background:transparent;cursor:pointer;opacity:.42;transition:opacity .2s,background .2s}
+.vehicle-gallery-thumbs button:last-child{border-right:0}
+.vehicle-gallery-thumbs button.active,.vehicle-gallery-thumbs button:hover{opacity:1;background:rgba(255,255,255,.32)}
+.vehicle-gallery-thumb-image{object-fit:contain;padding:19px}
+.vehicle-gallery-thumbs button>span{position:absolute;z-index:3;left:8px;bottom:7px;font-size:7px;color:#777c74}
+.detail-gallery-note{padding:14px 20px;display:grid;grid-template-columns:135px 1fr;gap:20px;border-top:1px solid rgba(16,17,15,.12);background:#e2e4de}
+.detail-gallery-note span{font-size:7px;text-transform:uppercase;letter-spacing:.13em;color:#747a70}
+.detail-gallery-note p{font-size:8px;line-height:1.55;color:#747a70;margin:0}
+
+.detail-offer-panel{padding:38px 34px 30px;display:flex;flex-direction:column;min-width:0}
+.detail-offer-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.detail-offer-top>span{font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:#69776a;font-weight:800}
+.detail-offer-top .vehicle-actions button{width:40px;height:40px;min-height:40px;padding:0;justify-content:center}
+.detail-offer-brand{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#7c8178;margin:64px 0 8px}
+.detail-offer-panel h1{font-size:clamp(58px,6.2vw,96px);line-height:.8;letter-spacing:-.072em;font-weight:650;margin:0}
+.detail-offer-variant{font-size:9px;line-height:1.55;color:#7d817a;margin:19px 0 0;max-width:360px}
+.detail-availability{display:flex;align-items:flex-start;gap:11px;margin-top:34px;padding:16px 0;border-top:1px solid rgba(16,17,15,.13);border-bottom:1px solid rgba(16,17,15,.13)}
+.detail-availability-dot{width:7px;height:7px;border-radius:50%;background:#527059;margin-top:3px;box-shadow:0 0 0 4px rgba(82,112,89,.1)}
+.detail-availability strong{display:block;font-size:9px;font-weight:750}
+.detail-availability small{display:block;font-size:7px;color:#858a82;margin-top:5px;text-transform:uppercase;letter-spacing:.09em}
+.detail-price-stack{margin-top:auto;padding-top:38px}
+.detail-price-stack>span{font-size:7px;text-transform:uppercase;letter-spacing:.14em;color:#858a81}
+.detail-price-stack>div{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.detail-price-stack strong{font-size:38px;letter-spacing:-.05em}
+.detail-price-stack small{font-size:8px;color:#80847c}
+.detail-price-stack p{font-size:8px;line-height:1.55;color:#878a84;max-width:380px;margin:10px 0 0}
+.detail-offer-actions{display:grid;grid-template-columns:1fr;margin-top:22px;gap:12px}
+.detail-whatsapp-link{display:flex;align-items:center;justify-content:center;gap:8px;font-size:9px;font-weight:750;border-bottom:1px solid rgba(16,17,15,.24);padding:4px 0 11px}
+.detail-whatsapp-link svg{width:15px}
+.detail-color-note{margin-top:22px;display:grid;grid-template-columns:70px 1fr;gap:10px;padding-top:14px;border-top:1px solid rgba(16,17,15,.12)}
+.detail-color-note span{font-size:7px;text-transform:uppercase;letter-spacing:.14em;color:#8c9088}
+.detail-color-note strong{font-size:8px;font-weight:650;line-height:1.5}
+
+.detail-fact-bar{background:#11130f;color:#fff}
+.detail-fact-grid{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid rgba(255,255,255,.11)}
+.detail-fact-grid>div{min-height:100px;padding:19px 17px;border-right:1px solid rgba(255,255,255,.11);display:flex;flex-direction:column;justify-content:space-between}
+.detail-fact-grid span{font-size:7px;text-transform:uppercase;letter-spacing:.14em;color:#697269}
+.detail-fact-grid strong{font-size:11px;font-weight:650;line-height:1.35}
+
+.detail-services{padding:110px 0}
+.detail-services-head{display:grid;grid-template-columns:180px 1fr;gap:45px;align-items:start;margin-bottom:50px}
+.detail-services-head>span{font-size:8px;text-transform:uppercase;letter-spacing:.16em;color:#858a81;padding-top:8px}
+.detail-services-head h2{font-size:clamp(48px,5.3vw,78px);line-height:.92;letter-spacing:-.06em;font-weight:620;margin:0;max-width:900px}
+.detail-services-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.detail-services-grid>div{min-height:165px;padding:18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.detail-services-grid>div>span{font-size:7px;color:#9a9c96}
+.detail-services-grid svg{width:17px}
+.detail-services-grid strong{align-self:end;font-size:17px;line-height:1.2;letter-spacing:-.025em;max-width:240px}
+.detail-services>small{display:block;margin-top:13px;font-size:8px;color:#878b83}
+
+.detail-product-knowledge{background:#dfe4dc;padding:115px 0}
+.detail-product-knowledge-grid{display:grid;grid-template-columns:230px 1fr;gap:90px}
+.detail-knowledge-index{position:sticky;top:35px;align-self:start}
+.detail-knowledge-index>span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:#778174;margin-bottom:12px}
+.detail-knowledge-index>strong{font-size:18px;letter-spacing:-.03em}
+.detail-knowledge-story{border-top:1px solid #bcc5ba;padding-top:22px}
+.detail-knowledge-story>span,.detail-fit-check>span,.detail-equipment-head>span{font-size:7px;text-transform:uppercase;letter-spacing:.15em;color:#778174}
+.detail-knowledge-story h2{font-size:clamp(54px,6vw,90px);line-height:.88;letter-spacing:-.065em;font-weight:620;margin:22px 0 26px}
+.detail-knowledge-story p{font-size:13px;line-height:1.8;max-width:760px;color:#596158}
+.detail-fit-check{display:grid;grid-template-columns:160px 1fr auto;gap:30px;align-items:start;border-top:1px solid #bcc5ba;margin-top:65px;padding-top:22px}
+.detail-fit-check p{font-size:13px;line-height:1.75;margin:0;color:#596158}
+.detail-fit-check a{display:flex;gap:8px;align-items:center;font-size:9px;font-weight:750;white-space:nowrap}
+.detail-fit-check svg{width:14px}
+.detail-equipment{margin-top:65px;border-top:1px solid #bcc5ba;padding-top:22px}
+.detail-equipment-head{display:flex;justify-content:space-between;gap:25px;margin-bottom:25px}
+.detail-equipment-head small{font-size:7px;color:#80897e}
+.detail-equipment-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #c5ccc3;border-left:1px solid #c5ccc3}
+.detail-equipment-grid>div{min-height:72px;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;padding:13px 15px;border-right:1px solid #c5ccc3;border-bottom:1px solid #c5ccc3;font-size:9px;line-height:1.45}
+.detail-equipment-grid svg{width:14px}
+
+.detail-process{background:#151815;color:#fff;padding:100px 0}
+.detail-process-head{display:grid;grid-template-columns:160px 1fr auto;gap:45px;align-items:end;margin-bottom:52px}
+.detail-process-head>span{font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:#727b71}
+.detail-process-head h2{font-size:clamp(48px,5.8vw,82px);line-height:.88;letter-spacing:-.064em;font-weight:620;margin:0}
+.detail-process-head>a{display:flex;align-items:center;gap:8px;font-size:9px;font-weight:750;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:6px}
+.detail-process-head svg{width:14px}
+.detail-process-track{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.2)}
+.detail-process-track>div{min-height:190px;padding:18px;border-right:1px solid rgba(255,255,255,.11)}
+.detail-process-track>div:first-child{padding-left:0}
+.detail-process-track>div:last-child{border-right:0}
+.detail-process-track span{font-size:7px;color:#667066}
+.detail-process-track strong{display:block;font-size:20px;margin-top:48px;letter-spacing:-.035em}
+.detail-process-track p{font-size:8px;line-height:1.6;color:#899188;max-width:180px}
+.alternative-offers-heading>div{display:flex;flex-direction:column;gap:7px}
+.alternative-offers-heading>a{display:flex;align-items:center;gap:8px;font-size:9px;font-weight:750}
+.alternative-offers-heading>a svg{width:14px}
+
+@media(max-width:1050px){
+  .detail-product-grid{grid-template-columns:1fr}.detail-gallery-column{border-right:0;border-bottom:1px solid rgba(16,17,15,.12)}
+  .detail-offer-panel{min-height:570px}.detail-offer-brand{margin-top:40px}.detail-fact-grid{grid-template-columns:repeat(3,1fr)}
+  .detail-services-head,.detail-product-knowledge-grid{grid-template-columns:1fr;gap:35px}.detail-knowledge-index{position:static}
+  .detail-process-head{grid-template-columns:1fr}.detail-process-track{grid-template-columns:repeat(3,1fr);row-gap:25px}
+}
+@media(max-width:720px){
+  .detail-product-stage{padding-top:84px}.detail-breadcrumb{overflow:hidden;white-space:nowrap}
+  .vehicle-gallery-main{height:380px}.vehicle-gallery-main-image{padding:32px 20px}.vehicle-gallery-thumbs{grid-template-columns:repeat(4,100px)}.vehicle-gallery-thumbs button{height:88px}
+  .detail-gallery-note{grid-template-columns:1fr;gap:6px}.detail-offer-panel{padding:30px 20px;min-height:560px}.detail-offer-panel h1{font-size:64px}.detail-offer-brand{margin-top:34px}
+  .detail-fact-grid{grid-template-columns:repeat(2,1fr)}.detail-fact-grid>div{min-height:90px}
+  .detail-services{padding:80px 0}.detail-services-head{margin-bottom:35px}.detail-services-head h2{font-size:47px}.detail-services-grid{grid-template-columns:1fr 1fr}.detail-services-grid>div{min-height:135px}.detail-services-grid strong{font-size:14px}
+  .detail-product-knowledge{padding:80px 0}.detail-knowledge-story h2{font-size:52px}.detail-fit-check{grid-template-columns:1fr;gap:14px}.detail-equipment-grid{grid-template-columns:1fr}
+  .detail-process{padding:80px 0}.detail-process-head h2{font-size:50px}.detail-process-track{grid-template-columns:1fr}.detail-process-track>div{min-height:auto;padding:18px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.1);display:grid;grid-template-columns:34px 90px 1fr;gap:8px}.detail-process-track strong{margin-top:0;font-size:16px}.detail-process-track p{margin:0;max-width:none}
+  .alternative-offers-heading{align-items:flex-start;gap:20px}.alternative-offers-heading strong{font-size:27px}.alternative-offers .vehicle-grid{grid-template-columns:1fr}
+}
