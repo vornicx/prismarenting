@@ -1,0 +1,27 @@
+name: PRISMA Functional Parity
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "public/__forms.html"
+      - "migration-*/**"
+      - "scripts/check_functional_parity.py"
+      - ".github/workflows/prisma-functional-parity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check functional migration parity
+        run: python scripts/check_functional_parity.py
