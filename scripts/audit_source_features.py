@@ -32,7 +32,20 @@ def strip_tags(value):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", value))).strip()
 
 
-def form_schema(form, index):
+def nearest_heading(source: str, position: int):
+    headings = list(re.finditer(r"<(h[1-4])\b[^>]*>([\s\S]*?)</\1>", source[:position], re.I))
+    if not headings:
+        return ""
+    return strip_tags(headings[-1].group(2))
+
+
+def nearby_text(source: str, start: int, end: int):
+    before = strip_tags(source[max(0, start - 1200):start])
+    after = strip_tags(source[end:min(len(source), end + 800)])
+    return {"before": before[-500:], "after": after[:350]}
+
+
+def form_schema(form, index, source, start, end):
     open_tag = re.search(r"<form\b[^>]*>", form, re.I)
     tag = open_tag.group(0) if open_tag else ""
     fields = []
@@ -58,6 +71,8 @@ def form_schema(form, index):
         "class": attr(tag, "class"),
         "action": attr(tag, "action"),
         "method": attr(tag, "method"),
+        "context_heading": nearest_heading(source, start),
+        "context_text": nearby_text(source, start, end),
         "fields": fields,
         "buttons": [button for button in buttons if button],
     }
@@ -67,8 +82,9 @@ def scan(kind, item):
     source = item.get("content_html") or ""
     route = normalize(item.get("path") or item.get("url") or "")
     lower = source.lower()
-    forms = re.findall(r"<form\b[\s\S]*?</form>", source, re.I)
-    schemas = [form_schema(form, index + 1) for index, form in enumerate(forms)]
+    form_matches = list(re.finditer(r"<form\b[\s\S]*?</form>", source, re.I))
+    forms = [match.group(0) for match in form_matches]
+    schemas = [form_schema(match.group(0), index + 1, source, match.start(), match.end()) for index, match in enumerate(form_matches)]
     classes = sorted({schema["class"] for schema in schemas if schema["class"]})
     return {
         "kind": kind,
