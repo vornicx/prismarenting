@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import VehicleActions from "@/components/VehicleActions";
 import { ArrowUpRight } from "@/components/Icons";
 import type { Vehicle } from "@/data/vehicles";
 
@@ -13,73 +12,84 @@ export default function HeroVehicleStage({ vehicles }: { vehicles: Vehicle[] }) 
   const vehicle = vehicles[index];
 
   return (
-    <div className="hero-vehicle-stage">
-      <div className="hero-ghost-brand" aria-hidden="true">{vehicle.brand}</div>
-
-      <div className="hero-business-line">
-        <span>PRISMA Renting</span>
-        <strong>Renting multioperador para particulares, autónomos y empresas.</strong>
-      </div>
-
-      <div className="hero-vehicle-copy">
-        <span className="hero-kicker">{vehicle.badge || "Oferta PRISMA"}</span>
-        <p className="hero-brand">{vehicle.brand}</p>
-        <h1>{vehicle.name.replace(`${vehicle.brand} `, "") || vehicle.name}</h1>
-
-        <div className="hero-availability">
-          <span className="hero-availability-dot" aria-hidden="true" />
-          <strong>{vehicle.availabilityNote || "Consulta disponibilidad con PRISMA"}</strong>
+    <div className="prisma-hero-stage">
+      <div className="prisma-hero-copy">
+        <div className="prisma-hero-eyebrow">
+          <span>PRISMA Renting</span>
+          <strong>Grupo PRISMA · 25+ años en automoción</strong>
         </div>
 
-        <div className="hero-price">
-          <span>Desde</span>
-          <strong>{vehicle.price.toLocaleString("es-ES")} €</strong>
-          <small>/mes + IVA</small>
+        <h1>
+          El coche que buscas.
+          <em>La operación que encaja.</em>
+        </h1>
+
+        <p className="prisma-hero-lead">Renting para particulares, autónomos y empresas. Comparamos alternativas y te acompañamos para que elijas con más contexto que una simple cuota.</p>
+
+        <div className="prisma-hero-actions">
+          <Link href="/ofertas" className="button button-dark">Ver ofertas <ArrowUpRight /></Link>
+          <a href="tel:+34699242581" className="prisma-hero-link">Hablar con un asesor <ArrowUpRight /></a>
         </div>
-        <div className="hero-price-context">Referencia: {vehicle.term} meses · {vehicle.km.toLocaleString("es-ES")} km/año · condiciones finales a confirmar.</div>
 
-        <div className="hero-vehicle-cta">
-          <Link href={`/ofertas/${vehicle.slug}`} className="button button-light">
-            Ver oferta y condiciones <ArrowUpRight />
-          </Link>
-          <VehicleActions slug={vehicle.slug} compact />
+        <div className="prisma-hero-proof">
+          <div><strong>25+</strong><span>años en automoción</span></div>
+          <div><strong>Multioperador</strong><span>alternativas entre distintos operadores</span></div>
+          <div><strong>3 perfiles</strong><span>particular · autónomo · empresa</span></div>
         </div>
-        <p className="hero-advisor-note">PRISMA contrasta operador, disponibilidad y condiciones antes de formalizar la operación.</p>
       </div>
 
-      <div className="hero-car-frame" key={vehicle.slug}>
-        <Image
-          src={vehicle.image}
-          alt={vehicle.name}
-          fill
-          priority
-          sizes="(max-width: 900px) 96vw, 68vw"
-          className="hero-car-image"
-        />
-      </div>
+      <div className="prisma-hero-product" key={vehicle.slug}>
+        <div className="prisma-hero-model" aria-hidden="true">{vehicle.name.replace(`${vehicle.brand} `, "")}</div>
+        <div className="prisma-hero-car">
+          <Image
+            src={vehicle.image}
+            alt={vehicle.name}
+            fill
+            priority
+            sizes="(max-width: 900px) 100vw, 58vw"
+          />
+        </div>
 
-      <div className="hero-specs">
-        <div><span>Tipo</span><strong>{vehicle.body}</strong></div>
-        <div><span>Motor</span><strong>{vehicle.fuel}</strong></div>
-        <div><span>Cambio</span><strong>{vehicle.transmission}</strong></div>
-        <div><span>Para</span><strong>{vehicle.audiences.join(" · ")}</strong></div>
-      </div>
+        <div className="prisma-hero-offer">
+          <div className="prisma-hero-offer-top">
+            <div>
+              <span>{vehicle.badge || "Oferta PRISMA"}</span>
+              <strong>{vehicle.name}</strong>
+            </div>
+            <div className="prisma-hero-offer-price">
+              <small>Desde</small>
+              <strong>{vehicle.price.toLocaleString("es-ES")} €</strong>
+              <span>/mes + IVA</span>
+            </div>
+          </div>
+          <div className="prisma-hero-offer-facts">
+            <span>{vehicle.term} meses</span>
+            <span>{vehicle.km.toLocaleString("es-ES")} km/año</span>
+            <span>{vehicle.fuel}</span>
+            <span>{vehicle.transmission}</span>
+          </div>
+          <div className="prisma-hero-offer-bottom">
+            <span>{vehicle.availabilityNote || "Disponibilidad a confirmar con PRISMA"}</span>
+            <Link href={`/ofertas/${vehicle.slug}`}>Ver oferta <ArrowUpRight /></Link>
+          </div>
+        </div>
 
-      <div className="hero-model-selector" role="tablist" aria-label="Ofertas destacadas">
-        {vehicles.slice(0, 5).map((item, itemIndex) => (
-          <button
-            type="button"
-            key={item.slug}
-            className={itemIndex === index ? "active" : ""}
-            onClick={() => setIndex(itemIndex)}
-            role="tab"
-            aria-selected={itemIndex === index}
-          >
-            <span>{String(itemIndex + 1).padStart(2, "0")}</span>
-            <strong>{item.name}</strong>
-            <small>{item.price.toLocaleString("es-ES")} €/mes</small>
-          </button>
-        ))}
+        <div className="prisma-hero-selector" role="tablist" aria-label="Ofertas destacadas">
+          {vehicles.slice(0, 5).map((item, itemIndex) => (
+            <button
+              type="button"
+              key={item.slug}
+              className={itemIndex === index ? "active" : ""}
+              onClick={() => setIndex(itemIndex)}
+              role="tab"
+              aria-selected={itemIndex === index}
+              aria-label={`Mostrar ${item.name}`}
+            >
+              <span>{String(itemIndex + 1).padStart(2, "0")}</span>
+              <strong>{item.brand}</strong>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
