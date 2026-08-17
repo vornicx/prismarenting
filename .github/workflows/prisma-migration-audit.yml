@@ -27,12 +27,8 @@ jobs:
           python-version: "3.12"
       - name: Audit imported data
         run: python scripts/audit_migration.py
-      - name: Print audit summary
-        run: python - <<'PY'
-          import json
-          r=json.load(open('migration-report/audit.json'))
-          print(json.dumps({k:r[k] for k in ('products','unique_product_paths','products_with_price','products_with_images','pages','unique_page_paths','profiles_detected')}, ensure_ascii=False, indent=2))
-          PY
+      - name: Print audit
+        run: cat migration-report/audit.json
       - uses: actions/upload-artifact@v4
         with:
           name: prisma-migration-audit
