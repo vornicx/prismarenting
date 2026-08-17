@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import html
 import json
 import re
 from pathlib import Path
@@ -22,18 +23,60 @@ def normalize(value):
     return route if route.endswith("/") else route + "/"
 
 
+def attr(fragment, name):
+    match = re.search(rf"\b{name}=[\"']([^\"']*)[\"']", fragment, re.I)
+    return html.unescape(match.group(1)).strip() if match else ""
+
+
+def strip_tags(value):
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", value))).strip()
+
+
+def form_schema(form, index):
+    open_tag = re.search(r"<form\b[^>]*>", form, re.I)
+    tag = open_tag.group(0) if open_tag else ""
+    fields = []
+    for match in re.finditer(r"<(input|select|textarea)\b([^>]*)>([\s\S]*?</\1>)?", form, re.I):
+        kind = match.group(1).lower()
+        attrs = match.group(2) or ""
+        field_type = attr(attrs, "type") or ("textarea" if kind == "textarea" else "select" if kind == "select" else "text")
+        name = attr(attrs, "name")
+        if not name or field_type in {"hidden", "submit"}:
+            continue
+        fields.append({
+            "tag": kind,
+            "type": field_type,
+            "name": name,
+            "placeholder": attr(attrs, "placeholder"),
+            "required": "required" in attrs.lower() or "aria-required=\"true\"" in attrs.lower() or "aria-required='true'" in attrs.lower(),
+        })
+    buttons = [strip_tags(value) for value in re.findall(r"<button\b[^>]*>([\s\S]*?)</button>", form, re.I)]
+    return {
+        "index": index,
+        "name": attr(tag, "name"),
+        "id": attr(tag, "id"),
+        "class": attr(tag, "class"),
+        "action": attr(tag, "action"),
+        "method": attr(tag, "method"),
+        "fields": fields,
+        "buttons": [button for button in buttons if button],
+    }
+
+
 def scan(kind, item):
     source = item.get("content_html") or ""
     route = normalize(item.get("path") or item.get("url") or "")
     lower = source.lower()
     forms = re.findall(r"<form\b[\s\S]*?</form>", source, re.I)
-    classes = sorted(set(re.findall(r"<form\b[^>]*class=[\"']([^\"']+)", source, re.I)))
+    schemas = [form_schema(form, index + 1) for index, form in enumerate(forms)]
+    classes = sorted({schema["class"] for schema in schemas if schema["class"]})
     return {
         "kind": kind,
         "path": route,
         "title": item.get("title") or "",
         "forms": len(forms),
         "form_classes": classes,
+        "form_schemas": schemas,
         "elementor_forms": sum(1 for form in forms if "elementor-form" in form.lower()),
         "woocommerce_forms": sum(1 for form in forms if "woocommerce" in form.lower()),
         "inputs": len(re.findall(r"<(?:input|select|textarea)\b", source, re.I)),
@@ -90,6 +133,8 @@ def main():
     (OUT / "feature-audit.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     keys = ("records_scanned", "interactive_records", "form_records", "elementor_form_records", "woocommerce_form_records", "input_only_records", "embed_records", "contact_form_7_records", "elementor_records", "woocommerce_markup_records")
     print(json.dumps({key: report[key] for key in keys}, ensure_ascii=False, indent=2))
+    print("ELEMENTOR FORM SCHEMAS")
+    print(json.dumps([{"path": record["path"], "title": record["title"], "forms": record["form_schemas"]} for record in elementor_forms], ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
