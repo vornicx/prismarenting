@@ -11,8 +11,11 @@ PRODUCTS = Path("migration-products/products.json")
 OUT = Path("migration-report")
 
 # Explicit top-level App Router segments that take precedence over [...sourcePath].
-# Original URLs under these namespaces need an intentional dedicated renderer.
-EXPLICIT_SEGMENTS = {"api", "alta-gama", "comparar", "favoritos", "modalidades", "ofertas", "perfil", "tipo"}
+EXPLICIT_SEGMENTS = {"api", "alta-gama", "blog", "comparar", "favoritos", "modalidades", "ofertas", "perfil", "tipo"}
+SOURCE_BACKED_EXPLICIT = {
+    "/alta-gama/": "src/app/alta-gama/page.tsx",
+    "/blog/": "src/app/blog/page.tsx",
+}
 
 
 def load(path: Path, default):
@@ -45,6 +48,8 @@ def product_path(product):
 def route_handler(path: str):
     if path == "/":
         return "src/app/page.tsx", True
+    if path in SOURCE_BACKED_EXPLICIT:
+        return SOURCE_BACKED_EXPLICIT[path], True
     if path == "/ofertas-de-renting/" or path.startswith("/ofertas-de-renting/"):
         return "src/app/ofertas-de-renting/[[...slug]]/page.tsx", True
     first = path.strip("/").split("/", 1)[0]
