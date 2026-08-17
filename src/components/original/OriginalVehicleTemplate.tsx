@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { OriginalFooter, OriginalHeader } from "@/components/original/OriginalChrome";
 import type { OriginalPage, OriginalProduct } from "@/lib/original-source";
+import { getProductSourceHtml } from "@/lib/product-source-html";
 import { prepareOriginalHtml } from "@/lib/source-html";
 
 export default function OriginalVehicleTemplate({ product, page }: { product: OriginalProduct; page?: OriginalPage }) {
   const hero = product.images[0] || page?.images?.[0];
   const gallery = product.images.length ? product.images : page?.images || [];
-  const html = prepareOriginalHtml(page?.content_html || "");
+  const productSource = getProductSourceHtml(product.path);
+  const html = prepareOriginalHtml(page?.content_html || "") || productSource.description;
 
   return (
     <main className="source-page source-product-page">
@@ -20,7 +22,7 @@ export default function OriginalVehicleTemplate({ product, page }: { product: Or
           <div className="source-product-summary">
             <span className="source-eyebrow">Oferta de renting</span>
             <h1>{product.name}</h1>
-            {product.shortDescription && <p>{product.shortDescription}</p>}
+            {productSource.shortDescription ? <div className="source-product-short" dangerouslySetInnerHTML={{ __html: productSource.shortDescription }} /> : product.shortDescription && <p>{product.shortDescription}</p>}
             <div className="source-product-price"><span>Desde</span><strong>{product.price !== null ? `${product.price.toLocaleString("es-ES")} €` : "Consultar"}</strong>{product.price !== null && <small>/mes + IVA</small>}</div>
             {product.attributes.length > 0 && (
               <dl className="source-product-facts">
@@ -29,21 +31,14 @@ export default function OriginalVehicleTemplate({ product, page }: { product: Or
                 ))}
               </dl>
             )}
-            <div className="source-product-actions">
-              <a href="tel:+34699242581" className="source-dark-button">Consultar esta oferta</a>
-              <Link href="/ofertas-de-renting/">Volver al catálogo</Link>
-            </div>
+            <div className="source-product-actions"><a href="tel:+34699242581" className="source-dark-button">Consultar esta oferta</a><Link href="/ofertas-de-renting/">Volver al catálogo</Link></div>
           </div>
         </div>
       </section>
 
       {gallery.length > 1 && (
         <section className="source-shell source-product-gallery" aria-label={`Galería de ${product.name}`}>
-          {gallery.slice(1).map((image, index) => (
-            <div className="source-product-gallery-item" key={`${image.src}-${index}`}>
-              <Image src={image.src} alt={image.alt || `${product.name} ${index + 2}`} fill sizes="(max-width: 700px) 100vw, 33vw" />
-            </div>
-          ))}
+          {gallery.slice(1).map((image, index) => <div className="source-product-gallery-item" key={`${image.src}-${index}`}><Image src={image.src} alt={image.alt || `${product.name} ${index + 2}`} fill sizes="(max-width: 700px) 100vw, 33vw" /></div>)}
         </section>
       )}
 
