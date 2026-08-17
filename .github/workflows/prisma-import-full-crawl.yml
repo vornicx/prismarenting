@@ -1,0 +1,52 @@
+name: PRISMA Import Full Crawl
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - ".github/workflows/prisma-import-full-crawl.yml"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
+          fetch-depth: 0
+
+      - name: Download completed crawl artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: prisma-migration-inventory
+          path: migration-crawl-full
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: vornicx/prismarenting
+          run-id: 32030401716
+
+      - name: Verify crawl snapshot
+        run: |
+          cat migration-crawl-full/summary.json
+          python - <<'PY'
+          import json
+          s=json.load(open('migration-crawl-full/summary.json'))
+          assert s['pages'] == 744, s
+          assert s['vehicles'] == 278, s
+          assert s['sitemap_urls'] == 704, s
+          print('Full crawl snapshot verified')
+          PY
+
+      - name: Persist full crawl under isolated path
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-crawl-full
+          git diff --cached --quiet || git commit -m "data: import complete PRISMA crawl snapshot"
+          git push origin HEAD:archic-prisma-full-migration
