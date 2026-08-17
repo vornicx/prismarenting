@@ -44,7 +44,7 @@ export default function QuickMatchLab({ vehicles }: { vehicles: Vehicle[] }) {
       <div className="shell match-lab-grid">
         <div className="match-controls">
           <div className="match-lab-label">PRISMA Match</div>
-          <h2>Decide por lo que necesitas. No por cien fichas.</h2>
+          <h2>Reduce el catálogo a las opciones que mejor encajan contigo.</h2>
 
           <fieldset>
             <legend>Perfil</legend>
@@ -73,7 +73,7 @@ export default function QuickMatchLab({ vehicles }: { vehicles: Vehicle[] }) {
             </div>
           </fieldset>
 
-          <p className="match-disclaimer">Selección orientativa sobre las ofertas cargadas en este concepto. Un asesor confirma disponibilidad y condiciones finales.</p>
+          <p className="match-disclaimer">Recomendación orientativa según los vehículos disponibles en esta selección. PRISMA confirma disponibilidad, operador y condiciones finales.</p>
         </div>
 
         <div className="match-results" aria-live="polite">
