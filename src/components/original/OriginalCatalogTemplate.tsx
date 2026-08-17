@@ -3,7 +3,7 @@ import OriginalVehicleCard from "@/components/original/OriginalVehicleCard";
 import { OriginalFooter, OriginalHeader } from "@/components/original/OriginalChrome";
 import { getCurrentProducts } from "@/lib/original-source";
 
-export default function OriginalCatalogTemplate() {
+export default function OriginalCatalogTemplate({ initialQuery = "", initialMax = "all" }: { initialQuery?: string; initialMax?: string }) {
   const products = getCurrentProducts();
   const sorted = [...products].sort((a, b) => (a.price ?? Number.POSITIVE_INFINITY) - (b.price ?? Number.POSITIVE_INFINITY));
   const spotlight = sorted.slice(0, 3);
@@ -33,7 +33,7 @@ export default function OriginalCatalogTemplate() {
       )}
 
       <section className="prisma-shell prisma-full-catalog">
-        <OriginalCatalogClient products={products} />
+        <OriginalCatalogClient products={products} initialQuery={initialQuery} initialMax={initialMax} />
       </section>
 
       <OriginalFooter />
