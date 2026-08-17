@@ -6,6 +6,7 @@ on:
       - archic-prisma-full-migration
     paths:
       - "scripts/crawl_prisma.py"
+      - "scripts/crawl_prisma_fast.py"
       - ".github/workflows/prisma-migration-crawl.yml"
   workflow_dispatch:
 
@@ -29,7 +30,7 @@ jobs:
         run: pip install requests beautifulsoup4 lxml
 
       - name: Crawl original PRISMA site
-        run: python scripts/crawl_prisma.py
+        run: python scripts/crawl_prisma_fast.py
 
       - name: Show migration summary
         run: cat migration-output/summary.json
