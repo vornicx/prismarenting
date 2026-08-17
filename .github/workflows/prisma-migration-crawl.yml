@@ -1,0 +1,42 @@
+name: PRISMA Migration Crawl
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - "scripts/crawl_prisma.py"
+      - ".github/workflows/prisma-migration-crawl.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install crawler dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Crawl original PRISMA site
+        run: python scripts/crawl_prisma.py
+
+      - name: Show migration summary
+        run: cat migration-output/summary.json
+
+      - name: Upload migration inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: prisma-migration-inventory
+          path: migration-output/
+          retention-days: 3
