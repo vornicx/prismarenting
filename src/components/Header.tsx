@@ -17,9 +17,10 @@ export default function Header({ theme = "light" }: { theme?: "light" | "dark" }
         </Link>
 
         <nav className="site-nav-links" aria-label="Navegación principal">
-          <Link href="/ofertas">Coches</Link>
-          <Link href="/alta-gama">Alta Gama</Link>
-          <Link href="/#encuentra">Encuentra el tuyo</Link>
+          <Link href="/ofertas">Ofertas de renting</Link>
+          <Link href="/perfil/particulares">Particulares</Link>
+          <Link href="/perfil/autonomos">Autónomos</Link>
+          <Link href="/perfil/empresas">Empresas</Link>
           <SelectionNav />
           <a href="tel:+34699242581" className="site-nav-phone">699 24 25 81</a>
         </nav>
@@ -32,9 +33,13 @@ export default function Header({ theme = "light" }: { theme?: "light" | "dark" }
       {open && (
         <div className="mobile-menu">
           <div className="shell mobile-menu-inner">
-            <Link href="/ofertas" onClick={() => setOpen(false)}>Coches</Link>
+            <Link href="/ofertas" onClick={() => setOpen(false)}>Ofertas de renting</Link>
+            <Link href="/perfil/particulares" onClick={() => setOpen(false)}>Particulares</Link>
+            <Link href="/perfil/autonomos" onClick={() => setOpen(false)}>Autónomos</Link>
+            <Link href="/perfil/empresas" onClick={() => setOpen(false)}>Empresas</Link>
+            <Link href="/modalidades/entrega-inmediata" onClick={() => setOpen(false)}>Entrega inmediata</Link>
+            <Link href="/modalidades/flexible" onClick={() => setOpen(false)}>Renting flexible</Link>
             <Link href="/alta-gama" onClick={() => setOpen(false)}>Alta Gama</Link>
-            <Link href="/#encuentra" onClick={() => setOpen(false)}>Encuentra el tuyo</Link>
             <Link href="/favoritos" onClick={() => setOpen(false)}>Favoritos</Link>
             <Link href="/comparar" onClick={() => setOpen(false)}>Comparar</Link>
             <a href="tel:+34699242581">699 24 25 81</a>
