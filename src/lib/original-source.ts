@@ -231,16 +231,18 @@ function normalizeCrawlPage(page: OriginalPage): OriginalPage {
   return { ...page, path: sourcePath };
 }
 
+function getRuntimeCrawlPages(): OriginalPage[] {
+  return readJson<OriginalPage[]>("migration-runtime/crawl-runtime.json", []).map(normalizeCrawlPage);
+}
+
 export function getOriginalPages(): OriginalPage[] {
   if (pageCache) return pageCache;
-  const fullCrawl = readJson<OriginalPage[]>("migration-crawl-full/inventory.json", []).map(normalizeCrawlPage);
+  const runtimeCrawl = getRuntimeCrawlPages();
   const wpPages = readJson<WordPressItem[]>("migration-content/pages.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
   const wpPosts = readJson<WordPressItem[]>("migration-content/posts.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
   const byPath = new Map<string, OriginalPage>();
 
-  // Full crawl establishes complete route coverage, including taxonomy/archive and legacy vehicle URLs.
-  for (const page of fullCrawl) byPath.set(page.path, page);
-  // WordPress REST is cleaner for published editorial content and wins on overlapping paths.
+  for (const page of runtimeCrawl) byPath.set(page.path, page);
   for (const page of [...wpPages, ...wpPosts]) byPath.set(page.path, page);
 
   pageCache = [...byPath.values()];
@@ -255,13 +257,11 @@ export function getCurrentProducts(): OriginalProduct[] {
 
 export function getOriginalProducts(): OriginalProduct[] {
   if (allProductCache) return allProductCache;
-  const crawl = readJson<OriginalPage[]>("migration-crawl-full/vehicles.json", []).map(normalizeCrawlPage).map(crawlToProduct).filter((item): item is OriginalProduct => Boolean(item));
+  const crawl = getRuntimeCrawlPages().filter((page) => page.type === "vehicle").map(crawlToProduct).filter((item): item is OriginalProduct => Boolean(item));
   const current = getCurrentProducts();
   const byPath = new Map<string, OriginalProduct>();
 
-  // Crawl-only products remain addressable for SEO/history, but are not considered active offers.
   for (const product of crawl) byPath.set(product.path, product);
-  // Structured Woo data wins whenever the product is still active/current.
   for (const product of current) byPath.set(product.path, product);
 
   allProductCache = [...byPath.values()];
