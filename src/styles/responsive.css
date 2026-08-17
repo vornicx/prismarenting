@@ -17,10 +17,15 @@
   .site-header-dark .mobile-menu a{border-bottom-color:var(--line)}
   .hero-stage{height:auto;min-height:920px}
   .hero-vehicle-stage{min-height:920px}
-  .hero-vehicle-copy{top:18%;width:100%}
+  .hero-vehicle-copy{top:17%;width:100%}
   .hero-vehicle-copy h1{font-size:72px}
-  .hero-car-frame{top:41%;right:-7%;width:112%;height:36%}
-  .hero-ghost-brand{top:35%;font-size:170px}
+  .hero-brand{margin-top:20px}
+  .hero-availability{margin-top:16px}
+  .hero-price{margin-top:13px}
+  .hero-price-context{display:none}
+  .hero-vehicle-cta{margin-top:18px}
+  .hero-car-frame{top:45%;right:-7%;width:112%;height:34%}
+  .hero-ghost-brand{top:39%;font-size:170px}
   .hero-specs{left:0;right:0;bottom:176px;width:100%;grid-template-columns:repeat(2,1fr)}
   .hero-model-selector{grid-template-columns:repeat(5,210px);overflow-x:auto;bottom:18px}
   .hero-model-selector button:first-child{padding-left:18px}
@@ -29,7 +34,7 @@
   .finder-command strong{display:none}
   .finder-form{grid-template-columns:1fr 1fr}
   .finder-submit{min-height:52px}
-  .offer-deck{padding:75px 0 90px}
+  .offer-deck{padding:70px 0 90px}
   .offer-deck-topline div strong{font-size:26px}
   .offer-rail{grid-auto-columns:82vw}
   .match-lab{padding:90px 0}
@@ -47,7 +52,7 @@
   .alta-gama-wordmark{font-size:100px}
   .alta-gama-home-bottom{display:block}
   .alta-gama-home-bottom p{margin-bottom:20px}
-  .trust-system{grid-template-columns:1fr 1fr}
+  .trust-system{grid-template-columns:1fr 1fr;padding-top:34px}
   .trust-system>div{border-bottom:1px solid var(--line)}
   .trust-major{grid-column:1/-1}
   .footer-top{grid-template-columns:1fr 1fr}
@@ -103,10 +108,15 @@
   .brand-logo{width:158px}
   .hero-stage{min-height:880px}
   .hero-vehicle-stage{min-height:880px}
-  .hero-vehicle-copy{top:17%}
-  .hero-vehicle-copy h1{font-size:58px}
+  .hero-vehicle-copy{top:16%}
+  .hero-vehicle-copy h1{font-size:56px}
+  .hero-brand{margin-top:16px}
+  .hero-availability{max-width:330px;margin-top:13px}
+  .hero-availability strong{font-size:8px}
+  .hero-price{margin-top:11px}
   .hero-price strong{font-size:26px}
-  .hero-car-frame{top:42%;height:31%}
+  .hero-vehicle-cta{margin-top:15px}
+  .hero-car-frame{top:46%;height:30%}
   .hero-specs{bottom:180px;grid-template-columns:1fr 1fr}
   .hero-specs div:nth-child(n+3){display:none}
   .hero-model-selector{grid-template-columns:repeat(5,180px)}
@@ -115,6 +125,9 @@
   .offer-deck-topline{display:block}
   .offer-deck-topline>a{margin-top:15px}
   .vehicle-visual{height:290px}
+  .vehicle-card-heading{gap:12px}
+  .vehicle-card-heading h3{font-size:22px}
+  .vehicle-card-price strong{font-size:20px}
   .offer-rail{grid-auto-columns:88vw}
   .match-controls h2{font-size:47px}
   .match-result{grid-template-columns:24px 92px 1fr 18px;min-height:135px}
@@ -125,6 +138,7 @@
   .renting-inclusions div{border-right:0}
   .alta-gama-wordmark{font-size:72px}
   .trust-system{grid-template-columns:1fr}
+  .trust-system>div{min-height:0;padding:20px 0;border-right:0}
   .trust-major{grid-column:auto}
   .footer-top{grid-template-columns:1fr;gap:28px}
   .footer-bottom{display:block}

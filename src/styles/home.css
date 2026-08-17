@@ -1,5 +1,5 @@
 /* Product rail */
-.offer-deck{padding:105px 0 130px}
+.offer-deck{padding:82px 0 130px}
 .offer-deck-topline{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:34px}
 .offer-deck-topline div span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.16em;color:#898c84;margin-bottom:7px}
 .offer-deck-topline div strong{font-size:32px;letter-spacing:-.04em}
@@ -18,14 +18,20 @@
 .vehicle-card-topline .vehicle-actions{pointer-events:auto}
 .vehicle-card-topline .vehicle-actions button{background:rgba(246,245,241,.9);border-color:transparent;width:38px;height:38px;min-height:38px}
 .vehicle-card-topline .vehicle-actions button.active{background:#11130f;color:#fff}
+.vehicle-card-availability{position:absolute;z-index:3;left:15px;bottom:15px;display:flex;align-items:center;gap:8px;max-width:calc(100% - 30px);padding:9px 11px;background:rgba(17,19,15,.86);color:#fff;backdrop-filter:blur(8px)}
+.vehicle-card-availability>span{width:6px;height:6px;border-radius:50%;background:#b7cfaf;flex:0 0 auto}
+.vehicle-card-availability strong{font-size:7px;line-height:1.4;font-weight:650;color:rgba(255,255,255,.78)}
 .vehicle-card-body{padding:20px}
 .vehicle-card-heading{display:flex;justify-content:space-between;gap:20px;align-items:start}
 .vehicle-card-heading>div:first-child>span{font-size:8px;text-transform:uppercase;letter-spacing:.13em;color:#858880}
 .vehicle-card-heading h3{font-size:24px;letter-spacing:-.045em;margin:5px 0 0;font-weight:650}
+.vehicle-card-heading p{font-size:9px;line-height:1.45;color:#777b73;margin:7px 0 0;max-width:220px}
 .vehicle-card-price{text-align:right;white-space:nowrap}
 .vehicle-card-price strong{display:block;font-size:22px;letter-spacing:-.04em}
-.vehicle-card-price small{font-size:7px;color:#898c84}
-.vehicle-card-facts{display:flex;gap:13px;flex-wrap:wrap;border-top:1px solid #e5e4df;margin-top:18px;padding-top:13px;font-size:8px;color:#666a61}
+.vehicle-card-price small{display:block;font-size:7px;color:#898c84}
+.vehicle-card-price small:first-child{text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px}
+.vehicle-card-facts{display:flex;gap:8px 13px;flex-wrap:wrap;border-top:1px solid #e5e4df;margin-top:18px;padding-top:13px;font-size:8px;color:#666a61}
+.vehicle-card-facts span:last-child{width:100%;color:#858980}
 .vehicle-card-open{display:flex;align-items:center;justify-content:space-between;margin-top:17px;font-size:9px;font-weight:750}
 .vehicle-card-open svg{width:14px}
 
@@ -82,13 +88,13 @@
 .alta-gama-home-bottom p{font:400 13px/1.6 Georgia,serif;max-width:560px;margin:0;color:rgba(255,255,255,.72)}
 .luxury-link{display:flex;align-items:center;gap:10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em}
 .luxury-link svg{width:16px}
-.trust-system{display:grid;grid-template-columns:1.2fr repeat(4,1fr);padding:72px 0 95px}
-.trust-system>div{border-right:1px solid var(--line);padding:10px 24px}
+.trust-system{display:grid;grid-template-columns:1.2fr repeat(4,1fr);padding:42px 0 12px}
+.trust-system>div{border-right:1px solid var(--line);padding:10px 24px;min-height:96px}
 .trust-system>div:first-child{padding-left:0}
 .trust-system>div:last-child{border-right:0}
-.trust-major strong{display:block;font-size:76px;line-height:.8;letter-spacing:-.07em}
+.trust-major strong{display:block;font-size:62px;line-height:.8;letter-spacing:-.07em}
 .trust-major span,.trust-cell span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.14em;color:#8d9089;margin-top:13px}
-.trust-cell strong{display:block;font-size:11px;line-height:1.5;margin-top:12px}
+.trust-cell strong{display:block;font-size:11px;line-height:1.5;margin-top:12px;max-width:180px}
 
 /* Footer */
 .footer{background:#0d100d;color:#fff;padding:64px 0 24px}

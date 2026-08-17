@@ -44,6 +44,14 @@ export default function Home() {
 
       <div className="finder-dock shell"><Finder /></div>
 
+      <section className="shell trust-system" aria-label="Por qué PRISMA Renting">
+        <div className="trust-major"><strong>25+</strong><span>años en automoción</span></div>
+        <div className="trust-cell"><span>Multioperador</span><strong>Compara alternativas entre distintos operadores.</strong></div>
+        <div className="trust-cell"><span>Asesoramiento</span><strong>Un especialista acompaña la operación.</strong></div>
+        <div className="trust-cell"><span>Perfiles</span><strong>Particulares · Autónomos · Empresas.</strong></div>
+        <div className="trust-cell"><span>Modalidades</span><strong>Tradicional · Flexible · ECO · A medida.</strong></div>
+      </section>
+
       <section className="offer-deck shell" aria-labelledby="featured-offers-title">
         <div className="offer-deck-topline">
           <div><span>Ofertas de renting destacadas</span><strong id="featured-offers-title">Empieza por el coche.</strong></div>
