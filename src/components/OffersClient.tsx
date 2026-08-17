@@ -83,7 +83,7 @@ export default function OffersClient({ initialFuel, initialBody, initialBudget, 
           <h1>Encuentra el coche.</h1>
         </div>
         <div className="catalog-dashboard-stats">
-          <div><span>Ofertas cargadas</span><strong>{vehicles.length}</strong></div>
+          <div><span>Selección online</span><strong>{vehicles.length}</strong></div>
           <div><span>Cuota mínima</span><strong>{minimum.toLocaleString("es-ES")} €</strong></div>
           <div><span>Cuota máxima</span><strong>{maximum.toLocaleString("es-ES")} €</strong></div>
           <div><span>Comparador</span><strong>Hasta 3</strong></div>
@@ -122,7 +122,7 @@ export default function OffersClient({ initialFuel, initialBody, initialBudget, 
 
       <section className="shell catalog-results">
         <div className="catalog-top">
-          <span>{hasActiveFilters ? "Filtros activos" : "Catálogo cargado en el concepto"}</span>
+          <span>{hasActiveFilters ? "Filtros activos" : "Selección disponible"}</span>
           {hasActiveFilters && <button type="button" onClick={reset}>Restablecer todo</button>}
         </div>
 
