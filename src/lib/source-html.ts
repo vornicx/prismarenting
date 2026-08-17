@@ -18,17 +18,22 @@ export function prepareOriginalHtml(input: string) {
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
     .replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, "")
+    // Elementor contact forms require the old WordPress JS/backend. They are replaced by
+    // source-matched Netlify Forms in the React page renderer.
+    .replace(/<form\b(?=[^>]*class=(?:"[^"]*elementor-form[^"]*"|'[^']*elementor-form[^']*'))[^>]*>[\s\S]*?<\/form>/gi, "")
+    // WooCommerce archive ordering is replaced by the migrated source-backed catalogue controls.
+    .replace(/<form\b(?=[^>]*class=(?:"[^"]*woocommerce-ordering[^"]*"|'[^']*woocommerce-ordering[^']*'))[^>]*>[\s\S]*?<\/form>/gi, "")
     .replace(/\son(?:click|load|error|submit|change|input|focus|blur)=(?:"[^"]*"|'[^']*')/gi, "")
     .replace(/\sstyle=(?:"[^"]*"|'[^']*')/gi, "")
-    .replace(/href=(['"])https?:\/\/(?:www\.)?prismarenting\.com([^'"]*)\1/gi, (_full, quote: string, path: string) => `href=${quote}${path || "/"}${quote}`)
-    .replace(/href=(['"])\/\/prismarenting\.com([^'"]*)\1/gi, (_full, quote: string, path: string) => `href=${quote}${path || "/"}${quote}`)
+    .replace(/href=(['"])https?:\/\/(?:www\.)?prismarenting\.com([^'"]*)\1/gi, (_full, quote: string, sourcePath: string) => `href=${quote}${sourcePath || "/"}${quote}`)
+    .replace(/href=(['"])\/\/prismarenting\.com([^'"]*)\1/gi, (_full, quote: string, sourcePath: string) => `href=${quote}${sourcePath || "/"}${quote}`)
     .replace(/(src|poster)=(['"])(\/(?:wp-content|wp-includes)\/[^'"]*)\2/gi, (_full, attr: string, quote: string, source: string) => `${attr}=${quote}${SOURCE_ORIGIN}${source}${quote}`)
     .replace(/(src|poster)=(['"])http:\/\/prismarenting\.com([^'"]*)\2/gi, (_full, attr: string, quote: string, source: string) => `${attr}=${quote}${SOURCE_ORIGIN}${source}${quote}`)
     .replace(/(src|poster)=(['"])https:\/\/www\.prismarenting\.com([^'"]*)\2/gi, (_full, attr: string, quote: string, source: string) => `${attr}=${quote}${SOURCE_ORIGIN}${source}${quote}`)
     .replace(/srcset=(['"])([^'"]*)\1/gi, (_full, quote: string, srcset: string) => `srcset=${quote}${rewriteSrcset(srcset)}${quote}`);
 
-  // Prevent WordPress form endpoints from posting to the legacy site. Inputs remain visible
-  // while the migrated project supplies its own operational forms later in the migration.
+  // Any other legacy form action pointing at WordPress is neutralized rather than silently
+  // sending the visitor back into the old application.
   html = html.replace(/<form\b([^>]*)\baction=(['"])https?:\/\/(?:www\.)?prismarenting\.com[^'"]*\2([^>]*)>/gi, "<form$1$3>");
   return html;
 }
