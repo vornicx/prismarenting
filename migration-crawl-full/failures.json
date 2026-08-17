@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/seat-nuevo-leon-2-0-tdi-85kw-ss-style/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/seat-nuevo-leon-1-5-tsi-96kw-ss-style/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/fiat-500-sport/",
+    "status": 200,
+    "content_type": "image/jpeg"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/renting-alfa-romeo/",
+    "status": 200,
+    "content_type": "image/png"
+  },
+  {
+    "url": "https://prismarenting.com/renting-fiat/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/nissan/xc40/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/nissan/xc60/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/ford-puma-titanium-10-ecoboost/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://prismarenting.com/ofertas-de-renting/hyundai/i30/",
+    "status": 404,
+    "content_type": "text/html; charset=UTF-8"
+  }
+]

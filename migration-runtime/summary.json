@@ -1,0 +1,10 @@
+{
+  "crawl_records": 744,
+  "wordpress_override_paths": 369,
+  "active_woocommerce_paths": 125,
+  "runtime_records": 380,
+  "full_fallback_records": 255,
+  "compact_active_product_metadata_records": 125,
+  "skipped_wordpress_overrides": 364,
+  "runtime_bytes": 31996084
+}

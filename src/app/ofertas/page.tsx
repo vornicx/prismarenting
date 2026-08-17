@@ -1,26 +1,13 @@
-import OffersClient from "@/components/OffersClient";
+import type { Metadata } from "next";
+import OriginalCatalogTemplate from "@/components/original/OriginalCatalogTemplate";
 
-type SearchParams = Promise<{
-  fuel?: string | string[];
-  body?: string | string[];
-  budget?: string | string[];
-  brand?: string | string[];
-  transmission?: string | string[];
-  cliente?: string | string[];
-}>;
+export const dynamic = "force-dynamic";
 
-const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
+export const metadata: Metadata = {
+  title: "Ofertas de renting | PRISMA Renting",
+  alternates: { canonical: "/ofertas-de-renting/" },
+};
 
-export default async function OffersPage({ searchParams }: { searchParams: SearchParams }) {
-  const params = await searchParams;
-  return (
-    <OffersClient
-      initialFuel={first(params.fuel) || "Todos"}
-      initialBody={first(params.body) || "Todos"}
-      initialBudget={first(params.budget) || "Todos"}
-      initialBrand={first(params.brand) || "Todas"}
-      initialTransmission={first(params.transmission) || "Todas"}
-      initialProfile={first(params.cliente) || "Todos"}
-    />
-  );
+export default function OffersPage() {
+  return <OriginalCatalogTemplate />;
 }

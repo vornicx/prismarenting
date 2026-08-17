@@ -1,0 +1,56 @@
+name: PRISMA Migration Crawl
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - "scripts/crawl_prisma.py"
+      - "scripts/crawl_prisma_fast.py"
+      - "scripts/crawl_prisma_full.py"
+      - ".github/workflows/prisma-migration-crawl.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install crawler dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Crawl original PRISMA site
+        run: python scripts/crawl_prisma_full.py
+
+      - name: Show migration summary
+        run: cat migration-output/summary.json
+
+      - name: Upload migration inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: prisma-migration-inventory
+          path: migration-output/
+          retention-days: 3
+
+      - name: Persist migration inventory
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-output
+          git diff --cached --quiet || git commit -m "data: snapshot original PRISMA site"
+          git pull --rebase origin archic-prisma-full-migration
+          git push origin HEAD:archic-prisma-full-migration
