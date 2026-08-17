@@ -2,10 +2,7 @@ import Link from "next/link";
 import OriginalVehicleCard from "@/components/original/OriginalVehicleCard";
 import { OriginalFooter, OriginalHeader } from "@/components/original/OriginalChrome";
 import { getProductsLinkedFromPage, type OriginalPage } from "@/lib/original-source";
-
-function sourceHtml(page: OriginalPage): string {
-  return (page as OriginalPage & { content_html?: string }).content_html || "";
-}
+import { prepareOriginalHtml } from "@/lib/source-html";
 
 function cleanTitle(page: OriginalPage): string {
   return page.h1?.[0] || page.og_title || page.title.replace(/\s*[|–]\s*Prisma Renting.*$/i, "").trim();
@@ -13,7 +10,7 @@ function cleanTitle(page: OriginalPage): string {
 
 export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
   const products = getProductsLinkedFromPage(page.path);
-  const html = sourceHtml(page);
+  const html = prepareOriginalHtml(page.content_html || "");
   const title = cleanTitle(page);
 
   return (
@@ -22,7 +19,7 @@ export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
       <section className="source-page-hero">
         <div className="source-shell source-page-hero-grid">
           <div>
-            <span className="source-eyebrow">PRISMA Renting · contenido original migrado</span>
+            <span className="source-eyebrow">PRISMA Renting</span>
             <h1>{title}</h1>
           </div>
           <div className="source-page-intro">
@@ -35,7 +32,7 @@ export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
       {products.length > 0 && (
         <section className="source-shell source-linked-products" aria-labelledby="source-products-heading">
           <div className="source-section-heading">
-            <span>Vehículos relacionados en la web original</span>
+            <span>Vehículos relacionados</span>
             <h2 id="source-products-heading">Ofertas asociadas a esta búsqueda.</h2>
             <Link href="/ofertas-de-renting/">Ver todas las ofertas</Link>
           </div>
@@ -49,14 +46,9 @@ export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
         {html ? (
           <div className="source-content-flow" dangerouslySetInnerHTML={{ __html: html }} />
         ) : page.body_text ? (
-          <div className="source-content-fallback">
-            <p>{page.body_text}</p>
-          </div>
+          <div className="source-content-fallback"><p>{page.body_text}</p></div>
         ) : (
-          <div className="source-content-empty">
-            <h2>Contenido pendiente de importar</h2>
-            <p>Esta URL forma parte del inventario de migración, pero el contenido completo aún no ha llegado al snapshot local.</p>
-          </div>
+          <div className="source-content-empty"><h2>Contenido pendiente de importar</h2><p>Esta URL forma parte del inventario de migración, pero el contenido completo aún no ha llegado al snapshot local.</p></div>
         )}
       </section>
       <OriginalFooter />
