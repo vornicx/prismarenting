@@ -1,0 +1,6 @@
+[
+  {
+    "url": "https://prismarenting.com/",
+    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='prismarenting.com', port=443): Read timed out. (read timeout=22)\"))"
+  }
+]
