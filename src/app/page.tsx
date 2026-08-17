@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Finder from "@/components/Finder";
 import HeroVehicleStage from "@/components/HeroVehicleStage";
+import PrismaJournal from "@/components/PrismaJournal";
 import ProfileRentingSwitch from "@/components/ProfileRentingSwitch";
 import QuickMatchLab from "@/components/QuickMatchLab";
 import RentingNeedNavigator from "@/components/RentingNeedNavigator";
@@ -38,24 +39,17 @@ export default function Home() {
     <main>
       <section className="hero-stage">
         <Header />
-        <div className="shell hero-stage-shell">
-          <HeroVehicleStage vehicles={vehicles} />
-        </div>
+        <div className="shell hero-stage-shell"><HeroVehicleStage vehicles={vehicles} /></div>
       </section>
 
       <div className="finder-dock shell"><Finder /></div>
 
       <section className="offer-deck shell" aria-labelledby="featured-offers-title">
         <div className="offer-deck-topline">
-          <div>
-            <span>Ofertas de renting destacadas</span>
-            <strong id="featured-offers-title">Primero, coches.</strong>
-          </div>
+          <div><span>Ofertas de renting destacadas</span><strong id="featured-offers-title">Primero, coches.</strong></div>
           <Link href="/ofertas">Ver todas las ofertas <ArrowUpRight /></Link>
         </div>
-        <div className="offer-rail">
-          {vehicles.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} mode="rail" />)}
-        </div>
+        <div className="offer-rail">{vehicles.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} mode="rail" />)}</div>
       </section>
 
       <RentingNeedNavigator />
@@ -68,12 +62,7 @@ export default function Home() {
         </div>
         <div className="modality-lines">
           {modalities.map(([name, meta, href], index) => (
-            <Link href={href} key={name} className="modality-line">
-              <span>0{index + 1}</span>
-              <strong>{name}</strong>
-              <small>{meta}</small>
-              <ArrowUpRight />
-            </Link>
+            <Link href={href} key={name} className="modality-line"><span>0{index + 1}</span><strong>{name}</strong><small>{meta}</small><ArrowUpRight /></Link>
           ))}
         </div>
       </section>
@@ -86,26 +75,18 @@ export default function Home() {
         <div className="vehicle-type-marquee">
           <div className="shell vehicle-type-grid">
             {vehicleTypes.map(([label, slug], index) => (
-              <Link href={`/tipo/${slug}`} key={slug} className="vehicle-type-item">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{label}</strong>
-                <ArrowUpRight />
-              </Link>
+              <Link href={`/tipo/${slug}`} key={slug} className="vehicle-type-item"><span>{String(index + 1).padStart(2, "0")}</span><strong>{label}</strong><ArrowUpRight /></Link>
             ))}
           </div>
         </div>
       </section>
 
       <ProfileRentingSwitch />
-
       <QuickMatchLab vehicles={vehicles} />
 
       <section className="renting-console">
         <div className="shell renting-console-grid">
-          <div className="renting-console-title">
-            <span>Servicios habituales en la cuota</span>
-            <h2>El coste del coche deja de estar repartido en sorpresas.</h2>
-          </div>
+          <div className="renting-console-title"><span>Servicios habituales en la cuota</span><h2>El coste del coche deja de estar repartido en sorpresas.</h2></div>
           <div className="renting-inclusions">
             <div><Check /><span>Seguro</span><strong>Incluido*</strong></div>
             <div><Check /><span>Mantenimiento</span><strong>Incluido*</strong></div>
@@ -127,18 +108,12 @@ export default function Home() {
         </div>
       </section>
 
+      <PrismaJournal />
+
       <section className="renting-process" aria-labelledby="process-title">
-        <div className="shell renting-process-head">
-          <span>Contratación</span>
-          <h2 id="process-title">Cinco pasos. Siempre visibles.</h2>
-          <a href="tel:+34699242581">Hablar con un asesor <ArrowUpRight /></a>
-        </div>
+        <div className="shell renting-process-head"><span>Contratación</span><h2 id="process-title">Cinco pasos. Siempre visibles.</h2><a href="tel:+34699242581">Hablar con un asesor <ArrowUpRight /></a></div>
         <div className="shell renting-process-track">
-          {process.map(([number, title, copy]) => (
-            <div className="renting-process-step" key={number}>
-              <span>{number}</span><strong>{title}</strong><p>{copy}</p>
-            </div>
-          ))}
+          {process.map(([number, title, copy]) => <div className="renting-process-step" key={number}><span>{number}</span><strong>{title}</strong><p>{copy}</p></div>)}
         </div>
       </section>
 
