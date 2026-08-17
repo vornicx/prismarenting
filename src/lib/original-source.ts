@@ -1,9 +1,27 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export type OriginalImage = {
-  src: string;
-  alt?: string;
+export type OriginalImage = { src: string; alt?: string };
+export type OriginalHeading = { level: string; text: string };
+
+export type OriginalPage = {
+  url: string;
+  canonical: string;
+  path: string;
+  type: string;
+  title: string;
+  meta_description?: string;
+  og_title?: string;
+  og_description?: string;
+  h1?: string[];
+  headings?: OriginalHeading[];
+  body_text?: string;
+  content_html?: string;
+  images?: OriginalImage[];
+  internal_links?: string[];
+  schema_types?: string[];
+  tables?: string[][];
+  vehicle?: { name?: string; brand_slug?: string; price?: number | null; attributes?: string[][] };
 };
 
 export type OriginalProduct = {
@@ -22,35 +40,6 @@ export type OriginalProduct = {
   source: "woocommerce" | "crawl";
 };
 
-export type OriginalHeading = {
-  level: "h1" | "h2" | "h3" | string;
-  text: string;
-};
-
-export type OriginalPage = {
-  url: string;
-  canonical: string;
-  path: string;
-  type: string;
-  title: string;
-  meta_description?: string;
-  og_title?: string;
-  og_description?: string;
-  h1?: string[];
-  headings?: OriginalHeading[];
-  body_text?: string;
-  images?: OriginalImage[];
-  internal_links?: string[];
-  schema_types?: string[];
-  tables?: string[][];
-  vehicle?: {
-    name?: string;
-    brand_slug?: string;
-    price?: number | null;
-    attributes?: string[][];
-  };
-};
-
 type WooProduct = {
   id?: number | string;
   name?: string;
@@ -64,6 +53,26 @@ type WooProduct = {
   categories?: Array<{ name?: string; slug?: string }>;
   tags?: Array<{ name?: string; slug?: string }>;
   attributes?: Array<{ name?: string; terms?: Array<string | { name?: string }> }>;
+};
+
+type WordPressItem = {
+  id?: number;
+  kind?: "pages" | "posts";
+  slug?: string;
+  path?: string;
+  url?: string;
+  title?: string;
+  excerpt?: string;
+  content_html?: string;
+  body_text?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    canonical?: string;
+    og_title?: string;
+    og_description?: string;
+    og_image?: Array<{ url?: string }> | string;
+  };
 };
 
 let pageCache: OriginalPage[] | null = null;
@@ -91,7 +100,7 @@ function normalizePath(input: string): string {
   }
 }
 
-function cleanHtml(value: string | undefined): string {
+function cleanHtml(value?: string): string {
   if (!value) return "";
   return value
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -109,11 +118,56 @@ function cleanHtml(value: string | undefined): string {
     .trim();
 }
 
-function categoryNames(items: WooProduct["categories"]): string[] {
-  return (items ?? []).map((item) => item.name || item.slug || "").filter(Boolean);
+function extractInternalLinks(html: string): string[] {
+  const links = new Set<string>();
+  for (const match of html.matchAll(/href=["']([^"']+)["']/gi)) {
+    const raw = match[1];
+    if (!raw || raw.startsWith(("#", "mailto:", "tel:", "javascript:"))) continue;
+    try {
+      const url = new URL(raw, "https://prismarenting.com");
+      if (["prismarenting.com", "www.prismarenting.com"].includes(url.hostname)) links.add(`https://prismarenting.com${normalizePath(url.pathname)}`);
+    } catch {
+      continue;
+    }
+  }
+  return [...links];
 }
 
-function tagNames(items: WooProduct["tags"]): string[] {
+function wpType(item: WordPressItem, sourcePath: string): string {
+  if (item.kind === "posts") return sourcePath === "/blog/" ? "blog-index" : "blog-post";
+  if (["/renting-coches-particulares/", "/renting-coches-autonomos/", "/renting-coches-empresas/"].includes(sourcePath)) return "profile";
+  if (["/contacto/", "/nosotros/", "/faqs/", "/aviso-legal/", "/politica-de-privacidad/", "/politica-de-cookies/"].includes(sourcePath)) return "corporate";
+  if (sourcePath.startsWith("/ofertas-de-renting")) return "catalog";
+  return "seo-landing";
+}
+
+function wpToPage(item: WordPressItem): OriginalPage | null {
+  const sourcePath = normalizePath(item.path || item.url || "");
+  if (!item.url && sourcePath === "/") return null;
+  const content = item.content_html || "";
+  const canonical = item.seo?.canonical || item.url || `https://prismarenting.com${sourcePath}`;
+  const title = item.seo?.title || item.title || "PRISMA Renting";
+  return {
+    url: item.url || canonical,
+    canonical,
+    path: sourcePath,
+    type: wpType(item, sourcePath),
+    title,
+    meta_description: item.seo?.description || item.excerpt,
+    og_title: item.seo?.og_title,
+    og_description: item.seo?.og_description,
+    h1: item.title ? [item.title] : [],
+    headings: [],
+    body_text: item.body_text || cleanHtml(content),
+    content_html: content,
+    images: [],
+    internal_links: extractInternalLinks(content),
+    schema_types: [],
+    tables: [],
+  };
+}
+
+function names(items: WooProduct["categories"] | WooProduct["tags"]): string[] {
   return (items ?? []).map((item) => item.name || item.slug || "").filter(Boolean);
 }
 
@@ -124,7 +178,7 @@ function normalizeAttributes(items: WooProduct["attributes"]): OriginalProduct["
   })).filter((attribute) => attribute.terms.length > 0);
 }
 
-function normalizeWooProduct(product: WooProduct): OriginalProduct | null {
+function wooToProduct(product: WooProduct): OriginalProduct | null {
   if (!product.name) return null;
   const permalink = product.permalink || "";
   const fallbackSlug = product.slug || product.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -138,14 +192,14 @@ function normalizeWooProduct(product: WooProduct): OriginalProduct | null {
     description: cleanHtml(product.description),
     shortDescription: cleanHtml(product.short_description || product.summary),
     images: (product.images ?? []).map((image) => ({ src: image.src || "", alt: image.alt || product.name! })).filter((image) => image.src),
-    categories: categoryNames(product.categories),
-    tags: tagNames(product.tags),
+    categories: names(product.categories),
+    tags: names(product.tags),
     attributes: normalizeAttributes(product.attributes),
     source: "woocommerce",
   };
 }
 
-function normalizeCrawlVehicle(page: OriginalPage): OriginalProduct | null {
+function crawlToProduct(page: OriginalPage): OriginalProduct | null {
   if (!page.vehicle?.name) return null;
   const pagePath = normalizePath(page.path || page.canonical || page.url);
   const slug = pagePath.split("/").filter(Boolean).at(-1) || page.vehicle.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -168,16 +222,24 @@ function normalizeCrawlVehicle(page: OriginalPage): OriginalProduct | null {
 
 export function getOriginalPages(): OriginalPage[] {
   if (pageCache) return pageCache;
-  const pages = readJson<OriginalPage[]>("migration-output/pages.json", []);
-  const vehicles = readJson<OriginalPage[]>("migration-output/vehicles.json", []);
-  pageCache = [...pages, ...vehicles].map((page) => ({ ...page, path: normalizePath(page.path || page.canonical || page.url) }));
+  const wpPages = readJson<WordPressItem[]>("migration-content/pages.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
+  const wpPosts = readJson<WordPressItem[]>("migration-content/posts.json", []).map(wpToPage).filter((page): page is OriginalPage => Boolean(page));
+  const crawlPages = readJson<OriginalPage[]>("migration-output/pages.json", []);
+  const crawlVehicles = readJson<OriginalPage[]>("migration-output/vehicles.json", []);
+  const byPath = new Map<string, OriginalPage>();
+  for (const page of [...crawlPages, ...crawlVehicles]) {
+    const sourcePath = normalizePath(page.path || page.canonical || page.url);
+    byPath.set(sourcePath, { ...page, path: sourcePath });
+  }
+  for (const page of [...wpPages, ...wpPosts]) byPath.set(page.path, page);
+  pageCache = [...byPath.values()];
   return pageCache;
 }
 
 export function getOriginalProducts(): OriginalProduct[] {
   if (productCache) return productCache;
-  const woo = readJson<WooProduct[]>("migration-products/products.json", []).map(normalizeWooProduct).filter((item): item is OriginalProduct => Boolean(item));
-  const crawl = getOriginalPages().filter((page) => page.type === "vehicle").map(normalizeCrawlVehicle).filter((item): item is OriginalProduct => Boolean(item));
+  const woo = readJson<WooProduct[]>("migration-products/products.json", []).map(wooToProduct).filter((item): item is OriginalProduct => Boolean(item));
+  const crawl = getOriginalPages().filter((page) => page.type === "vehicle").map(crawlToProduct).filter((item): item is OriginalProduct => Boolean(item));
   const byPath = new Map<string, OriginalProduct>();
   for (const product of crawl) byPath.set(product.path, product);
   for (const product of woo) byPath.set(product.path, product);
@@ -187,7 +249,7 @@ export function getOriginalProducts(): OriginalProduct[] {
 
 export function getOriginalPage(sourcePath: string): OriginalPage | undefined {
   const wanted = normalizePath(sourcePath);
-  return getOriginalPages().find((page) => normalizePath(page.path) === wanted);
+  return getOriginalPages().find((page) => page.path === wanted);
 }
 
 export function getOriginalProduct(sourcePath: string): OriginalProduct | undefined {
@@ -203,23 +265,17 @@ export function getProductsLinkedFromPage(sourcePath: string): OriginalProduct[]
 }
 
 export function getProductsForProfile(profile: "particulares" | "autonomos" | "empresas"): OriginalProduct[] {
-  const originalPath = profile === "particulares"
-    ? "/renting-coches-particulares/"
-    : profile === "autonomos"
-      ? "/renting-coches-autonomos/"
-      : "/renting-coches-empresas/";
+  const originalPath = profile === "particulares" ? "/renting-coches-particulares/" : profile === "autonomos" ? "/renting-coches-autonomos/" : "/renting-coches-empresas/";
   const linked = getProductsLinkedFromPage(originalPath);
-  if (linked.length) return linked;
-
-  const needles = profile === "particulares"
-    ? ["particular", "particulares"]
-    : profile === "autonomos"
-      ? ["autonomo", "autónomo", "autonomos", "autónomos"]
-      : ["empresa", "empresas"];
-  return getOriginalProducts().filter((product) => {
+  const needles = profile === "particulares" ? ["particular", "particulares"] : profile === "autonomos" ? ["autonomo", "autónomo", "autonomos", "autónomos"] : ["empresa", "empresas"];
+  const taxonomic = getOriginalProducts().filter((product) => {
     const haystack = [...product.categories, ...product.tags, ...product.attributes.flatMap((attribute) => [attribute.name, ...attribute.terms])].join(" ").toLowerCase();
     return needles.some((needle) => haystack.includes(needle));
   });
+  const byPath = new Map<string, OriginalProduct>();
+  for (const product of taxonomic) byPath.set(product.path, product);
+  for (const product of linked) byPath.set(product.path, product);
+  return [...byPath.values()];
 }
 
 export function getOriginalPaths(): string[] {
