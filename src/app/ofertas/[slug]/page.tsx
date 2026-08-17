@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const vehicle = getVehicle(slug);
   if (!vehicle) return {};
   return {
-    title: `${vehicle.name} de renting | PRISMA Renting`,
+    title: `${vehicle.name} de renting`,
     description: `${vehicle.name} desde ${vehicle.price} €/mes + IVA. Consulta disponibilidad, servicios y configura una solicitud de renting con PRISMA.`,
   };
 }
@@ -75,7 +75,7 @@ export default async function Detail({ params }: { params: Promise<{ slug: strin
             <div className="detail-price-stack">
               <span>Desde</span>
               <div><strong>{vehicle.price.toLocaleString("es-ES")} €</strong><small>/mes + IVA</small></div>
-              <p>Cuota de referencia de la oferta cargada. PRISMA confirma la propuesta final según perfil, operador, plazo y kilometraje.</p>
+              <p>Cuota de referencia. PRISMA confirma la propuesta final según perfil, operador, plazo, kilometraje y disponibilidad.</p>
             </div>
 
             <div className="detail-offer-actions">
@@ -116,7 +116,7 @@ export default async function Detail({ params }: { params: Promise<{ slug: strin
         <div className="detail-decision-intro">
           <span>Tu operación</span>
           <h2>El coche puede encajar. La operación también tiene que hacerlo.</h2>
-          <p>Plazo, kilometraje y perfil cambian las condiciones reales. El configurador prepara una solicitud útil sin simular una cuota que todavía no ha confirmado el operador.</p>
+          <p>Plazo, kilometraje y perfil cambian las condiciones reales. Indica tus preferencias y PRISMA preparará una propuesta con las condiciones confirmadas por el operador.</p>
         </div>
         <RequestConfigurator vehicle={vehicle} />
       </section>
