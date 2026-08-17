@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 CONTENT = Path("migration-content")
 PRODUCTS = Path("migration-products/products.json")
-CRAWL = Path("migration-crawl-full")
+RUNTIME = Path("migration-runtime")
 OUT = Path("migration-report")
 
 EXPLICIT_SEGMENTS = {"api", "alta-gama", "blog", "comparar", "favoritos", "modalidades", "ofertas", "perfil", "tipo"}
@@ -70,15 +70,14 @@ def main():
     wp_pages = load(CONTENT / "pages.json", [])
     wp_posts = load(CONTENT / "posts.json", [])
     active_products = load(PRODUCTS, [])
-    crawl_inventory = load(CRAWL / "inventory.json", [])
-    crawl_vehicles = load(CRAWL / "vehicles.json", [])
-    crawl_failures = load(CRAWL / "failures.json", [])
-    crawl_summary = load(CRAWL / "summary.json", {})
+    runtime_records = load(RUNTIME / "crawl-runtime.json", [])
+    runtime_failures = load(RUNTIME / "crawl-failures.json", [])
+    runtime_summary = load(RUNTIME / "summary.json", {})
 
     routes = defaultdict(lambda: {"sources": set(), "kinds": set(), "title": ""})
 
-    for item in crawl_inventory:
-        add_record(routes, source="crawl", kind=item.get("type") or "crawl", route=item.get("path") or item.get("canonical") or item.get("url") or "", title=item.get("title") or "")
+    for item in runtime_records:
+        add_record(routes, source="crawl-runtime", kind=item.get("type") or "crawl", route=item.get("path") or item.get("canonical") or item.get("url") or "", title=item.get("title") or "")
     for item in wp_pages:
         add_record(routes, source="wordpress-page", kind="page", route=item.get("path") or item.get("url") or "", title=item.get("title") or "")
     for item in wp_posts:
@@ -103,15 +102,15 @@ def main():
         if not covered:
             uncovered.append(row)
 
-    crawl_paths = {normalize(item.get("path") or item.get("canonical") or item.get("url") or "") for item in crawl_inventory}
-    crawl_vehicle_paths = {normalize(item.get("path") or item.get("canonical") or item.get("url") or "") for item in crawl_vehicles}
+    runtime_paths = {normalize(item.get("path") or item.get("canonical") or item.get("url") or "") for item in runtime_records}
+    runtime_vehicle_paths = {normalize(item.get("path") or item.get("canonical") or item.get("url") or "") for item in runtime_records if item.get("type") == "vehicle"}
     active_paths = {product_path(item) for item in active_products}
     wp_paths = {normalize(item.get("path") or item.get("url") or "") for item in wp_pages + wp_posts}
 
-    active_missing_from_crawl = sorted(active_paths - crawl_paths)
-    crawl_vehicle_not_active = sorted(crawl_vehicle_paths - active_paths)
-    crawl_vehicle_active_overlap = sorted(crawl_vehicle_paths & active_paths)
-    wp_missing_from_crawl = sorted(wp_paths - crawl_paths)
+    active_missing_from_runtime = sorted(active_paths - runtime_paths)
+    historical_vehicle_paths = sorted(runtime_vehicle_paths - active_paths)
+    active_runtime_overlap = sorted(runtime_vehicle_paths & active_paths)
+    wp_missing_from_runtime = sorted(wp_paths - runtime_paths)
 
     missing_active_price = [item.get("name") for item in active_products if item.get("price") is None]
     missing_active_images = [item.get("name") for item in active_products if not item.get("images")]
@@ -124,7 +123,7 @@ def main():
 
     valid_failure_exceptions = []
     unexpected_failures = []
-    for item in crawl_failures:
+    for item in runtime_failures:
         status = item.get("status")
         content_type = str(item.get("content_type") or "")
         row = {"url": item.get("url"), "status": status, "content_type": content_type, "error": item.get("error")}
@@ -135,9 +134,9 @@ def main():
 
     report = {
         "source": {
-            "crawl_records": len(crawl_inventory),
-            "crawl_sitemap_urls": crawl_summary.get("sitemap_urls"),
-            "crawl_vehicle_pages": len(crawl_vehicles),
+            "crawl_records": runtime_summary.get("crawl_records"),
+            "runtime_records": len(runtime_records),
+            "crawl_vehicle_pages": len(runtime_vehicle_paths),
             "wordpress_pages": len(wp_pages),
             "wordpress_posts": len(wp_posts),
             "active_woocommerce_products": len(active_products),
@@ -150,16 +149,16 @@ def main():
         },
         "catalog_reconciliation": {
             "active_products": len(active_paths),
-            "crawl_vehicle_pages": len(crawl_vehicle_paths),
-            "active_and_crawl_overlap": len(crawl_vehicle_active_overlap),
-            "active_missing_from_crawl": active_missing_from_crawl,
-            "preserved_nonactive_vehicle_routes": len(crawl_vehicle_not_active),
-            "preserved_nonactive_vehicle_paths": crawl_vehicle_not_active,
+            "crawl_vehicle_pages": len(runtime_vehicle_paths),
+            "active_and_crawl_overlap": len(active_runtime_overlap),
+            "active_missing_from_runtime": active_missing_from_runtime,
+            "preserved_nonactive_vehicle_routes": len(historical_vehicle_paths),
+            "preserved_nonactive_vehicle_paths": historical_vehicle_paths,
             "active_missing_price": missing_active_price,
             "active_missing_images": missing_active_images,
         },
         "editorial_reconciliation": {
-            "wordpress_routes_missing_from_crawl": wp_missing_from_crawl,
+            "wordpress_routes_missing_from_runtime": wp_missing_from_runtime,
             "without_rendered_html": content_without_html,
         },
         "crawl_failures": {
@@ -175,21 +174,22 @@ def main():
         writer.writeheader(); writer.writerows(coverage)
 
     print(json.dumps({
-        "crawl_records": len(crawl_inventory),
+        "crawl_records": runtime_summary.get("crawl_records"),
+        "runtime_records": len(runtime_records),
         "union_unique_routes": len(routes),
         "covered": len(coverage) - len(uncovered),
         "uncovered": len(uncovered),
         "active_products": len(active_paths),
-        "crawl_vehicle_pages": len(crawl_vehicle_paths),
-        "active_overlap": len(crawl_vehicle_active_overlap),
-        "preserved_nonactive_vehicle_routes": len(crawl_vehicle_not_active),
-        "wp_missing_from_crawl": len(wp_missing_from_crawl),
+        "crawl_vehicle_pages": len(runtime_vehicle_paths),
+        "active_overlap": len(active_runtime_overlap),
+        "preserved_nonactive_vehicle_routes": len(historical_vehicle_paths),
+        "wp_missing_from_runtime": len(wp_missing_from_runtime),
         "unexpected_crawl_failures": len(unexpected_failures),
     }, ensure_ascii=False, indent=2), flush=True)
 
     fatal = []
-    if not crawl_inventory or len(crawl_inventory) < 700:
-        fatal.append("complete crawl snapshot is missing or incomplete")
+    if runtime_summary.get("crawl_records", 0) < 700 or len(runtime_records) < 300:
+        fatal.append("compact runtime snapshot is missing or incomplete")
     if uncovered:
         fatal.append(f"{len(uncovered)} source routes are not handled by the application")
     if len(active_paths) != len(active_products):
