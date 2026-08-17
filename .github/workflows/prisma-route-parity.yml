@@ -5,6 +5,7 @@ on:
     branches:
       - archic-prisma-full-migration
     paths:
+      - "migration-crawl-full/**"
       - "migration-products/**"
       - "migration-content/**"
       - "scripts/check_route_parity.py"
