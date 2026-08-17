@@ -1,0 +1,1566 @@
+{
+  "products": 125,
+  "unique_product_paths": 125,
+  "duplicate_product_paths": [],
+  "products_with_price": 125,
+  "products_with_images": 125,
+  "pages": 0,
+  "unique_page_paths": 0,
+  "profiles_detected": {
+    "particulares": 124,
+    "autonomos": 125,
+    "empresas": 125
+  },
+  "brands": {
+    "Peugeot": 9,
+    "BMW": 9,
+    "Citroen": 9,
+    "Mercedes-Benz": 8,
+    "Volkswagen": 8,
+    "Kia": 7,
+    "Audi": 6,
+    "Toyota": 6,
+    "Fiat": 6,
+    "Skoda": 5,
+    "DS": 5,
+    "Opel": 5,
+    "Seat": 5,
+    "Hyundai": 5,
+    "Ford": 5,
+    "Nissan": 4,
+    "Porsche": 4,
+    "Mazda": 3,
+    "Jeep": 3,
+    "Renault": 3,
+    "Mini": 3,
+    "Lexus": 2,
+    "Polestar": 1,
+    "Alfa Romeo": 1,
+    "Cupra": 1,
+    "Volvo": 1,
+    "MG": 1
+  },
+  "categories": {
+    "PEUGEOT": 9,
+    "BMW": 9,
+    "CITROEN": 9,
+    "VOLKSWAGEN": 8,
+    "MERCEDEZ-BENZ": 7,
+    "KIA": 7,
+    "AUDI": 6,
+    "TOYOTA": 6,
+    "FIAT": 6,
+    "SKODA": 5,
+    "DS": 5,
+    "OPEL": 5,
+    "SEAT": 5,
+    "HYUNDAI": 5,
+    "FORD": 5,
+    "NISSAN": 4,
+    "PORSCHE": 4,
+    "MAZDA": 3,
+    "JEEP": 3,
+    "RENAULT": 3,
+    "MINI": 3,
+    "Q5": 2,
+    "3": 2,
+    "COMPASS": 2,
+    "500": 2,
+    "7": 2,
+    "C5 Aircross": 2,
+    "NIRO": 2,
+    "LEXUS": 2,
+    "C5 X": 2,
+    "COOPER": 2,
+    "208": 2,
+    "TAYCAN": 2,
+    "2": 1,
+    "POLESTAR": 1,
+    "EQB": 1,
+    "MERCEDES-BENZ": 1,
+    "CX-30": 1,
+    "6": 1,
+    "508": 1,
+    "Aygo X Cross": 1,
+    "Citan": 1,
+    "ALFA ROMEO": 1,
+    "Stelvio": 1,
+    "Serie 4": 1,
+    "SERIE 2": 1,
+    "Scudo": 1,
+    "3008": 1,
+    "X1": 1,
+    "X2": 1,
+    "X3": 1,
+    "BERLINGO": 1,
+    "308": 1,
+    "5008": 1,
+    "Scala": 1,
+    "C3 Aircross": 1,
+    "EXPRESS": 1,
+    "CUPRA": 1,
+    "FORMENTOR": 1,
+    "4": 1,
+    "CORSA": 1,
+    "9": 1,
+    "Ibiza": 1,
+    "C3": 1,
+    "XCEED": 1,
+    "ARONA": 1,
+    "RIFTER": 1,
+    "Kodiaq": 1,
+    "CEED": 1,
+    "Mokka": 1,
+    "A4": 1,
+    "Nx": 1,
+    "A1": 1,
+    "STONIC": 1,
+    "PARTNER": 1,
+    "C-HR": 1,
+    "Q2": 1,
+    "CLIO": 1,
+    "UX": 1,
+    "MICRA": 1,
+    "Enyaq": 1,
+    "KAMIQ": 1,
+    "KAROQ": 1,
+    "C4": 1,
+    "2008": 1,
+    "JUKE": 1,
+    "ATECA": 1,
+    "León": 1,
+    "DOBLO CARGO": 1,
+    "Fiorino": 1,
+    "KANGOO COMBI": 1,
+    "Caddy": 1,
+    "QASHQAI": 1,
+    "New Sportage": 1,
+    "Tucson": 1,
+    "Bayon": 1,
+    "i20": 1,
+    "PUMA": 1,
+    "FOCUS": 1,
+    "Wrangler": 1,
+    "COUNTRYMAN": 1,
+    "Kona": 1,
+    "COROLLA": 1,
+    "I30": 1,
+    "Tiguan": 1,
+    "VOLVO": 1,
+    "Xc60": 1,
+    "X5": 1,
+    "TRANSPORTER": 1,
+    "Q3": 1,
+    "PICANTO": 1,
+    "EHS": 1,
+    "MG": 1,
+    "SERIE 1": 1,
+    "7 CROSSBACK": 1,
+    "FIESTA": 1,
+    "GLC": 1,
+    "Tipo": 1,
+    "GRANDLAND": 1,
+    "X4": 1,
+    "GOLF": 1,
+    "KUGA": 1,
+    "COMBO": 1,
+    "GLA": 1,
+    "GLB": 1,
+    "POLO": 1,
+    "ARTEON": 1,
+    "YARIS": 1,
+    "RAV4": 1,
+    "E-208": 1,
+    "LEAF": 1,
+    "Furgonetas": 1,
+    "TRANSIT COURIER VAN": 1,
+    "PROACE CITY": 1,
+    "VIVARO M": 1,
+    "JUMPY M": 1,
+    "MACAN": 1,
+    "CAYENNE": 1,
+    "CLASE V": 1,
+    "TARRACO": 1,
+    "CLASE A": 1,
+    "T-CROSS": 1,
+    "3 CROSSBACK": 1,
+    "T-ROC": 1,
+    "EQV": 1,
+    "IX3": 1
+  },
+  "tags": {
+    "Empresas": 117,
+    "Particulares": 115,
+    "Autonomo": 78,
+    "Autonomos": 47,
+    "empresas y particulares": 8
+  },
+  "attribute_names": {
+    "Kilómetros": 125,
+    "Meses": 125,
+    "Combustible": 125,
+    "Transmisión": 125,
+    "Etiqueta": 125,
+    "tipo": 123
+  },
+  "attribute_terms_top": {
+    "Kilómetros :: 10000": 125,
+    "Kilómetros :: 15000": 125,
+    "Kilómetros :: 20000": 125,
+    "Meses :: 36": 125,
+    "Meses :: 48": 125,
+    "Kilómetros :: 30000": 120,
+    "Meses :: 60": 120,
+    "Transmisión :: Automatico": 120,
+    "Combustible :: Gasolina": 104,
+    "Transmisión :: Manual": 98,
+    "Etiqueta :: Etiqueta C": 87,
+    "tipo :: SUV": 85,
+    "tipo :: SUV automatico": 85,
+    "tipo :: Familiar": 84,
+    "Combustible :: Diesel": 73,
+    "Combustible :: Hibrido": 58,
+    "tipo :: SUV hibrido": 54,
+    "tipo :: Todoterrenos": 51,
+    "tipo :: Deportivo": 43,
+    "tipo :: Premium": 42,
+    "Combustible :: Hibrido enchufable": 41,
+    "Combustible :: Electrico": 35,
+    "tipo :: Pequeño": 32,
+    "tipo :: SUV electrico": 23,
+    "Etiqueta :: Etiqueta 0": 20,
+    "tipo :: Furgoneta": 18,
+    "tipo :: Furgoneta caja abierta": 18,
+    "tipo :: Furgoneta combi": 18,
+    "tipo :: Furgoneta frigorifica": 18,
+    "tipo :: Furgoneta isotermica": 18,
+    "tipo :: Furgoneta mixta": 18,
+    "tipo :: Van": 18,
+    "Etiqueta :: Etiqueta ECO": 16,
+    "tipo :: Furgoneta electrica": 13,
+    "tipo :: 7 plazas": 11,
+    "tipo :: Furgoneta pequeña": 11,
+    "tipo :: Urbano": 11,
+    "tipo :: Furgoneta grande": 10,
+    "tipo :: Furgoneta 7 plazas": 9,
+    "tipo :: Monovolumen": 9,
+    "tipo :: Monovolumen 7 plazas": 8,
+    "tipo :: Descapotable": 6,
+    "Kilómetros :: 5000": 5,
+    "tipo :: 9 plazas": 4,
+    "tipo :: Furgoneta 9 plazas": 4,
+    "Etiqueta :: Etiqueta CERO": 2,
+    "Combustible :: H?BRIDO": 2,
+    "tipo :: Pick up": 1
+  },
+  "sample_products": [
+    {
+      "name": "POLESTAR  2",
+      "price": 760.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/polestar/2/polestar-2/",
+      "categories": [
+        "2",
+        "POLESTAR"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Electrico"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta 0"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MERCEDES-BENZ EQB",
+      "price": 728.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/mercedez-benz/eqb/mercedes-benz-eqb/",
+      "categories": [
+        "EQB",
+        "MERCEDES-BENZ"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta 0"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV electrico",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AUDI Q5",
+      "price": 664.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/audi/audi-q5-4/",
+      "categories": [
+        "AUDI",
+        "Q5"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MAZDA CX-30",
+      "price": 424.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/mazda/cx-30-mazda/mazda-cx-30/",
+      "categories": [
+        "CX-30",
+        "MAZDA"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Gasolina",
+            "Hibrido"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "SUV",
+            "SUV automatico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MAZDA 3",
+      "price": 388.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/mazda/3-mazda/mazda-3/",
+      "categories": [
+        "3",
+        "MAZDA"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Gasolina",
+            "Hibrido"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Pequeño",
+            "SUV",
+            "SUV automatico",
+            "SUV hibrido"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MAZDA 6",
+      "price": 500.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/mazda/6-mazda/mazda-6/",
+      "categories": [
+        "6",
+        "MAZDA"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PEUGEOT 508",
+      "price": 563.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/peugeot/508/peugeot-508/",
+      "categories": [
+        "508",
+        "PEUGEOT"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Familiar"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TOYOTA Aygo X Cross",
+      "price": 233.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/toyota/aygo-x-cross/toyota-aygo-x-cross/",
+      "categories": [
+        "Aygo X Cross",
+        "TOYOTA"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Pequeño"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MERCEDES-BENZ Citan",
+      "price": 453.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/mercedez-benz/citan/mercedes-benz-citan/",
+      "categories": [
+        "Citan",
+        "MERCEDEZ-BENZ"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "7 plazas",
+            "Familiar",
+            "Furgoneta",
+            "Furgoneta 7 plazas",
+            "Furgoneta caja abierta",
+            "Furgoneta combi",
+            "Furgoneta electrica",
+            "Furgoneta frigorifica",
+            "Furgoneta grande",
+            "Furgoneta isotermica",
+            "Furgoneta mixta",
+            "Furgoneta pequeña",
+            "Monovolumen",
+            "Monovolumen 7 plazas",
+            "Premium",
+            "Van"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "JEEP Compass",
+      "price": 437.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/jeep/compass/jeep-compass-6/",
+      "categories": [
+        "COMPASS",
+        "JEEP"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "JEEP Compass",
+      "price": 600.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/jeep/compass/jeep-compass-5/",
+      "categories": [
+        "COMPASS",
+        "JEEP"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta 0"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ALFA ROMEO Stelvio",
+      "price": 579.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/alfa-romeo/alfa-romeo-stelvio/",
+      "categories": [
+        "ALFA ROMEO",
+        "Stelvio"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BMW Serie 4",
+      "price": 681.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/bmw/bmw-serie-4/",
+      "categories": [
+        "BMW",
+        "Serie 4"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina",
+            "Hibrido"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta ECO"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Descapotable",
+            "Familiar",
+            "Premium"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BMW Serie 2",
+      "price": 455.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/bmw/bmw-serie-2-3/",
+      "categories": [
+        "BMW",
+        "SERIE 2"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Pequeño",
+            "Premium",
+            "Urbano"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FIAT Scudo",
+      "price": 420.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/fiat/fiat-scudo/",
+      "categories": [
+        "FIAT",
+        "Scudo"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "7 plazas",
+            "Furgoneta",
+            "Furgoneta 7 plazas",
+            "Furgoneta caja abierta",
+            "Furgoneta combi",
+            "Furgoneta electrica",
+            "Furgoneta frigorifica",
+            "Furgoneta grande",
+            "Furgoneta isotermica",
+            "Furgoneta mixta",
+            "SUV",
+            "SUV automatico",
+            "SUV electrico",
+            "Van"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PEUGEOT 3008",
+      "price": 508.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/peugeot/3008/peugeot-3008/",
+      "categories": [
+        "3008",
+        "PEUGEOT"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Gasolina",
+            "Hibrido"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta 0"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Familiar",
+            "SUV",
+            "SUV automatico",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BMW X1",
+      "price": 540.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/bmw/bmw-x1-4/",
+      "categories": [
+        "BMW",
+        "X1"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV electrico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BMW X2",
+      "price": 575.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/bmw/bmw-x2-2/",
+      "categories": [
+        "BMW",
+        "X2"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV automatico",
+            "SUV electrico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BMW X3",
+      "price": 755.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/bmw/bmw-x3/",
+      "categories": [
+        "BMW",
+        "X3"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina",
+            "Hibrido",
+            "Hibrido enchufable"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta ECO"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "Deportivo",
+            "Familiar",
+            "Premium",
+            "SUV",
+            "SUV automatico",
+            "SUV electrico",
+            "SUV hibrido",
+            "Todoterrenos"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CITROEN Berlingo",
+      "price": 277.0,
+      "permalink": "https://prismarenting.com/ofertas-de-renting/marcas-de-renting/citroen/citroen-berlingo-2/",
+      "categories": [
+        "BERLINGO",
+        "CITROEN"
+      ],
+      "tags": [
+        "Autonomo",
+        "Empresas",
+        "Particulares"
+      ],
+      "attributes": [
+        {
+          "name": "Kilómetros",
+          "terms": [
+            "10000",
+            "15000",
+            "20000",
+            "30000"
+          ]
+        },
+        {
+          "name": "Meses",
+          "terms": [
+            "36",
+            "48",
+            "60"
+          ]
+        },
+        {
+          "name": "Combustible",
+          "terms": [
+            "Diesel",
+            "Electrico",
+            "Gasolina"
+          ]
+        },
+        {
+          "name": "Transmisión",
+          "terms": [
+            "Automatico",
+            "Manual"
+          ]
+        },
+        {
+          "name": "Etiqueta",
+          "terms": [
+            "Etiqueta C"
+          ]
+        },
+        {
+          "name": "tipo",
+          "terms": [
+            "7 plazas",
+            "Familiar",
+            "Furgoneta",
+            "Furgoneta caja abierta",
+            "Furgoneta combi",
+            "Furgoneta electrica",
+            "Furgoneta frigorifica",
+            "Furgoneta isotermica",
+            "Furgoneta mixta",
+            "Furgoneta pequeña",
+            "SUV",
+            "SUV automatico",
+            "SUV electrico",
+            "Van"
+          ]
+        }
+      ]
+    }
+  ]
+}
