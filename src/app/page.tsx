@@ -15,7 +15,7 @@ export default function Home() {
         <div className="hero-product" aria-hidden="true" />
         <div className="hero-gradient" />
         <div className="shell hero-content">
-          <p className="hero-overline">PRISMA Renting · Multimarca · Multiooperador</p>
+          <p className="hero-overline">PRISMA Renting · Multimarca · Multioperador</p>
           <h1>El coche correcto.<br/><span>La oferta correcta.</span></h1>
           <p className="hero-lead">Comparamos opciones entre distintas compañías de renting para encontrar una operación que encaje de verdad contigo.</p>
           <div className="hero-actions">
