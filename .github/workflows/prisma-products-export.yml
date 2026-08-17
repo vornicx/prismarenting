@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   export:
@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -25,9 +27,15 @@ jobs:
       - name: Export WooCommerce products
         run: python scripts/export_wc_products.py
       - run: cat migration-products/summary.json
+      - name: Persist product export
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-products
+          git diff --cached --quiet || git commit -m "data: snapshot PRISMA WooCommerce catalog"
+          git push origin HEAD:archic-prisma-full-migration
       - uses: actions/upload-artifact@v4
         with:
           name: prisma-product-export
           path: migration-products/
           retention-days: 3
-# source inventory trigger
