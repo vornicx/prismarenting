@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import { AutonomoOperatingDesk, EmpresaFleetDesk, ParticularDecisionMap } from "@/components/ProfileDecisionSystems";
 import VehicleCard from "@/components/VehicleCard";
 import { ArrowUpRight, Check } from "@/components/Icons";
 import { vehicles } from "@/data/vehicles";
@@ -9,27 +10,50 @@ const profiles = {
   particulares: {
     eyebrow: "Renting para particulares",
     title: "Tu coche sin convertir cada gasto en una decisión nueva.",
-    summary: "Empieza por la cuota y el uso real. Después se ajustan plazo, kilometraje y condiciones de la oferta.",
-    benefits: ["Cuota mensual definida", "Servicios asociados según oferta", "Cambio de coche al finalizar según contrato"],
+    summary: "Empieza por uso, cuota y kilometraje. Después PRISMA contrasta plazo, disponibilidad y condiciones reales de la operación.",
+    benefits: ["Cuota mensual definida", "Servicios asociados según oferta", "Sin compra inicial del vehículo", "Asesoramiento multioperador"],
     slugs: ["opel-corsa", "fiat-500", "nissan-juke"],
+    faq: [
+      ["¿Qué debo mirar además de la cuota?", "Kilometraje, duración, servicios incluidos, disponibilidad y condiciones de devolución o modificación del contrato."],
+      ["¿Puedo pedir un coche que no aparece en el catálogo?", "Sí. La ruta de renting a medida prepara una solicitud para que PRISMA consulte alternativas y configuración."],
+      ["¿Qué pasa al terminar?", "Las opciones dependen del contrato y del operador. Deben revisarse las condiciones concretas de renovación, devolución o posible cambio de vehículo."],
+    ],
   },
   autonomos: {
     eyebrow: "Renting para autónomos",
     title: "Movilidad profesional ajustada a cómo trabajas.",
-    summary: "La web actual de PRISMA da mucho peso a autónomos. Aquí esa información se organiza alrededor de uso, kilómetros, documentación y operación, no de bloques de texto.",
-    benefits: ["Uso profesional", "Operación adaptada a kilometraje", "Documentación y estudio comercial acompañados"],
-    slugs: ["fiat-fiorino", "hyundai-i20", "bmw-x5"],
+    summary: "El coche forma parte de la actividad. La operación debe considerar uso, kilómetros, modalidad, documentación y estudio, no solo el modelo que aparece en portada.",
+    benefits: ["Cuota mensual definida", "Mantenimiento y averías según oferta", "Seguro según condiciones del operador", "Acompañamiento en el estudio de la operación"],
+    slugs: ["hyundai-i20", "bmw-x5", "nissan-juke"],
+    faq: [
+      ["¿Qué documentación me pueden pedir?", "Depende del operador y del estudio. PRISMA coordina la documentación económica y de actividad necesaria para valorar la operación."],
+      ["¿Puedo elegir renting flexible?", "Sí, PRISMA contempla distintas modalidades. La disponibilidad, duración y condiciones de una solución flexible deben confirmarse para cada caso."],
+      ["¿Cómo trato la fiscalidad del renting?", "La fiscalidad depende de la actividad, el uso del vehículo y la normativa aplicable. Debe validarse con la asesoría fiscal del autónomo."],
+    ],
   },
   empresas: {
     eyebrow: "Renting para empresas",
     title: "De una unidad a una necesidad de flota.",
-    summary: "Un punto único para centralizar vehículos, solicitudes y seguimiento comercial entre diferentes operadores.",
-    benefits: ["Una o varias unidades", "Interlocución centralizada", "Comparación multioperador"],
-    slugs: ["fiat-fiorino", "bmw-x5", "nissan-juke"],
+    summary: "La oportunidad real es centralizar vehículos, solicitudes, operadores y seguimiento comercial, no obligar a cada necesidad de empresa a empezar desde cero.",
+    benefits: ["Una o varias unidades", "Comparación multioperador", "Interlocución comercial centralizada", "Operación adaptada a uso y calendario"],
+    slugs: ["bmw-x5", "nissan-juke", "hyundai-i20"],
+    faq: [
+      ["¿Puedo solicitar varios vehículos?", "Sí. El briefing de empresa debe recoger número de unidades, uso, kilometraje, calendario y necesidades de los conductores para estructurar la consulta."],
+      ["¿Todos los vehículos tienen que ser iguales?", "No necesariamente. Una necesidad de empresa puede agrupar distintos perfiles de vehículo y PRISMA puede contrastar alternativas por uso."],
+      ["¿Cómo se coordina el estudio?", "PRISMA centraliza la interlocución comercial, mientras cada operador aplica sus requisitos y proceso de aprobación."],
+    ],
   },
 } as const;
 
 type ProfileSlug = keyof typeof profiles;
+
+const process = [
+  ["01", "Necesidad", "Uso, vehículo y presupuesto."],
+  ["02", "Alternativas", "PRISMA contrasta operadores y oferta."],
+  ["03", "Estudio", "Se aporta la documentación necesaria."],
+  ["04", "Aprobación", "Se confirman las condiciones de la operación."],
+  ["05", "Entrega", "Firma, coordinación y recepción del vehículo."],
+] as const;
 
 export function generateStaticParams() {
   return Object.keys(profiles).map((slug) => ({ slug }));
@@ -38,37 +62,52 @@ export function generateStaticParams() {
 export default async function ProfilePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   if (!(slug in profiles)) notFound();
-  const profile = profiles[slug as ProfileSlug];
-  const related = profile.slugs.map((vehicleSlug) => vehicles.find((vehicle) => vehicle.slug === vehicleSlug)).filter(Boolean);
+  const profileKey = slug as ProfileSlug;
+  const profile = profiles[profileKey];
+  const related = profile.slugs.map((vehicleSlug) => vehicles.find((vehicle) => vehicle.slug === vehicleSlug)).filter((vehicle): vehicle is (typeof vehicles)[number] => Boolean(vehicle));
 
   return (
-    <main className="intent-page profile-intent-page">
+    <main className={`intent-page profile-intent-page profile-${profileKey}`}>
       <section className="intent-hero profile-intent-hero">
         <Header />
         <div className="shell intent-hero-grid">
           <div><span>{profile.eyebrow}</span><h1>{profile.title}</h1></div>
-          <div className="intent-hero-summary"><p>{profile.summary}</p><Link href={`/ofertas?cliente=${slug}`} className="button button-light">Ver ofertas <ArrowUpRight /></Link></div>
+          <div className="intent-hero-summary"><p>{profile.summary}</p><Link href={`/ofertas?cliente=${profileKey === "autonomos" ? "autónomo" : profileKey === "particulares" ? "particular" : "empresa"}`} className="button button-light">Ver ofertas <ArrowUpRight /></Link></div>
         </div>
       </section>
 
-      <section className="shell intent-facts profile-benefits">
-        {profile.benefits.map((benefit) => <div key={benefit}><Check /><span>{benefit}</span></div>)}
+      <section className="shell profile-value-strip" aria-label={`Ventajas para ${profileKey}`}>
+        {profile.benefits.map((benefit, index) => <div key={benefit}><span>{String(index + 1).padStart(2, "0")}</span><Check /><strong>{benefit}</strong></div>)}
       </section>
 
-      <section className="shell intent-vehicles">
-        <div className="intent-section-line"><span>Una selección para empezar</span><small>Ejemplos del catálogo del concepto. La propuesta final depende de perfil, operador y disponibilidad.</small></div>
-        <div className="catalog-grid">{related.map((vehicle) => vehicle && <VehicleCard key={vehicle.slug} vehicle={vehicle} />)}</div>
+      <section className="shell intent-vehicles profile-offers">
+        <div className="intent-section-line"><span>Empieza por vehículos reales</span><small>Selección del catálogo cargado en el concepto. PRISMA confirma propuesta, disponibilidad y condiciones.</small></div>
+        <div className="catalog-grid">{related.map((vehicle) => <VehicleCard key={vehicle.slug} vehicle={vehicle} />)}</div>
       </section>
 
-      <section className="profile-operation shell">
-        <div className="profile-operation-label">Así debería funcionar la conversación</div>
-        <div className="profile-operation-flow">
-          <span>Uso</span><span>Presupuesto</span><span>Kilómetros</span><span>Plazo</span><span>Documentación</span><span>Propuesta</span>
+      {profileKey === "particulares" && <ParticularDecisionMap />}
+      {profileKey === "autonomos" && <AutonomoOperatingDesk />}
+      {profileKey === "empresas" && <EmpresaFleetDesk />}
+
+      <section className="profile-process-system">
+        <div className="shell profile-process-head"><span>Proceso</span><h2>Del brief a la entrega.</h2><a href="tel:+34699242581">Hablar con PRISMA <ArrowUpRight /></a></div>
+        <div className="shell profile-process-track">{process.map(([number, title, copy]) => <div key={number}><span>{number}</span><strong>{title}</strong><p>{copy}</p></div>)}</div>
+      </section>
+
+      <section className="shell profile-faq" aria-labelledby="profile-faq-title">
+        <div className="profile-faq-intro"><span>Preguntas frecuentes</span><h2 id="profile-faq-title">Lo que condiciona la operación.</h2></div>
+        <div className="profile-faq-list">
+          {profile.faq.map(([question, answer], index) => (
+            <details key={question} open={index === 0}>
+              <summary><span>{String(index + 1).padStart(2, "0")}</span><strong>{question}</strong><i>+</i></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
         </div>
       </section>
 
-      <section className="intent-contact">
-        <div className="shell intent-contact-grid"><div><span>Asesoramiento PRISMA</span><h2>Una solicitud útil vale más que un formulario largo.</h2></div><div><p>La experiencia debe recoger lo suficiente para que el asesor pueda responder con contexto: qué necesitas, para qué, cuánto conduces y cuándo quieres el vehículo.</p><Link href="/#encuentra" className="button button-light">Preparar mi búsqueda <ArrowUpRight /></Link></div></div>
+      <section className="intent-contact profile-contact">
+        <div className="shell intent-contact-grid"><div><span>Asesoramiento PRISMA</span><h2>La web prepara la conversación. El asesor confirma la operación.</h2></div><div><p>El objetivo no es empujar un formulario genérico, sino llegar al equipo de PRISMA con modelo, uso, presupuesto, kilometraje y calendario suficientemente claros.</p><Link href="/#encuentra" className="button button-light">Preparar mi búsqueda <ArrowUpRight /></Link></div></div>
       </section>
     </main>
   );
