@@ -1,0 +1,34 @@
+name: PRISMA Embed Audit
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - "scripts/audit_embeds.py"
+      - ".github/workflows/prisma-embed-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit embeds
+        run: python scripts/audit_embeds.py
+      - name: Persist embed audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-report/embed-audit.json
+          git diff --cached --quiet || git commit -m "data: audit PRISMA embedded media"
+          git push origin HEAD:archic-prisma-full-migration
