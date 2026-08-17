@@ -1,0 +1,201 @@
+:root{
+  --ink:#10110f;
+  --paper:#f4f3ef;
+  --paper-2:#ebeae5;
+  --line:rgba(16,17,15,.14);
+  --muted:#777a72;
+  --green:#203329;
+  --green-2:#dbe2d8;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{color:inherit}
+img{display:block}
+.shell{width:min(1360px,calc(100% - 64px));margin-inline:auto}
+.button{
+  min-height:52px;
+  padding:0 20px;
+  border:1px solid transparent;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-size:12px;
+  font-weight:750;
+  cursor:pointer;
+  transition:transform .22s ease,background .22s ease,color .22s ease,border-color .22s ease;
+}
+.button:hover{transform:translateY(-2px)}
+.button svg{width:15px;height:15px}
+.button-light{background:#f6f5f1;color:#11130f}
+.button-dark{background:#11130f;color:white}
+.button-ghost{border-color:rgba(16,17,15,.22);background:transparent;color:var(--ink)}
+.button-whatsapp{background:#193d2e;color:#fff}
+.eyebrow{font-size:9px;text-transform:uppercase;letter-spacing:.18em;font-weight:750;color:#71806f}
+
+/* Header */
+.site-header{
+  position:absolute;
+  inset:0 0 auto;
+  z-index:60;
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.site-header-dark{color:var(--ink);border-bottom-color:var(--line)}
+.site-nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.brand-logo{display:block;width:190px;height:38px;flex:0 0 auto}
+.brand-logo-image{
+  display:block;width:100%;height:100%;
+  background:url('https://prismarenting.com/wp-content/uploads/2021/12/nuevo-logo-prisma-renting.webp') left center/contain no-repeat;
+  filter:brightness(0) invert(1);
+}
+.site-header-dark .brand-logo-image{filter:none}
+.site-nav-links{display:flex;align-items:center;gap:26px;font-size:11px;font-weight:700}
+.site-nav-links>a{opacity:.7;transition:opacity .2s}
+.site-nav-links>a:hover{opacity:1}
+.site-nav-phone{font-variant-numeric:tabular-nums}
+.selection-nav{display:flex;align-items:center;gap:15px}
+.selection-nav a{display:flex;align-items:center;gap:6px;opacity:.7}
+.selection-nav a:hover{opacity:1}
+.selection-nav span{
+  width:18px;height:18px;border-radius:50%;
+  display:grid;place-items:center;
+  font-size:8px;
+  background:#fff;
+  color:var(--ink);
+}
+.site-header-dark .selection-nav span{background:var(--ink);color:#fff}
+.mobile-menu-button{
+  display:none;border:0;background:transparent;width:42px;height:42px;padding:9px;
+}
+.mobile-menu-button svg{width:24px;height:24px}
+.mobile-menu{
+  position:absolute;top:84px;left:0;right:0;
+  background:#11130f;color:white;border-top:1px solid rgba(255,255,255,.1)
+}
+.mobile-menu-inner{padding-block:28px 34px;display:flex;flex-direction:column}
+.mobile-menu a{padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:15px}
+
+/* Home hero: actual product first */
+.hero-stage{
+  height:min(920px,100svh);
+  min-height:760px;
+  background:
+    radial-gradient(circle at 72% 38%,rgba(80,100,82,.38),transparent 34%),
+    linear-gradient(135deg,#151916 0%,#0b0d0b 62%,#111512 100%);
+  color:#fff;
+  overflow:hidden;
+  position:relative;
+}
+.hero-stage-shell{height:100%}
+.hero-vehicle-stage{height:100%;position:relative;padding-top:84px}
+.hero-ghost-brand{
+  position:absolute;left:-.04em;top:18%;
+  font-size:clamp(150px,23vw,360px);
+  line-height:.72;letter-spacing:-.085em;font-weight:800;
+  color:rgba(255,255,255,.035);
+  text-transform:uppercase;white-space:nowrap;pointer-events:none;
+}
+.hero-vehicle-copy{
+  position:absolute;z-index:4;left:0;top:29%;
+  width:min(520px,42vw)
+}
+.hero-kicker{
+  font-size:9px;text-transform:uppercase;letter-spacing:.2em;
+  color:rgba(255,255,255,.55);font-weight:750
+}
+.hero-brand{margin:30px 0 2px;color:rgba(255,255,255,.45);font-size:14px;font-weight:650}
+.hero-vehicle-copy h1{
+  margin:0;
+  font-size:clamp(64px,7.3vw,116px);
+  line-height:.82;letter-spacing:-.07em;font-weight:650
+}
+.hero-price{display:flex;align-items:baseline;gap:8px;margin-top:32px}
+.hero-price span{font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.45)}
+.hero-price strong{font-size:32px;letter-spacing:-.04em}
+.hero-price small{font-size:9px;color:rgba(255,255,255,.45)}
+.hero-vehicle-cta{display:flex;gap:10px;align-items:center;margin-top:28px}
+.hero-car-frame{
+  position:absolute;z-index:3;
+  right:-3%;top:18%;
+  width:72%;height:58%;
+  animation:carReveal .72s cubic-bezier(.21,.8,.31,1) both;
+  filter:drop-shadow(0 45px 40px rgba(0,0,0,.38))
+}
+.hero-car-image{object-fit:contain;object-position:center}
+@keyframes carReveal{
+  from{opacity:0;transform:translate3d(5%,2%,0) scale(.975)}
+  to{opacity:1;transform:none}
+}
+.hero-specs{
+  position:absolute;z-index:5;right:0;bottom:148px;
+  width:min(640px,52vw);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(255,255,255,.2);
+  border-bottom:1px solid rgba(255,255,255,.1)
+}
+.hero-specs div{padding:14px 18px 15px;border-right:1px solid rgba(255,255,255,.1)}
+.hero-specs div:last-child{border-right:0}
+.hero-specs span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.4);margin-bottom:6px}
+.hero-specs strong{font-size:10px;font-weight:650}
+.hero-model-selector{
+  position:absolute;z-index:5;left:0;right:0;bottom:28px;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  border-top:1px solid rgba(255,255,255,.2)
+}
+.hero-model-selector button{
+  border:0;border-right:1px solid rgba(255,255,255,.12);
+  background:transparent;color:rgba(255,255,255,.45);
+  text-align:left;padding:16px 18px 10px;cursor:pointer;min-height:92px;
+  transition:background .2s,color .2s
+}
+.hero-model-selector button:first-child{padding-left:0}
+.hero-model-selector button:last-child{border-right:0}
+.hero-model-selector button:hover,.hero-model-selector button.active{color:#fff;background:rgba(255,255,255,.035)}
+.hero-model-selector button span{display:block;font-size:7px;letter-spacing:.12em;margin-bottom:9px}
+.hero-model-selector button strong{display:block;font-size:11px}
+.hero-model-selector button small{display:block;font-size:8px;margin-top:5px;opacity:.55}
+
+/* Vehicle actions */
+.vehicle-actions{display:flex;align-items:center;gap:8px}
+.vehicle-actions button{
+  min-height:44px;border:1px solid var(--line);background:transparent;
+  display:flex;align-items:center;gap:8px;padding:0 12px;
+  font-size:9px;font-weight:700;cursor:pointer
+}
+.vehicle-actions button svg{width:16px;height:16px}
+.vehicle-actions button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.vehicle-actions button:disabled{opacity:.32;cursor:not-allowed}
+.hero-stage .vehicle-actions button{border-color:rgba(255,255,255,.24);color:#fff}
+.hero-stage .vehicle-actions button.active{background:#fff;color:#11130f;border-color:#fff}
+.vehicle-actions-compact button{width:44px;padding:0;justify-content:center}
+
+/* Finder: a command dock, not a content section */
+.finder-dock{position:relative;z-index:20;margin-top:-1px}
+.finder{background:#fff;box-shadow:0 24px 80px rgba(16,18,15,.09);padding:21px 24px 24px}
+.finder-command{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.finder-command span{font-size:8px;text-transform:uppercase;letter-spacing:.16em;color:#8c8f87;font-weight:750}
+.finder-command strong{font-size:10px;color:#545850}
+.finder-tabs{display:flex;gap:20px;border-bottom:1px solid #e4e3de;margin-bottom:14px}
+.finder-tabs button{
+  border:0;background:transparent;padding:0 0 10px;
+  color:#9a9c96;font-size:10px;font-weight:700;cursor:pointer;position:relative
+}
+.finder-tabs button.active{color:var(--ink)}
+.finder-tabs button.active:after{content:"";height:2px;position:absolute;left:0;right:0;bottom:-1px;background:var(--ink)}
+.finder-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:1px;background:#deded9}
+.field{background:#fff;padding:11px 14px;display:flex;flex-direction:column;gap:6px}
+.field span{font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#92958f;font-weight:750}
+.field select{border:0;outline:0;background:transparent;font-size:11px}
+.finder-submit{border:0;background:var(--green);color:#fff;padding:0 27px;min-width:150px;font-size:10px;font-weight:750;cursor:pointer}
