@@ -16,6 +16,11 @@ export default function HeroVehicleStage({ vehicles }: { vehicles: Vehicle[] }) 
     <div className="hero-vehicle-stage">
       <div className="hero-ghost-brand" aria-hidden="true">{vehicle.brand}</div>
 
+      <div className="hero-business-line">
+        <span>PRISMA Renting</span>
+        <strong>Renting multioperador para particulares, autónomos y empresas.</strong>
+      </div>
+
       <div className="hero-vehicle-copy">
         <span className="hero-kicker">{vehicle.badge || "Oferta PRISMA"}</span>
         <p className="hero-brand">{vehicle.brand}</p>
@@ -35,10 +40,11 @@ export default function HeroVehicleStage({ vehicles }: { vehicles: Vehicle[] }) 
 
         <div className="hero-vehicle-cta">
           <Link href={`/ofertas/${vehicle.slug}`} className="button button-light">
-            Ver oferta <ArrowUpRight />
+            Ver oferta y condiciones <ArrowUpRight />
           </Link>
           <VehicleActions slug={vehicle.slug} compact />
         </div>
+        <p className="hero-advisor-note">PRISMA contrasta operador, disponibilidad y condiciones antes de formalizar la operación.</p>
       </div>
 
       <div className="hero-car-frame" key={vehicle.slug}>
