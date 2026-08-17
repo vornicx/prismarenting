@@ -1,11 +1,23 @@
 import Link from "next/link";
+import MigratedContactForm from "@/components/original/MigratedContactForm";
 import OriginalVehicleCard from "@/components/original/OriginalVehicleCard";
 import { OriginalFooter, OriginalHeader } from "@/components/original/OriginalChrome";
+import { getMigratedContactForms } from "@/lib/migrated-contact-forms";
 import { getProductsLinkedFromPage, type OriginalPage } from "@/lib/original-source";
 import { prepareOriginalHtml } from "@/lib/source-html";
 
 function cleanTitle(page: OriginalPage): string {
   return page.h1?.[0] || page.og_title || page.title.replace(/\s*[|–]\s*Prisma Renting.*$/i, "").trim();
+}
+
+function ContactForms({ page, placement }: { page: OriginalPage; placement: "before-content" | "after-content" }) {
+  const forms = getMigratedContactForms(page.path).filter((form) => form.placement === placement);
+  if (!forms.length) return null;
+  return (
+    <div className="source-shell source-migrated-form-stack">
+      {forms.map((form) => <MigratedContactForm sourcePath={page.path} {...form} key={form.variant} />)}
+    </div>
+  );
 }
 
 export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
@@ -30,9 +42,13 @@ export default function OriginalPageTemplate({ page }: { page: OriginalPage }) {
         </section>
       )}
 
+      <ContactForms page={page} placement="before-content" />
+
       <section className="source-shell source-original-content">
         {html ? <div className="source-content-flow" dangerouslySetInnerHTML={{ __html: html }} /> : page.body_text ? <div className="source-content-fallback"><p>{page.body_text}</p></div> : <div className="source-content-empty"><h2>Contenido pendiente de importar</h2><p>Esta URL forma parte del inventario de migración, pero el contenido completo aún no ha llegado al snapshot local.</p></div>}
       </section>
+
+      <ContactForms page={page} placement="after-content" />
       <OriginalFooter />
     </main>
   );
