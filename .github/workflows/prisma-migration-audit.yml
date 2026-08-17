@@ -1,0 +1,48 @@
+name: PRISMA Migration Audit
+
+on:
+  push:
+    branches:
+      - archic-prisma-full-migration
+    paths:
+      - "migration-products/**"
+      - "migration-output/**"
+      - "scripts/audit_migration.py"
+      - ".github/workflows/prisma-migration-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: archic-prisma-full-migration
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit imported data
+        run: python scripts/audit_migration.py
+      - name: Print audit summary
+        run: python - <<'PY'
+          import json
+          r=json.load(open('migration-report/audit.json'))
+          print(json.dumps({k:r[k] for k in ('products','unique_product_paths','products_with_price','products_with_images','pages','unique_page_paths','profiles_detected')}, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prisma-migration-audit
+          path: migration-report/
+          retention-days: 3
+      - name: Persist migration audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add migration-report
+          git diff --cached --quiet || git commit -m "data: audit PRISMA migration snapshot"
+          git pull --rebase origin archic-prisma-full-migration
+          git push origin HEAD:archic-prisma-full-migration
