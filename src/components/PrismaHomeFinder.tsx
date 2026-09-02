@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { COMPARE_KEY, toggleVehicleSelection, useVehicleSelection } from "@/hooks/useVehicleSelection";
 
 export type HomeVehicle = {
   slug: string;
@@ -36,7 +35,6 @@ export default function PrismaHomeFinder({ vehicles }: { vehicles: HomeVehicle[]
   const [fuel, setFuel] = useState("all");
   const [body, setBody] = useState("all");
   const [immediateOnly, setImmediateOnly] = useState(false);
-  const compare = useVehicleSelection(COMPARE_KEY);
 
   const prices = useMemo(() => vehicles.map((vehicle) => vehicle.price), [vehicles]);
   const maxAvailable = useMemo(() => Math.max(1200, ...prices), [prices]);
@@ -76,7 +74,7 @@ export default function PrismaHomeFinder({ vehicles }: { vehicles: HomeVehicle[]
         <div className="finder-profile-tabs" role="group" aria-label="Tipo de cliente">
           {profiles.map((item) => (
             <button type="button" key={item} className={profile === item ? "is-active" : ""} onClick={() => setProfile(item)}>
-              <span aria-hidden="true">{item === "Empresa" ? "▦" : "♙"}</span>{item}
+              {item}
             </button>
           ))}
         </div>
@@ -119,33 +117,22 @@ export default function PrismaHomeFinder({ vehicles }: { vehicles: HomeVehicle[]
 
         {visible.length > 0 ? (
           <div className="finder-offer-grid" aria-live="polite">
-            {visible.map((vehicle) => {
-              const isCompared = compare.includes(vehicle.slug);
-              const compareFull = compare.length >= 3 && !isCompared;
-              return (
-                <article className="finder-offer-card" key={vehicle.slug}>
-                  <div className="finder-card-top">
-                    {vehicle.immediate ? <span>Entrega inmediata</span> : <span>Oferta actual</span>}
-                    <button
-                      type="button"
-                      className={isCompared ? "is-active" : ""}
-                      onClick={() => toggleVehicleSelection(COMPARE_KEY, vehicle.slug, 3)}
-                      disabled={compareFull}
-                      aria-pressed={isCompared}
-                    >{isCompared ? "Comparando" : compareFull ? "Máx. 3" : "Comparar"}</button>
-                  </div>
-                  <Link href={vehicle.path} className="finder-card-image" aria-label={`Ver ${vehicle.name}`}>
-                    <Image src={vehicle.image} alt={vehicle.imageAlt || vehicle.name} fill sizes="(max-width: 760px) 100vw, 33vw" />
-                  </Link>
-                  <div className="finder-card-main">
-                    <div><span>{vehicle.brand}</span><h3><Link href={vehicle.path}>{vehicle.name}</Link></h3></div>
-                    <div className="finder-card-price"><small>Desde</small><strong>{vehicle.price.toLocaleString("es-ES")} €</strong><em>/mes + IVA</em></div>
-                  </div>
-                  <div className="finder-card-specs"><span>{vehicle.fuel}</span><span>{vehicle.transmission}</span><span>{vehicle.doors}</span></div>
-                  <Link href={vehicle.path} className="finder-card-cta">Ver oferta</Link>
-                </article>
-              );
-            })}
+            {visible.map((vehicle) => (
+              <article className="finder-offer-card" key={vehicle.slug}>
+                <div className="finder-card-top">
+                  {vehicle.immediate ? <span>Entrega inmediata</span> : <span>Oferta actual</span>}
+                </div>
+                <Link href={vehicle.path} className="finder-card-image" aria-label={`Ver ${vehicle.name}`}>
+                  <Image src={vehicle.image} alt={vehicle.imageAlt || vehicle.name} fill sizes="(max-width: 760px) 100vw, 33vw" />
+                </Link>
+                <div className="finder-card-main">
+                  <div><span>{vehicle.brand}</span><h3><Link href={vehicle.path}>{vehicle.name}</Link></h3></div>
+                  <div className="finder-card-price"><small>Desde</small><strong>{vehicle.price.toLocaleString("es-ES")} €</strong><em>/mes + IVA</em></div>
+                </div>
+                <div className="finder-card-specs"><span>{vehicle.fuel}</span><span>{vehicle.transmission}</span><span>{vehicle.doors}</span></div>
+                <Link href={vehicle.path} className="finder-card-cta">Ver oferta</Link>
+              </article>
+            ))}
           </div>
         ) : (
           <div className="finder-empty" aria-live="polite">
