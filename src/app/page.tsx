@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import OriginalHomeTemplate from "@/components/original/OriginalHomeTemplate";
+import PrismaMarketplaceHome from "@/components/PrismaMarketplaceHome";
 import { getOriginalPage } from "@/lib/original-source";
 
 export const dynamic = "force-dynamic";
@@ -19,5 +19,5 @@ export function generateMetadata(): Metadata {
 }
 
 export default function Home() {
-  return <OriginalHomeTemplate />;
+  return <PrismaMarketplaceHome />;
 }
